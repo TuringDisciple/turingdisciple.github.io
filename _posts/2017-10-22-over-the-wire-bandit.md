@@ -404,7 +404,7 @@ On the second I type
 NashMacbook:~ nashe$ ssh localhost -p 1234
 {% endhighlight %}
 
-{% highligh bash %}
+{% highlight bash %}
 bandit20@bandit:~$ nc -l 55555
 {% endhighlight %}
 
@@ -513,7 +513,7 @@ do
 	rm -f ./$i
     fi
 done
-{% highlight bash %}
+{% endhighlight %}
 
 Let's edit run the script
 
@@ -604,7 +604,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/socket.py", line 224, in meth
     return getattr(self._sock,name)(*args)
 socket.error: [Errno 32] Broken pipe
-{% endhightlight %}
+{% endhighlight %}
 
 ### Level 25 -> Level 26 and Level 26 -> Level 27 
 Lets first find the password, which apparently should be easy
@@ -630,7 +630,7 @@ Connection to localhost closed.
 
 {% endhighlight %}
 
-This part is actuall pretty cool
+This part is actually pretty cool
 
 {% highlight bash %}
 bandit25@bandit:~$ cat /etc/passwd | grep bandit26
