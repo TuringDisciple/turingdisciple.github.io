@@ -145,6 +145,9 @@ while True:
 {% endhighlight %}
 The server logic is similar to the client. We recieve some data from the client. But we need to check if the connection is closed. In the case that the client connection is closed, we recieve a none value and we therefore have to stop waiting for client messages. To do this we break the loop. If there was data sent by the client, the server must process it approriately. In this case, we can just send back a message read from the stdin. However we can see how this sort of exchange can be used when we want to make queries for data to a server, or webpages, or we want the server to perform some sort of processing of our data and return it back to us modified. This is what is happening in more complicated protocols. 
 
+### Running 
+To run, run server.py script first (ideally in terminal), then open another terminal window and run the client.py script. Runs on python 2 but can be run in python 3. Just modify "raw_input()" to "input()" and add brackets to print statements.
+
 
 Conclusion
 ==========
