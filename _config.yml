@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Nashe Mncube
-email: mncubenashe@gmail.com
+#email: mncubenashe@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Computer Science student at the University of Bristol. Interested in networking and network security, data
   data science and other CompSci goodies.This blog is mainly just detailing what I am learning in my free time and what I'm tinkering with. If you're interested, stick around.
@@ -22,6 +22,7 @@ baseurl: "" # "/blog" # the subpath of your site, e.g. /blog
 url: "" #"http://NasheMncube.com" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
 github_username:  NasheMncube
+twitter_username: cubemncube
 
 # Build settings
 markdown: kramdown
