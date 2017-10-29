@@ -33,7 +33,7 @@ The header in this example contains the source port, destination port, UDP lengt
 - **UDP length:** The total number of bytes occupied by the UDP header information as well as the payload
 - **UDP checksum:** Used for error checking of the datagram. In IPV4 this was optional but is mandatory in IPV6. This checks that packets haven't been corrupted in there transfer.
 
- I referenced UDP as an unreliable protocol. Unreliable in this context means we have no gurantee that we data gets delivered, or even if we have duplicates. The protocol doesn't establish an end-to-end connection with two systems which are communication. That means UDP datagrams may be sent without even having a connection to the end system. UDP doesn't handle lost packet retransmission, datgram duplication or ordering and also protecting against delay within a network. TCP can deal with all these problems. 
+ I referenced UDP as an unreliable protocol. Unreliable in this context means we have no gurantee that data gets delivered, or even if we have duplicates. The protocol doesn't establish an end-to-end connection with two systems which are communicating. That means UDP datagrams may be sent without even having a connection to the end system. UDP doesn't handle lost packet retransmission, datagram duplication or ordering and also protecting against delay within a network. TCP can deal with all these problems. 
 
 In sending packets, clients usually decided their own port and servers determine their port based on well known port numbers. In server replies, the server indicates which port on the client to send datagrams to, keeping the "conversation" relevant to that port. A server will listen for datagram and determine the correct port number to send the datagram to. The source port number is sent out by the server, with the destination port the client selects.
 
@@ -91,7 +91,7 @@ Send message: Hello again
 Send message: 
 
 {% endhighlight %}
-  
+**Sidenote: Although we specified a specific port in the python code, we can see that a different port was set. This is because the OS kernel determines the port to assign for the socket**  
 ### Conclusion
 
 That's a little bit about the UDP protocol, and the basics of how it functions. In the next part I plan to discuss the TCP protocol.
