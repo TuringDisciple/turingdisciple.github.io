@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Networking: Basic Socket programming in Python</title>
+  <meta name="description" content="Prerequisites Familiarity with Python syntax is needed and familiarity with the concept of a protocol within networking.">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2017/10/21/basic-socket-programming-in-python.html">
+  <link rel="alternate" type="application/rss+xml" title="Turing Disciple" href="/feed.xml">
+  
+  
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">Turing Disciple</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/about.html">About</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Networking: Basic Socket programming in Python</h1>
+    <p class="post-meta">
+      <time datetime="2017-10-21T00:00:00+01:00" itemprop="datePublished">
+        
+        Oct 21, 2017
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h2 id="prerequisites">Prerequisites</h2>
+<p>Familiarity with Python syntax is needed and familiarity with the concept of a protocol within networking.</p>
+
+<h1 id="so-what-are-sockets">So what are sockets</h1>
+
+<p>In the world of networks, sockets are the basis for communication between networks over TCP(transmission control protocol). TCP being one of the main protocols of the Internet protocol suite, TCP provides a method for streaming data between applications running on hosts communicating in a network.</p>
+
+<p>A network socket is an endpoint for sending and recieving data over a single within a network. Sockets provide a the ability to communicate with other sockets, therefore providing a method for exchanging between hosts. In this tutorial we will just implement a generic client server model in Python using the <a href="https://docs.python.org/2/library/socket.html">socket library</a>. A few languages offer libraries to access the power of sockets, so feel free to explore them.</p>
+
+<h1 id="our-basic-protocol">Our basic protocol</h1>
+
+<p align="center">
+	<img src="/assets/simple-socket-communication.png" />
+</p>
+
+<p>So what is going on the above diagram. In the basic sense, some client is trying to connect to some server so that data exchange can occur. In more specific term we talk seperately about the server and client.</p>
+
+<h3 id="server">Server</h3>
+<ol>
+  <li>In step we initialise a socket to communicate over. In the Socket library, this initialiser can take arguments specifying whether we use TCP or UDP, and whether we use some sort of loopback(indicating that we’ll only be connecting to our own machine)</li>
+  <li>We bind the server socket to an address indicating the connection.</li>
+  <li>The server “listens” to the socket meaning we are waiting for a connections to be made to the socket (our client in this case)</li>
+  <li>We accept data placed on the socket by the client.</li>
+  <li>We process the data and then send back a response to the client, indicating we are ready to recieve more data from client. At this point, the server can decide to close the connection if no data is actually recieved</li>
+  <li>We close the connection to the socket</li>
+</ol>
+
+<h3 id="client">Client</h3>
+<p>The client follows a similar pattern to the server, but doesn’t need to listen to the socket for connections</p>
+<ol>
+  <li>Initialise socket</li>
+  <li>The client can decide to optionally bind to this socket. This is optional as we don’t need to really pay attention to the state of the socket we just need to attempt to make a connection to the server.</li>
+  <li>N/A</li>
+  <li>We attempt to connect to the server</li>
+  <li>We send data to the server to be processed, and we wait for the servers response. To continue</li>
+  <li>Close connection when client decides they’re finished communicating with the server.</li>
+</ol>
+
+<p>As we can see, communication is fairly simple. In our implementation of this protocol, we will not however be connecting to some remote server, but rather just connecting to our local machine. This is acheived using a <a href="https://en.wikipedia.org/wiki/Loopback">loopback</a>. In most situations we wouldn’t be doing this, but if we wanted to processed to communicate within a machine, this would be the way to go.</p>
+
+<h1 id="now-for-some-code">Now for some code</h1>
+
+<p>The code is split into client and server scripts. We’ll look at the client code first.</p>
+
+<h3 id="clientpy">client.py</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="k">def</span> <span class="nf">Main</span><span class="p">():</span>
+    <span class="n">hostIp</span>       <span class="o">=</span> <span class="s">'127.0.0.1'</span> 
+    <span class="n">hostPort</span>     <span class="o">=</span> <span class="mi">5001</span>
+    <span class="n">clientSocket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span> 
+    <span class="n">clientSocket</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">hostIp</span><span class="p">,</span> <span class="n">hostPort</span><span class="p">))</span> <span class="c">#Docs specify information required for setting up connection to server</span>
+
+    <span class="n">message</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'&gt; '</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">message</span> <span class="o">!=</span> <span class="s">'quit'</span><span class="p">:</span>
+        <span class="n">clientSocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span> <span class="c">#Established connection to server, sending message to be processed</span>
+
+        <span class="n">serverResponse</span> <span class="o">=</span> <span class="n">clientSocket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span> <span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">"Server response: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">serverResponse</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'&gt; '</span><span class="p">)</span>
+
+    <span class="n">clientSocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">Main</span><span class="p">()</span></code></pre></figure>
+
+<p>We can see clearly how the client machine is setup for connections as specified above. However there are some caveats</p>
+
+<p>These lines</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">hostIp</span>   <span class="o">=</span> <span class="s">'127.0.0.1'</span>
+<span class="n">hostPort</span> <span class="o">=</span> <span class="mi">5001</span></code></pre></figure>
+
+<p>specify some important info. The hostIp is the IP address of the server we intend to connect to. In this case we use what is called the loopback address, this basically means that the client will attempt to make a connection to our machine. hostPort indicates the port number, in this case it’s basically random. What should be noted is that port numbers make it possible for different clients to access the same server and thereby share resources.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">while</span> <span class="n">message</span> <span class="o">!=</span> <span class="s">'quit'</span><span class="p">:</span>
+        <span class="n">clientSocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span> <span class="c">#Established connection to server, sending message to be processed</span>
+
+        <span class="n">serverResponse</span> <span class="o">=</span> <span class="n">clientSocket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span> <span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">"Server response: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">serverResponse</span></code></pre></figure>
+
+<p>Here we have the core of the client logic. After taking in the clients data, in this case is just a something from stdin, we send the message over the connection to the server to processed. The encode() method allows for the data to be formatted appriately for data transfer. We then wait to recieve the server response and output it to standard out. 1024 indicates the buffer size, which is the maximum amount of data to be recieved at once.</p>
+
+<h3 id="serverpy">server.py</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="k">def</span> <span class="nf">Main</span><span class="p">():</span>
+    <span class="n">hostIp</span>   <span class="o">=</span> <span class="s">'127.0.0.1'</span>
+    <span class="n">hostPort</span> <span class="o">=</span> <span class="mi">5001</span> 
+
+    <span class="n">serverSocket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+    <span class="n">serverSocket</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">hostIp</span><span class="p">,</span> <span class="n">hostPort</span><span class="p">))</span>
+    
+    <span class="k">print</span> <span class="s">"Listening for a connection"</span>
+    <span class="n">serverSocket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> 
+    <span class="n">connection</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="n">serverSocket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span> 
+   
+    <span class="k">print</span> <span class="s">"Connection to </span><span class="si">%</span><span class="s">s made"</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+    
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">recievedFromClient</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">recievedFromClient</span><span class="p">:</span> 
+            <span class="k">break</span>
+        <span class="k">print</span> <span class="s">"Recieved from client '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">recievedFromClient</span>
+
+        <span class="n">serverResponse</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'&gt; '</span><span class="p">)</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">serverResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">Main</span><span class="p">()</span></code></pre></figure>
+
+<p>The server is a little bit more complex so lets have a look.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">serverSocket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">connection</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="n">serverSocket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span> </code></pre></figure>
+
+<p>We have to check listen to the socket for connections being made. The argument (backlog argument) specifies the maximum number of queued connections. If we allowed our server to allow multiple client connections, we would wait change this value accordingly. When a connection has been made, we accept the connection. The connection value is a new socket object that is used to send and recieve data on the connection. The address value is the address bound to the socket on the other end of the connection.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">recievedFromClient</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">recievedFromClient</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="k">print</span> <span class="s">"Recieved from client '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">recievedFromClient</span>
+
+        <span class="n">serverResponse</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'&gt; '</span><span class="p">)</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">serverResponse</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span></code></pre></figure>
+
+<p>The server logic is similar to the client. We recieve some data from the client. But we need to check if the connection is closed. In the case that the client connection is closed, we recieve a none value and we therefore have to stop waiting for client messages. To do this we break the loop. If there was data sent by the client, the server must process it approriately. In this case, we can just send back a message read from the stdin. However we can see how this sort of exchange can be used when we want to make queries for data to a server, or webpages, or we want the server to perform some sort of processing of our data and return it back to us modified. This is what is happening in more complicated protocols.</p>
+
+<h3 id="running">Running</h3>
+<p>To run, run server.py script first (ideally in terminal), then open another terminal window and run the client.py script. Runs on python 2 but can be run in python 3. Just modify “raw_input()” to “input()” and add brackets to print statements.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>I have implemented a basic protocol to highlight the basics of socket programming. Next time I’ll probably try and implement TCP/IP, UDP or maybe SSH.</p>
+
+<p>~Nashe</p>
+
+  </div>
+
+  
+</article>
+
+      </div>
+    </main><footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Turing Disciple</h2>
+
+    <div class="footer-col-wrapper">
+      
+
+      <div class="footer-col footer-col-1">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/TuringDisciple"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">TuringDisciple</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
