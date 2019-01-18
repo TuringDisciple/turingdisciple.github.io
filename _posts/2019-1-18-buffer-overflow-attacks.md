@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Buffer Overflow Attacks"
+---
+
+Pre-requisites
+----------------
+Basic familiarity with the C and assembly
+
+Introduction
+===============
+Buffer overflow attacks are a type of binary exploit which uses the functionality of stack memory in a program 
+to allow for running arbitrary attacker defined code
+
+
+

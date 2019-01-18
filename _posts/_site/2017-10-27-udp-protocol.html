@@ -1,0 +1,101 @@
+<h3 id="introduction">Introduction</h3>
+<p>In this post I am going to discuss the UDP protocol, it’s use. This is the first part of a series in which I basically discuss TCP and UDP and their differences.</p>
+<h3 id="definitions">Definitions</h3>
+<p>These definitions are really high level, for a more in depth understanding I’d suggest google. My favourite book on this stuff is <a href="https://www.amazon.co.uk/Computer-Networking-Top-Down-James-Kurose/dp/0136079679">Computer Networking: A top down approach by Kurose &amp; Ross</a></p>
+
+<ul>
+  <li>OSI(open systems interconnection) model: A high level model used for describing the telecommunication system and it’s function without making reference to the technology involved or structure within.</li>
+</ul>
+<p align="center">
+	<img src="/assets/osi-model.jpg" alt="OSI model" /> 
+</p>
+<ul>
+  <li>Datagram: Split into two components, header and data payload, datagrams are an entity of data which is used in information transfer in networks. The header of the datagram usually carries information about the source and destination of the data payload. Datagrams don’t have a predetermined path and are therefore considered unreliable but are useful in that there’s no need for “switches” within a network to have any prior information about the datagram. Example datagram below:</li>
+</ul>
+<p align="center">
+	<img src="/assets/datagram-example.jpg" alt="Example datagram" />
+</p>
+<ul>
+  <li>Packets: A packet is similar to a datagram in terms of definition but the difference is mainly that in a reliable communication (TCP/IP) the term packet is used, but in unreliable communication we use the term datagram(UDP/IP). Reliability in this context will be discussed in the differences between the two below.</li>
+  <li>IP(internet protocol): Protocol tasked with delivering packets within packet switched networks, only knowing the IP address within the packet header.</li>
+  <li>Port: A communication endpoint identifying a specific process or network service. Some ports are reserved by convention. Usually indicated by a port number in reference to a destination or source network address e.g ip 1.2.3.4 at port 80.</li>
+</ul>
+
+<h3 id="udp">UDP</h3>
+<p>UDP stands for the user datagram protocol. It is a transport layer protocol which is used with the IP network protocol(UDP/IP).The protocol doesn’t establish an end-to-end connection with two systems which are communication. UDP datagrams are relatively small and are transferred in single IP packets with an 8 byte header and a payload theoretical limit of 65,527(65535-8). bytes as IP packets are. This may be reduced as IP can take up 20 bytes in the header with it’s own header information. Below is an example of a UDP datagram</p>
+
+<p align="center">
+	<img src="/assets/udp-datagram.png" />
+</p>
+
+<p>The header in this example contains the source port, destination port, UDP length and UDP checksum which all take up 2 bytes each.</p>
+<ul>
+  <li><strong>Source port:</strong> Used by clients to indicate the session on the local client that the packet came from</li>
+  <li><strong>Destination port:</strong> Used by clients to indicate the service required from a remote server.</li>
+  <li><strong>UDP length:</strong> The total number of bytes occupied by the UDP header information as well as the payload</li>
+  <li><strong>UDP checksum:</strong> Used for error checking of the datagram. In IPV4 this was optional but is mandatory in IPV6. This checks that packets haven’t been corrupted in there transfer.</li>
+</ul>
+
+<p>I referenced UDP as an unreliable protocol. Unreliable in this context means we have no gurantee that data gets delivered, or even if we have duplicates. The protocol doesn’t establish an end-to-end connection with two systems which are communicating. That means UDP datagrams may be sent without even having a connection to the end system. UDP doesn’t handle lost packet retransmission, datagram duplication or ordering and also protecting against delay within a network. TCP can deal with all these problems.</p>
+
+<p>In sending packets, clients usually decided their own port and servers determine their port based on well known port numbers. In server replies, the server indicates which port on the client to send datagrams to, keeping the “conversation” relevant to that port. A server will listen for datagram and determine the correct port number to send the datagram to. The source port number is sent out by the server, with the destination port the client selects.</p>
+
+<p align="center">
+	<img src="/assets/ports-udp.png" />
+</p>
+<p>Let’s implement this in some code.</p>
+
+<h3 id="udp-clientpy">udp-client.py</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">SERVER_HOST</span> <span class="o">=</span> <span class="s">'127.0.0.1'</span> <span class="c1">#Loopback IP
+</span><span class="n">SERVER_PORT</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="c1"># Creating the UDP socket
+#First argument specifies protocol family, second argument specifies UDP
+</span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+
+<span class="n">message</span> <span class="o">=</span> <span class="s">"Hello world"</span>
+<span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">SERVER_HOST</span><span class="p">,</span> <span class="n">SERVER_PORT</span><span class="p">))</span>
+<span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">message</span> <span class="o">!=</span> <span class="s">'q'</span><span class="p">:</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">"Send message: "</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="udp-serverpy">udp-server.py</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">SERVER_IP</span> <span class="o">=</span> <span class="s">"127.0.0.1"</span>
+<span class="n">SERVER_PORT</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">SERVER_IP</span><span class="p">,</span> <span class="n">SERVER_PORT</span><span class="p">))</span>
+
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+  <span class="n">client_data</span><span class="p">,</span> <span class="n">client_address</span>  <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recvfrom</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+  <span class="k">print</span> <span class="s">"Client message: </span><span class="si">%</span><span class="s">s </span><span class="se">\n</span><span class="s">Client address </span><span class="si">%</span><span class="s">s </span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">client_data</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">client_address</span><span class="p">))</span></code></pre></figure>
+
+<p>Below is example output</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">NashMacbook:udp nashe<span class="nv">$ </span>python udp-server.py 
+Client message: Hello world 
+Client address <span class="o">(</span><span class="s1">'127.0.0.1'</span>, 60881<span class="o">)</span> 
+
+Client message: Hello again 
+Client address <span class="o">(</span><span class="s1">'127.0.0.1'</span>, 60881<span class="o">)</span> 
+
+
+NashMacbook:udp nashe<span class="nv">$ </span>python udp-client.py 
+Send message: Hello again
+Send message: </code></pre></figure>
+
+<p><strong>Sidenote: Although we specified a specific port in the python code, we can see that a different port was set. This is because the OS kernel determines the port to assign for the socket</strong></p>
+<h3 id="conclusion">Conclusion</h3>
+
+<p>That’s a little bit about the UDP protocol, and the basics of how it functions. In the next part I plan to discuss the TCP protocol.</p>
+
+<p>Thanks for reading</p>
+
+<p>~Nashe</p>

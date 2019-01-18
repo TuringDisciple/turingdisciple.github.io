@@ -1,0 +1,161 @@
+<h3 id="introduction">Introduction</h3>
+<p>Continuing from my post <a href="https://nashemncube.github.io/2017/10/27/udp-protocol.html">here</a> I’m going to fan favourite for this fight, TCP.
+Like the first post, I intend to describe this topic from a high level to the best of my ability. I am not an authority so if I make any mistakes tell me, and I’ll cry in the corner and fix them. LE’ GO!</p>
+
+<h3 id="so-what-is-tcp">So what is TCP</h3>
+<p>TCP compared to UDP is a network protocol which is reliable. Unlike in the case of UDP, TCP provides support for checking for duplicate packets, retransmission of lost packets, ordering of sent packets, and dealing with delay.</p>
+
+<p>TCP first works by establishing a connection between two application programs, and maintains it through the entire communication until all messages have been exchanged. TCP also determines how to split data into the packets that will be transmitted over a connection. In the OSI model TCP lies partway between the transport and session layer, as is the case in UDP. Below is an image that shows TCP position within the OSI model.</p>
+
+<p align="center">
+	<img src="/assets/osi-tcp.jpg" />
+</p>
+
+<p>I didn’t go into much depth into the OSI (most likely will in a later) but if were to describe how TCP fits in the communication sequence between to application, we can use a simple example.</p>
+
+<p>In the case of the internet, if I wanted to access a webpage that request for that page will be processed in the application layer through most likely HTTTP. This request will then be sent to the TCP layer which will determine how to split up the data request into packets to be sent, numbers them accordingly. Packets will not necessarily take the same path through the network, but will reach the right destination. These packets then progress through the rest of the OSI stack to be processed. Below is an image of flow of information within the OSI model. Again, I will most likely cover this in more detail in later posts.</p>
+
+<p align="center">
+	<img src="/assets/osi-flow.jpg" />
+</p>
+
+<p><strong>Side-note: I’m starting to realise describing networks will be easier if I start with the OSI model, the layers, and the protocols within them rather than specific protocols. Onwards and upwards</strong></p>
+
+<p>So what does a TCP data packet look like.</p>
+
+<p align="center">
+	<img src="/assets/tcp-packet.png" />
+</p>
+
+<p>Immediately we see the answer is beefier than a UDP datagram. The source port and destination port are self explanatory. As are checksum, TCP header length and data as we encountered them in the UDP protocol. So what’s everything else in the TCP header:</p>
+
+<ul>
+  <li><strong>Sequence number and Acknowledgement number:</strong> In the TCP protocol, there’s the concept of handshaking. This is used to establish a connectio between two connections, and is part of what makes TCP so reliable. The image shows an example of the handshake. Packets sent with the approriate flags set when determining this. Th</li>
+</ul>
+
+<p align="center">
+	<img src="/assets/tcp-3-way-handshake.jpg" />
+</p>
+
+<ul>
+  <li><strong>NS, CWR, URG, ACK, PSH, RST, SYN, FIN:</strong> All different flags which have a specific function. Can be better described <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol#TCP_segment_structure">here</a> Similarly you can find better detail on the urgent pointer, window size and the specific role of the sequence and acknowledgement number.</li>
+</ul>
+
+<p>Now some sweet, sweet code.</p>
+
+<h3 id="tcp-serverpy">tcp-server.py</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">HOST_IP</span> <span class="o">=</span> <span class="s">'127.0.0.1'</span> <span class="c1">#Localhost
+</span><span class="n">HOST_PORT</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="n">server_address</span> <span class="o">=</span> <span class="p">(</span><span class="n">HOST_IP</span><span class="p">,</span> <span class="n">HOST_PORT</span><span class="p">)</span>
+
+<span class="c1"># Creating the TCP/IP socket
+</span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"Initialising server </span><span class="si">%</span><span class="s">s</span><span class="se">\n</span><span class="s">On port </span><span class="si">%</span><span class="s">s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="n">server_address</span>
+<span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">server_address</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"Waiting for connection"</span>
+    <span class="n">con</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"Connection made from"</span>
+
+        <span class="c1"># Read in the data 16 byte chunks, retransmit.
+</span>        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s">"Data recieved </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">data</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">:</span> <span class="c1"># Check data has been sent
+</span>                <span class="k">print</span> <span class="s">"Sending data back: '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">data</span>
+                <span class="n">con</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"Recieved no data from client"</span>
+                <span class="k">break</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure>
+
+<h3 id="tcp-clientpy">tcp-client.py</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">HOST_IP</span> <span class="o">=</span> <span class="s">'127.0.0.1'</span> <span class="c1">#Localhost
+</span><span class="n">HOST_PORT</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="n">host_address</span> <span class="o">=</span> <span class="p">(</span><span class="n">HOST_IP</span><span class="p">,</span> <span class="n">HOST_PORT</span><span class="p">)</span>
+
+<span class="c1"># Initializing a TCP/IP socket.
+</span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+
+<span class="c1"># Make connection to server
+</span><span class="k">print</span> <span class="s">"Connecting to server </span><span class="si">%</span><span class="s">s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">host_address</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host_address</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="s">"Hello world, foo bar baz. Mumbo jumbo jump"</span>
+    <span class="k">print</span> <span class="s">"Sending message</span><span class="se">\n</span><span class="s">'</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">m</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="c1"># We are going to then check the server response.
+</span>    <span class="c1"># In this case, that means checking the number of packets recieved
+</span>    <span class="n">data_recieved</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">data_to_recieve</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">data_recieved</span> <span class="o">&lt;</span> <span class="n">data_to_recieve</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+        <span class="n">data_recieved</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">"Recieved </span><span class="si">%</span><span class="s">s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="n">data</span>
+        
+
+<span class="k">finally</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"Socket closing </span><span class="se">\n</span><span class="s">"</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure>
+
+<p>Sample output</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">NashMacbook:tcp nashe<span class="nv">$ </span>python tcp-server.py 
+Initialising server 127.0.0.1
+On port 10000
+
+Waiting <span class="k">for </span>connection
+Connection made from
+Data recieved Hello world, foo
+Sending data back: <span class="s1">'Hello world, foo'</span>
+Data recieved  bar baz. Mumbo 
+Sending data back: <span class="s1">' bar baz. Mumbo '</span>
+Data recieved jumbo jump
+Sending data back: <span class="s1">'jumbo jump'</span>
+Data recieved 
+Recieved no data from client
+Waiting <span class="k">for </span>connection
+
+....
+
+NashMacbook:tcp nashe<span class="nv">$ </span>python tcp-client.py 
+Connecting to server <span class="o">(</span><span class="s1">'127.0.0.1'</span>, 10000<span class="o">)</span>
+
+Sending message
+<span class="s1">'Hello world, foo bar baz. Mumbo jumbo jump'</span>
+Recieved Hello world, foo
+
+Recieved  bar baz. Mumbo 
+
+Recieved jumbo jump
+
+Socket closing </code></pre></figure>
+
+<p>And we are done.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>I think it is obvious who the contender in this battle is, TCP wins it all.</p>
+
+<p><img src="https://media.giphy.com/media/aWRWTF27ilPzy/giphy.gif" alt="Gif failed" /></p>
+
+<p>Next time I’ll probably tackle the OSI model. Hope you enjoyed</p>
+
+<p>~Nashe</p>
+

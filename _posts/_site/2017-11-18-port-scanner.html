@@ -1,0 +1,202 @@
+<h3 id="introduction">Introduction</h3>
+<p>So I started reading the book <a href="https://www.amazon.com/Violent-Python-Cookbook-Penetration-Engineers/dp/1597499579">Violent Python</a>. It’s a really good book and I’m enjoying it so far. So I thought I’d do a writeup on one of the first things it teaches you (literally page 1), and that’s how to build a port scanner for reconnaissance. Splitting the task into 4 parts, I’m assuming familiarity of the <a href="https://docs.python.org/2/library/socket.html">python socket library</a> and how basic networking knowledge.</p>
+
+<h3 id="step-1-dealing-with-command-line-arguments">Step 1: Dealing with command line arguments</h3>
+<p>We accept the hostname and port from the user via command line using the optparse library</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">optparse</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">(</span><span class="s">'usage </span><span class="si">%</span><span class="s">prog -H'</span> <span class="o">+</span> <span class="s">'&lt;targer host&gt; -p &lt;target port&gt;'</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_</span><span class="p">:</span><span class="n">option</span><span class="p">(</span><span class="s">'-H'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">'tgtHost'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">'string'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'specify target host'</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">'-p'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">'tgtPort'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">'int'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'specify target port'</span><span class="p">)</span>
+
+<span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+<span class="n">tgtHost</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">tgtHost</span>
+<span class="n">tgtPort</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">tgtPort</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">tgtHost</span> <span class="o">==</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">tgtPort</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">parser</span><span class="o">.</span><span class="n">usage</span>
+    <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></code></pre></figure>
+
+<p>Not much to be said here, I believe it would be more beneficial to just read up on the libraries functionality independently.</p>
+
+<h3 id="step-2-portscan-and-connscan">Step 2: portScan and connScan</h3>
+<p>Here we create the basis for two functions called connScan and portSca. portScan takes the hostname and target ports as arguments. It attempts to resolve an IP address to a hostname using the gethostbyname method in sockets. It will then print the hostname and enumerate through each individual port attempting to connect using connScan. Connscan takes two arguments: tgtHost and tgtPort. It attempts to create a connection to the target host and port, if successful, connScan prints an open port message, otherwise it prints a closed port message.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">def</span> <span class="nf">connScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">connSkt</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">))</span>
+        <span class="k">print</span> <span class="s">'[+]</span><span class="si">%</span><span class="s">d/tcp open'</span> <span class="o">%</span> <span class="n">tgtPort</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">'[-]</span><span class="si">%</span><span class="s">d/tcp closed'</span> <span class="o">%</span> <span class="n">tgtPort</span>
+
+<span class="k">def</span> <span class="nf">portScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPorts</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tgtIP</span> <span class="o">=</span> <span class="n">gethostbyname</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"[-] Cannot resolve '</span><span class="si">%</span><span class="s">s': Unknown host"</span> <span class="o">%</span> <span class="n">tgtHost</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tgtName</span> <span class="o">=</span> <span class="n">gethostbyaddr</span><span class="p">(</span><span class="n">tgtIP</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">'</span><span class="se">\n</span><span class="s">[+] Scan results for: '</span> <span class="o">+</span> <span class="n">tgtName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">'</span><span class="se">\n</span><span class="s">[+] Scan results for: '</span> <span class="o">+</span> <span class="n">tgtIP</span>
+    
+    <span class="n">setdefaulttimeout</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tgtPort</span> <span class="ow">in</span> <span class="n">tgtPorts</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">'Scanning port '</span> <span class="o">+</span> <span class="n">tgtPort</span>
+        <span class="n">connScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">tgtPort</span><span class="p">))</span></code></pre></figure>
+
+<h3 id="step-3-reading-the-application-banner">Step 3: Reading the application banner</h3>
+<p>We now modify the connscan function to so that we can obtain the application banner from the target host. This tells us what application is using that port. AFter discovering the open port we send a string (junk data) to the port and wait for a response. Gathering this response can tell us about the application.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">connScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">connSkt</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">))</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">"ViolentPython</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">=</span> <span class="n">connSkt</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">'[+]</span><span class="si">%</span><span class="s">d/tcp open'</span> <span class="o">%</span> <span class="n">tgtPort</span>
+        <span class="k">print</span> <span class="s">'[+] '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">'[-]</span><span class="si">%</span><span class="s">d/tcp closed'</span> <span class="o">%</span> <span class="n">tgtPort</span></code></pre></figure>
+
+<h3 id="step-4-adding-multithreading">Step 4: Adding multithreading</h3>
+<p>To help with speed of port connection, we can add threading to the port scanner to allow multiple threads to make connections to ports. However, when it comes to printing to the screen we will want data to not look out of order. By using a <a href="https://en.wikipedia.org/wiki/Semaphore_%28programming%29">semaphore</a> we can restrict access to the screen for printing by using a lock.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Semaphore</span><span class="p">,</span> <span class="n">Thread</span>
+<span class="n">screenlock</span> <span class="o">=</span> <span class="n">Semaphore</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+
+<span class="c1"># We add this code to portScan
+#for tgtPort in tgtPorts:
+#        t = Thread(target=connScan, args=(tgtHost, int(tgtPort)))
+#        t.start()
+</span>
+<span class="c1"># We modify connScan as follows. Acquire method obtains the lock if free, else waits. Finally is
+# always called to ensure lock release
+</span>
+<span class="k">def</span> <span class="nf">connScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">connSkt</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">))</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">'ViolentPython</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">connSkt</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">screenlock</span><span class="o">.</span><span class="n">aquire</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">'[+]</span><span class="si">%</span><span class="s">d/tcp open'</span> <span class="o">%</span> <span class="n">tgtPort</span>
+        <span class="k">print</span> <span class="s">'[-]</span><span class="si">%</span><span class="s">d/tcp closed'</span> <span class="o">%</span> <span class="n">tgtPort</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">screenlock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">'[-]</span><span class="si">%</span><span class="s">d/tcp closed'</span> <span class="o">%</span> <span class="n">tgtPort</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">screenlock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure>
+
+<h3 id="final-code-portscannerpy">Final code: PortScanner.py</h3>
+<p>This is how the final script looks</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">optparse</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Semaphore</span><span class="p">,</span> <span class="n">Thread</span> 
+
+<span class="n">screenlock</span> <span class="o">=</span> <span class="n">Semaphore</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">portScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPorts</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tgtIP</span> <span class="o">=</span> <span class="n">gethostbyname</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"[-] Cannot resolve '</span><span class="si">%</span><span class="s">s': Unknown host"</span> <span class="o">%</span> <span class="n">tgtHost</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tgtName</span> <span class="o">=</span> <span class="n">gethostbyaddr</span><span class="p">(</span><span class="n">tgtIP</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">'</span><span class="se">\n</span><span class="s">[+] Scan results for: '</span> <span class="o">+</span> <span class="n">tgtName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">'</span><span class="se">\n</span><span class="s">[+] Scan results for: '</span> <span class="o">+</span> <span class="n">tgtIP</span>
+    
+    <span class="n">setdefaulttimeout</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tgtPort</span> <span class="ow">in</span> <span class="n">tgtPorts</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">connScan</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">tgtPort</span><span class="p">)))</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">connScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">connSkt</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">))</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">'ViolentPython</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">connSkt</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">screenlock</span><span class="o">.</span><span class="n">aquire</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">'[+]</span><span class="si">%</span><span class="s">d/tcp open'</span> <span class="o">%</span> <span class="n">tgtPort</span>
+        <span class="k">print</span> <span class="s">'[-]</span><span class="si">%</span><span class="s">d/tcp closed'</span> <span class="o">%</span> <span class="n">tgtPort</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">screenlock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">'[-]</span><span class="si">%</span><span class="s">d/tcp closed'</span> <span class="o">%</span> <span class="n">tgtPort</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">screenlock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="n">connSkt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">(</span><span class="s">"usage</span><span class="si">%</span><span class="s">prog "</span> <span class="o">+</span> <span class="s">"-H &lt;target host&gt; -p &lt;target port&gt;"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">'-H'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">'tgtHost'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">'string'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'specify target host'</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">'-p'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">'tgtPort'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">'string'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'specify target port[s] seperated by comma'</span><span class="p">)</span> 
+    <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">tgtHost</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">tgtHost</span>
+    <span class="n">tgtPorts</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">tgtPort</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">tgtHost</span> <span class="o">==</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">tgtPorts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">'[-] You must specify a target host and port[s]'</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">portScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPorts</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+        <span class="n">main</span><span class="p">()</span></code></pre></figure>
+
+<p>Running it produces the following</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">NashMacbook:violent-python nashe<span class="nv">$ </span>python PortScanner.py <span class="nt">-H</span> 127.0.0.1 <span class="nt">-p</span> 4000,8008,21,32
+
+<span class="o">[</span>+] Scan results <span class="k">for</span>: localhost
+<span class="o">[</span>-]4000/tcp closed
+<span class="o">[</span>-]21/tcp closed
+<span class="o">[</span>-]8008/tcp closed
+<span class="o">[</span>-]32/tcp closed</code></pre></figure>
+
+<p>No ports on my machine were open, but for a machine accepting ports you can predict what you would see</p>
+
+<h3 id="extension-nmapscannerpy">Extension: nmapScanner.py</h3>
+<p>There exists a library already for using nmap(which produces XML) within python. Below is a script that would do the same as PortScanner.py but using the ever so famous nmap.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">nmap</span> <span class="c1"># To install use pip or pip3 if using python 3
+</span><span class="kn">import</span> <span class="nn">optparse</span>
+
+<span class="k">def</span> <span class="nf">nmapScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">):</span>
+    <span class="n">nmScan</span> <span class="o">=</span> <span class="n">nmap</span><span class="o">.</span><span class="n">PortScanner</span><span class="p">()</span>
+    <span class="n">nmScan</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">nmScan</span><span class="p">[</span><span class="n">tgtHost</span><span class="p">][</span><span class="s">'tcp'</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">tgtPort</span><span class="p">)][</span><span class="s">'state'</span><span class="p">]</span>
+    <span class="k">print</span> <span class="s">" [*] "</span> <span class="o">+</span> <span class="n">tgtHost</span> <span class="o">+</span> <span class="s">" tcp/"</span> <span class="o">+</span> <span class="n">tgtPort</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">state</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">(</span><span class="s">"usage</span><span class="si">%</span><span class="s">prog "</span> <span class="o">+</span> <span class="s">"-H &lt;target host&gt; -p &lt;target port&gt;"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">'-H'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">'tgtHost'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">'string'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'specify target host'</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">'-p'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">'tgtPort'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">'string'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'specify target port[s] seperated by comma'</span><span class="p">)</span> 
+    <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">tgtHost</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">tgtHost</span>
+    <span class="n">tgtPorts</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">tgtPort</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">tgtHost</span> <span class="o">==</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">tgtPorts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">'[-] You must specify a target host and port[s]'</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tgtPort</span> <span class="ow">in</span> <span class="n">tgtPorts</span><span class="p">:</span>
+        <span class="n">nmapScan</span><span class="p">(</span><span class="n">tgtHost</span><span class="p">,</span> <span class="n">tgtPort</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+        <span class="n">main</span><span class="p">()</span></code></pre></figure>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Not much to say, I anybody is reading this, get Violent Python ‘tis da best.</p>
+
+<p>~Nashe</p>
