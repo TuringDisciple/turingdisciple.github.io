@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title> Discrete Logarithms and Diffe-Hellman</title>
+  <meta name="description" content="Introduction These are just some notes on the discrete logarithm problem and Diffe-Hellman taken from chapter 2 of Introduction to Mathematical Cryptography">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="http://localhost:4000/2019/08/20/intro-to-math-crypto-2.html">
+  <link rel="alternate" type="application/rss+xml" title="nashpotato" href="/feed.xml">
+  
+  
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">nashpotato</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/about.html">About</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline"> Discrete Logarithms and Diffe-Hellman</h1>
+    <p class="post-meta">
+      <time datetime="2019-08-20T00:00:00+01:00" itemprop="datePublished">
+        
+        Aug 20, 2019
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="introduction">Introduction</h1>
+<p>These are just some notes on the discrete logarithm problem and Diffe-Hellman taken from chapter 2 of Introduction to Mathematical Cryptography</p>
+
+<h1 id="formal-definition">Formal definition</h1>
+<p>Let $g$ be a primitive root for $F_{p}$, and h be a non-zero element of this field, then the DLP is finding an exponent x st</p>
+
+<script type="math/tex; mode=display">g^{x} = h (mod\ p)</script>
+
+<p>x is called the discrete logarithm of h to the base g and is denoted $log_{g}(h)$</p>
+
+<p>This definition can extend to a group. Given a group $G$ with group operation *, the DLP for the group is simply for any two given elements $g$ and $h$, find $x$ such that</p>
+
+<script type="math/tex; mode=display">g ^{x} = h</script>
+
+<h1 id="diffe-hellman-key-exchange">Diffe-Hellman Key Exchange</h1>
+<p>The Diffie-Hellman key exchange algorithm solves the problem of exchanging secure information over an insecure channel. In particular we want to share a secret key for encryption over an insecure channel for a symmetric cipher.</p>
+
+<h2 id="formal-defintion">Formal defintion</h2>
+<p>Two parties Akice and Bob agree on a large prime $p$ and non-zero integer $g$ modulo $p$. Alice and bob make these values public knowledge. Then Alice and Bob respectively compute the following. Alice selects private integer $a$ and Bob selects private integer $b$</p>
+
+<script type="math/tex; mode=display">A = g ^ {a} (mod\ p)\\
+B = g ^ {b} (mod\ p )</script>
+
+<p>They then exchange $A$ and $B over the insecure channel and compute the following respectively</p>
+
+<script type="math/tex; mode=display">A' = B ^{a}(mod\ p)\\
+B' = A^ {b}(mod\ p)</script>
+
+<p>Note that $A’ = B’$ proof below</p>
+
+<script type="math/tex; mode=display">A' = B ^ {a} = g^{ba} = g ^ {ab} = A^{b} = B'</script>
+
+<p>This value $A’(B’)$ is the the private key for the two schemes
+The security of the DHP comes from the difficulty of the Diffe-Hellman problem. This problem is defined as the difficulty of computing $g^{ab} (mod p)$ from $g^{a} (mod p)$
+and $g^{b} (mod p)$</p>
+
+<p>If the DLP can be solved, then it’s trivial to solve the DHP. However it is not known whether the converse is true. If an attacker can solve the DHP, can they use that algorithm for the DLP.</p>
+
+<h1 id="elgamal">ElGamal</h1>
+<p>The Diffe-Hellman key exchange unfortunately doesn’t act as a full PKE scheme as it doesn’t allow for the transfer of specific messages but rather random bits. The ElGamal encryption scheme uses the difficulty of the DLP to enable encryption.</p>
+
+<p>The formal definition of the scheme is as follows. Alice selects a screte number $a$ to act as her private key and she computes</p>
+
+<script type="math/tex; mode=display">A = g ^ {a} (mod\ p)</script>
+
+<p>This is the public key. This is used by Bob to encrypt a message which is between $m \leftarrow 2 … p$. To encrypt the message Bob selects a number $k$ modulo $p$. Bob uses $k$ to encrypt only one message, then discards the key. The number k is called an ephemeral key. Bob takes all these values and computes the following</p>
+
+<script type="math/tex; mode=display">c_1 = g^k (mod\ p)\\
+c_2 = mA^k(mod\ p)</script>
+
+<p>The encryption that Bob generates is this pair of numbers $(c_1, c_2)$. For Alice to decrypt she first computes $x \leftarrow c_{1}^{a} (mod \ p)$. And then computes the message $m \leftarrow x^{-1}\cdot c_2$. A proof as to why this encryption works is as follows</p>
+
+<script type="math/tex; mode=display">x = c_1^a(mod\ p) = g ^ {ak}(mod \ p) = A^k\\
+x^{-1} \cdot c_2 = A^{-k}mA^k (mod\ p) = m (mod\ p)</script>
+
+<h1 id="hardness-of-the-dlp">Hardness of the DLP</h1>
+<p>NOTE: a primer on order notation. We say that a function $f(x)$ is big-$O$ $g(x)$ if there exists positive constants $c$ and $C$ such that</p>
+
+<script type="math/tex; mode=display">f (x) \leq cg(x) \  \forall x \geq C</script>
+
+<p>Alternatively one could understand big-$O$ notation in terms of taking limits. In paritcular if the limit of the following exists</p>
+
+<script type="math/tex; mode=display">\lim_{x \to \infty} \frac{f(x)}{g(x)}</script>
+
+<p>then $f(x)=O(g(x))$.</p>
+
+<p>We start with our original dlp $g^x = h$ in $G=\mathbb{F}^*_p$. If we select $p$ to be between $2^k$ and $2^{k+1}$, $g, h$ and $p$ all require at most $k$ bits. Then we can solve the original dlp in $O(p)=O(2^k)$ time using a trial and error method. This is exponential time.</p>
+
+<p>Considering the DLP in the group $G=\mathbb{F}_p$, where the group operation is addition, the DLP in this case asks for a solution $x$ to the congruence $x\cdot g\equiv h \ (mod \ p)$</p>
+
+<p>By using the extended Euclidean algorithm, to compute $g^{-1} (mod \ p)$ , you can compute $x = g^{-1} \cdot h (mod \ p)$.
+This takes $O(log\ p)$ steps.</p>
+
+<p>NOTE: notation
+$\mathbb{Z}/p\mathbb{Z}$ and $\mathbb{F}_p$ denote the finite field defined as below
+<script type="math/tex">\mathbb{F}_p = \{0, 1, 2, ..., p-1\}</script>
+This is the ring of integers modulo $p$.</p>
+
+<p>$(\mathbb{Z}/p\mathbb{Z})^*$</p>
+
+<p>and $\mathbb{F}^*_p$ denotes the group of units modulo $p$.</p>
+
+<script type="math/tex; mode=display">\mathbb{F}^*_p=\{a \in \mathbb{F}_p : gcd(a, p) = 1 \}</script>
+
+<p>It can be trivially seen from above that if $p$ is prime then the group $\mathbb{F}^*_p = {1, .., p-1}$.</p>
+
+<h1 id="a-collision-algorithm-for-the-dlp">A Collision Algorithm for the DLP</h1>
+
+  </div>
+
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</article>
+
+
+      </div>
+    </main><footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nashpotato</h2>
+
+    <div class="footer-col-wrapper">
+      
+
+      <div class="footer-col footer-col-1">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/nashpotato"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">nashpotato</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
