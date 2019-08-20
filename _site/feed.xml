@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-20T17:18:37+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nashpotato</title><subtitle></subtitle><entry><title type="html">Discrete Logarithms and Diffe-Hellman</title><link href="http://localhost:4000/2019/08/20/intro-to-math-crypto-2.html" rel="alternate" type="text/html" title=" Discrete Logarithms and Diffe-Hellman" /><published>2019-08-20T00:00:00+01:00</published><updated>2019-08-20T00:00:00+01:00</updated><id>http://localhost:4000/2019/08/20/intro-to-math-crypto-2</id><content type="html" xml:base="http://localhost:4000/2019/08/20/intro-to-math-crypto-2.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;These are just some notes on the discrete logarithm problem and Diffe-Hellman taken from chapter 2 of Introduction to Mathematical Cryptography&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-20T21:05:09+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nashpotato</title><subtitle></subtitle><entry><title type="html">The Discrete Logarithm Problem</title><link href="http://localhost:4000/2019/08/20/intro-to-math-crypto-2.html" rel="alternate" type="text/html" title="The Discrete Logarithm Problem" /><published>2019-08-20T00:00:00+01:00</published><updated>2019-08-20T00:00:00+01:00</updated><id>http://localhost:4000/2019/08/20/intro-to-math-crypto-2</id><content type="html" xml:base="http://localhost:4000/2019/08/20/intro-to-math-crypto-2.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;These are just some notes on the discrete logarithm problem following the book introduction to mathematical cryptography and other sources.&lt;/p&gt;
 
-&lt;h1 id=&quot;formal-definition&quot;&gt;Formal definition&lt;/h1&gt;
-&lt;p&gt;Let $g$ be a primitive root for $F_{p}$, and h be a non-zero element of this field, then the DLP is finding an exponent x st&lt;/p&gt;
+&lt;h2 id=&quot;formal-definition&quot;&gt;Formal definition&lt;/h2&gt;
+&lt;p&gt;Let $g$ be a primitive root for $F_{p}$, and h be a non-zero element of this field, then the discrete logarithm problem is finding an exponent x st&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;g^{x} = h (mod\ p)&lt;/script&gt;
 
@@ -12,16 +12,16 @@
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;g ^{x} = h&lt;/script&gt;
 
-&lt;h1 id=&quot;diffe-hellman-key-exchange&quot;&gt;Diffe-Hellman Key Exchange&lt;/h1&gt;
+&lt;h2 id=&quot;diffe-hellman-key-exchange&quot;&gt;Diffe-Hellman Key Exchange&lt;/h2&gt;
 &lt;p&gt;The Diffie-Hellman key exchange algorithm solves the problem of exchanging secure information over an insecure channel. In particular we want to share a secret key for encryption over an insecure channel for a symmetric cipher.&lt;/p&gt;
 
-&lt;h2 id=&quot;formal-defintion&quot;&gt;Formal defintion&lt;/h2&gt;
+&lt;h3 id=&quot;formal-defintion&quot;&gt;Formal defintion&lt;/h3&gt;
 &lt;p&gt;Two parties Akice and Bob agree on a large prime $p$ and non-zero integer $g$ modulo $p$. Alice and bob make these values public knowledge. Then Alice and Bob respectively compute the following. Alice selects private integer $a$ and Bob selects private integer $b$&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;A = g ^ {a} (mod\ p)\\
 B = g ^ {b} (mod\ p )&lt;/script&gt;
 
-&lt;p&gt;They then exchange $A$ and $B over the insecure channel and compute the following respectively&lt;/p&gt;
+&lt;p&gt;They then exchange $A$ and $B$ over the insecure channel and compute the following respectively&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;A' = B ^{a}(mod\ p)\\
 B' = A^ {b}(mod\ p)&lt;/script&gt;
@@ -36,7 +36,7 @@ and $g^{b} (mod p)$&lt;/p&gt;
 
 &lt;p&gt;If the DLP can be solved, then it’s trivial to solve the DHP. However it is not known whether the converse is true. If an attacker can solve the DHP, can they use that algorithm for the DLP.&lt;/p&gt;
 
-&lt;h1 id=&quot;elgamal&quot;&gt;ElGamal&lt;/h1&gt;
+&lt;h2 id=&quot;elgamal&quot;&gt;ElGamal&lt;/h2&gt;
 &lt;p&gt;The Diffe-Hellman key exchange unfortunately doesn’t act as a full PKE scheme as it doesn’t allow for the transfer of specific messages but rather random bits. The ElGamal encryption scheme uses the difficulty of the DLP to enable encryption.&lt;/p&gt;
 
 &lt;p&gt;The formal definition of the scheme is as follows. Alice selects a screte number $a$ to act as her private key and she computes&lt;/p&gt;
@@ -53,7 +53,7 @@ c_2 = mA^k(mod\ p)&lt;/script&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;x = c_1^a(mod\ p) = g ^ {ak}(mod \ p) = A^k\\
 x^{-1} \cdot c_2 = A^{-k}mA^k (mod\ p) = m (mod\ p)&lt;/script&gt;
 
-&lt;h1 id=&quot;hardness-of-the-dlp&quot;&gt;Hardness of the DLP&lt;/h1&gt;
+&lt;h2 id=&quot;hardness-of-the-dlp&quot;&gt;Hardness of the DLP&lt;/h2&gt;
 &lt;p&gt;NOTE: a primer on order notation. We say that a function $f(x)$ is big-$O$ $g(x)$ if there exists positive constants $c$ and $C$ such that&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;f (x) \leq cg(x) \  \forall x \geq C&lt;/script&gt;
@@ -71,20 +71,81 @@ x^{-1} \cdot c_2 = A^{-k}mA^k (mod\ p) = m (mod\ p)&lt;/script&gt;
 &lt;p&gt;By using the extended Euclidean algorithm, to compute $g^{-1} (mod \ p)$ , you can compute $x = g^{-1} \cdot h (mod \ p)$.
 This takes $O(log\ p)$ steps.&lt;/p&gt;
 
-&lt;p&gt;NOTE: notation
-$\mathbb{Z}/p\mathbb{Z}$ and $\mathbb{F}_p$ denote the finite field defined as below
-&lt;script type=&quot;math/tex&quot;&gt;\mathbb{F}_p = \{0, 1, 2, ..., p-1\}&lt;/script&gt;
-This is the ring of integers modulo $p$.&lt;/p&gt;
+&lt;p&gt;NOTE: notation&lt;/p&gt;
 
-&lt;p&gt;$(\mathbb{Z}/p\mathbb{Z})^*$&lt;/p&gt;
+&lt;p&gt;$\mathbb{Z}/p\mathbb{Z}$ and $\mathbb{F}_p$ denote the finite field defined as below&lt;/p&gt;
 
-&lt;p&gt;and $\mathbb{F}^*_p$ denotes the group of units modulo $p$.&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbb{F}_p = \{0, 1, 2, ..., p-1\}&lt;/script&gt;
+
+&lt;p&gt;This is the ring of integers modulo $p$.&lt;/p&gt;
+
+&lt;p&gt;$(\mathbb{Z}/p\mathbb{Z})^*$ and $\mathbb{F}^*_p$ denotes the group of units modulo $p$.&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbb{F}^*_p=\{a \in \mathbb{F}_p : gcd(a, p) = 1 \}&lt;/script&gt;
 
 &lt;p&gt;It can be trivially seen from above that if $p$ is prime then the group $\mathbb{F}^*_p = {1, .., p-1}$.&lt;/p&gt;
 
-&lt;h1 id=&quot;a-collision-algorithm-for-the-dlp&quot;&gt;A Collision Algorithm for the DLP&lt;/h1&gt;</content><author><name></name></author><summary type="html">Introduction These are just some notes on the discrete logarithm problem and Diffe-Hellman taken from chapter 2 of Introduction to Mathematical Cryptography</summary></entry><entry><title type="html">Building a port scanner in Python</title><link href="http://localhost:4000/2017/11/18/port-scanner.html" rel="alternate" type="text/html" title="Building a port scanner in Python" /><published>2017-11-18T00:00:00+00:00</published><updated>2017-11-18T00:00:00+00:00</updated><id>http://localhost:4000/2017/11/18/port-scanner</id><content type="html" xml:base="http://localhost:4000/2017/11/18/port-scanner.html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;h2 id=&quot;a-collision-algorithm-for-the-dlp&quot;&gt;A Collision Algorithm for the DLP&lt;/h2&gt;
+&lt;p&gt;A trivial bound can be found for the DLP by simply considering the following proposition. Let $G$ be the group $g \in G$ be an element of order N, then the DLP&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;g ^ x = h&lt;/script&gt;
+
+&lt;p&gt;can be solved in $O(N)$ steps, where each step consists of multiplication by $g$. The proof of this is simply to make a list of values of $g^x$ for $x=1,2,..,N-1$. This list can simply be generated by just multiplying by $g$ in each step. If a solution exists, $h$ should be in the list.&lt;/p&gt;
+
+&lt;p&gt;If working in $\mathbb{F}^*_p$ then each computation of $g^x(mod \ p)$ requires $O(log^k(p))$ computer operations. The total number of steps then becomes $O(Nlog^k(p))$ but we can ignore the $log^k(p)$ term as it’s neglible compared to $N$.&lt;/p&gt;
+
+&lt;p&gt;The idea behind a collision algo is to make 2 lists and find an element which exists in both of them.&lt;/p&gt;
+
+&lt;p&gt;The proposed algorithm runs in $O(\sqrt{N}log\ N)$ time and is known as the &lt;a href=&quot;https://en.wikipedia.org/wiki/Baby-step_giant-step&quot;&gt;Shanks Babystep-Giantstep&lt;/a&gt; algorithm.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;n \leftarrow 1 + \lfloor \sqrt{N} \rfloor, \ n &gt; \sqrt{N} \ (1)\\
+ \\ L_1 = \{e, g, g^2, ..., g^n \}, \\
+ L_2 = \{h, h \cdot g^{-n}, h \cdot g ^ {-2n}, ..., h \cdot g ^ {-n^2}\} \\&lt;/script&gt;
+
+&lt;p&gt;Find the a match between $L_1$ and $L_2$ such that&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;g ^ i = h \cdot g^{-jn} \\
+x = i + jn&lt;/script&gt;
+
+&lt;p&gt;The proof for the runtime is as follows. First we fix $u = g^{-n}$ before creating list 2 as simply $h, hu, hu^2…,hu^n$.
+This means that creating $L_1, L_2$ takes at most $2n$ multiplications. Secondly assuming a match exists we can find a match in $log\ n$ steps using standard sorting and searching techniques. Total runtime is therefore $O(\sqrt{N}log\ N)$. Correctness is proven by showing there always exists a match. Let $x$ be the unknown solution. We can write this as the following&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x = nq + The ,\ 0 \leq r \lt n&lt;/script&gt;
+
+&lt;p&gt;We know that $1\leq x &amp;lt; N$ so&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+q = \frac{x-r}{n} &lt; \frac{N}{n} &lt; n, \ as \ n &gt; \sqrt{N} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;therefore we can re-write the problem $g^x=h$ as&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+g ^ {r} = h \cdot g ^ {-qn}\  with\ 0 \leq r, q &lt; n %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;Therefore $g^r \in L_1$ and $hg^{-qn} \in L_2$.&lt;/p&gt;
+
+&lt;h2 id=&quot;pohlig-hellman-algorithm&quot;&gt;Pohlig-Hellman Algorithm&lt;/h2&gt;
+&lt;p&gt;The Pohlig-Hellman algorithm exploits prime-factorisation and the &lt;a href=&quot;https://en.wikipedia.org/wiki/Chinese_remainder_theorem&quot;&gt;Chinese remainder theorem&lt;/a&gt; to obtain a solution to the DLP. The formal definition is as follows.&lt;/p&gt;
+
+&lt;p&gt;Suppose we have an algorithm to solve the DLP in $G$ for any element whose order is a power of a prime.
+Let $G$ be a group of order $N$. And suppose that $N$ can be factorised into it’s product of primes&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;N = q^{e_1}_1q^{e_2}_2...q^{e_t}_t&lt;/script&gt;
+
+&lt;p&gt;Then the DLP can be solved in&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;O(\sum^{t}_{i=1}S_{q^{e_i}_i} + log \ N) \ \ steps&lt;/script&gt;
+
+&lt;p&gt;using the following procedure.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;For each $1\leq i \leq t$ let 
+&lt;script type=&quot;math/tex&quot;&gt;g_i = g^{N/q_i^{e_i}} \ \ and \ \ h_i = h^{N/q_i^{e_i}}&lt;/script&gt;
+Using the given algorithm, $g_i$ has a prime order, we can solve
+&lt;script type=&quot;math/tex&quot;&gt;g_i^y = h_i&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;Use the Chinese remainder theorem to solve
+&lt;script type=&quot;math/tex&quot;&gt;x \equiv y_1(mod\ q_1 ^ {e_1}), ..., x \equiv y_t (mod \ q_t^{e_t})&lt;/script&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><author><name></name></author><summary type="html">Introduction These are just some notes on the discrete logarithm problem following the book introduction to mathematical cryptography and other sources.</summary></entry><entry><title type="html">Building a port scanner in Python</title><link href="http://localhost:4000/2017/11/18/port-scanner.html" rel="alternate" type="text/html" title="Building a port scanner in Python" /><published>2017-11-18T00:00:00+00:00</published><updated>2017-11-18T00:00:00+00:00</updated><id>http://localhost:4000/2017/11/18/port-scanner</id><content type="html" xml:base="http://localhost:4000/2017/11/18/port-scanner.html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;So I started reading the book &lt;a href=&quot;https://www.amazon.com/Violent-Python-Cookbook-Penetration-Engineers/dp/1597499579&quot;&gt;Violent Python&lt;/a&gt;. It’s a really good book and I’m enjoying it so far. So I thought I’d do a writeup on one of the first things it teaches you (literally page 1), and that’s how to build a port scanner for reconnaissance. Splitting the task into 4 parts, I’m assuming familiarity of the &lt;a href=&quot;https://docs.python.org/2/library/socket.html&quot;&gt;python socket library&lt;/a&gt; and how basic networking knowledge.&lt;/p&gt;
 
 &lt;h3 id=&quot;step-1-dealing-with-command-line-arguments&quot;&gt;Step 1: Dealing with command line arguments&lt;/h3&gt;

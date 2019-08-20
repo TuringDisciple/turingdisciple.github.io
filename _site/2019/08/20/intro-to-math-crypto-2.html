@@ -4,8 +4,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title> Discrete Logarithms and Diffe-Hellman</title>
-  <meta name="description" content="Introduction These are just some notes on the discrete logarithm problem and Diffe-Hellman taken from chapter 2 of Introduction to Mathematical Cryptography">
+  <title>The Discrete Logarithm Problem</title>
+  <meta name="description" content="Introduction These are just some notes on the discrete logarithm problem following the book introduction to mathematical cryptography and other sources.">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="shortcut icon" type="image/png" href="/favicon.png">
@@ -65,7 +65,7 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline"> Discrete Logarithms and Diffe-Hellman</h1>
+    <h1 class="post-title" itemprop="name headline">The Discrete Logarithm Problem</h1>
     <p class="post-meta">
       <time datetime="2019-08-20T00:00:00+01:00" itemprop="datePublished">
         
@@ -76,10 +76,10 @@
 
   <div class="post-content" itemprop="articleBody">
     <h1 id="introduction">Introduction</h1>
-<p>These are just some notes on the discrete logarithm problem and Diffe-Hellman taken from chapter 2 of Introduction to Mathematical Cryptography</p>
+<p>These are just some notes on the discrete logarithm problem following the book introduction to mathematical cryptography and other sources.</p>
 
-<h1 id="formal-definition">Formal definition</h1>
-<p>Let $g$ be a primitive root for $F_{p}$, and h be a non-zero element of this field, then the DLP is finding an exponent x st</p>
+<h2 id="formal-definition">Formal definition</h2>
+<p>Let $g$ be a primitive root for $F_{p}$, and h be a non-zero element of this field, then the discrete logarithm problem is finding an exponent x st</p>
 
 <script type="math/tex; mode=display">g^{x} = h (mod\ p)</script>
 
@@ -89,16 +89,16 @@
 
 <script type="math/tex; mode=display">g ^{x} = h</script>
 
-<h1 id="diffe-hellman-key-exchange">Diffe-Hellman Key Exchange</h1>
+<h2 id="diffe-hellman-key-exchange">Diffe-Hellman Key Exchange</h2>
 <p>The Diffie-Hellman key exchange algorithm solves the problem of exchanging secure information over an insecure channel. In particular we want to share a secret key for encryption over an insecure channel for a symmetric cipher.</p>
 
-<h2 id="formal-defintion">Formal defintion</h2>
+<h3 id="formal-defintion">Formal defintion</h3>
 <p>Two parties Akice and Bob agree on a large prime $p$ and non-zero integer $g$ modulo $p$. Alice and bob make these values public knowledge. Then Alice and Bob respectively compute the following. Alice selects private integer $a$ and Bob selects private integer $b$</p>
 
 <script type="math/tex; mode=display">A = g ^ {a} (mod\ p)\\
 B = g ^ {b} (mod\ p )</script>
 
-<p>They then exchange $A$ and $B over the insecure channel and compute the following respectively</p>
+<p>They then exchange $A$ and $B$ over the insecure channel and compute the following respectively</p>
 
 <script type="math/tex; mode=display">A' = B ^{a}(mod\ p)\\
 B' = A^ {b}(mod\ p)</script>
@@ -113,7 +113,7 @@ and $g^{b} (mod p)$</p>
 
 <p>If the DLP can be solved, then it’s trivial to solve the DHP. However it is not known whether the converse is true. If an attacker can solve the DHP, can they use that algorithm for the DLP.</p>
 
-<h1 id="elgamal">ElGamal</h1>
+<h2 id="elgamal">ElGamal</h2>
 <p>The Diffe-Hellman key exchange unfortunately doesn’t act as a full PKE scheme as it doesn’t allow for the transfer of specific messages but rather random bits. The ElGamal encryption scheme uses the difficulty of the DLP to enable encryption.</p>
 
 <p>The formal definition of the scheme is as follows. Alice selects a screte number $a$ to act as her private key and she computes</p>
@@ -130,7 +130,7 @@ c_2 = mA^k(mod\ p)</script>
 <script type="math/tex; mode=display">x = c_1^a(mod\ p) = g ^ {ak}(mod \ p) = A^k\\
 x^{-1} \cdot c_2 = A^{-k}mA^k (mod\ p) = m (mod\ p)</script>
 
-<h1 id="hardness-of-the-dlp">Hardness of the DLP</h1>
+<h2 id="hardness-of-the-dlp">Hardness of the DLP</h2>
 <p>NOTE: a primer on order notation. We say that a function $f(x)$ is big-$O$ $g(x)$ if there exists positive constants $c$ and $C$ such that</p>
 
 <script type="math/tex; mode=display">f (x) \leq cg(x) \  \forall x \geq C</script>
@@ -148,20 +148,81 @@ x^{-1} \cdot c_2 = A^{-k}mA^k (mod\ p) = m (mod\ p)</script>
 <p>By using the extended Euclidean algorithm, to compute $g^{-1} (mod \ p)$ , you can compute $x = g^{-1} \cdot h (mod \ p)$.
 This takes $O(log\ p)$ steps.</p>
 
-<p>NOTE: notation
-$\mathbb{Z}/p\mathbb{Z}$ and $\mathbb{F}_p$ denote the finite field defined as below
-<script type="math/tex">\mathbb{F}_p = \{0, 1, 2, ..., p-1\}</script>
-This is the ring of integers modulo $p$.</p>
+<p>NOTE: notation</p>
 
-<p>$(\mathbb{Z}/p\mathbb{Z})^*$</p>
+<p>$\mathbb{Z}/p\mathbb{Z}$ and $\mathbb{F}_p$ denote the finite field defined as below</p>
 
-<p>and $\mathbb{F}^*_p$ denotes the group of units modulo $p$.</p>
+<script type="math/tex; mode=display">\mathbb{F}_p = \{0, 1, 2, ..., p-1\}</script>
+
+<p>This is the ring of integers modulo $p$.</p>
+
+<p>$(\mathbb{Z}/p\mathbb{Z})^*$ and $\mathbb{F}^*_p$ denotes the group of units modulo $p$.</p>
 
 <script type="math/tex; mode=display">\mathbb{F}^*_p=\{a \in \mathbb{F}_p : gcd(a, p) = 1 \}</script>
 
 <p>It can be trivially seen from above that if $p$ is prime then the group $\mathbb{F}^*_p = {1, .., p-1}$.</p>
 
-<h1 id="a-collision-algorithm-for-the-dlp">A Collision Algorithm for the DLP</h1>
+<h2 id="a-collision-algorithm-for-the-dlp">A Collision Algorithm for the DLP</h2>
+<p>A trivial bound can be found for the DLP by simply considering the following proposition. Let $G$ be the group $g \in G$ be an element of order N, then the DLP</p>
+
+<script type="math/tex; mode=display">g ^ x = h</script>
+
+<p>can be solved in $O(N)$ steps, where each step consists of multiplication by $g$. The proof of this is simply to make a list of values of $g^x$ for $x=1,2,..,N-1$. This list can simply be generated by just multiplying by $g$ in each step. If a solution exists, $h$ should be in the list.</p>
+
+<p>If working in $\mathbb{F}^*_p$ then each computation of $g^x(mod \ p)$ requires $O(log^k(p))$ computer operations. The total number of steps then becomes $O(Nlog^k(p))$ but we can ignore the $log^k(p)$ term as it’s neglible compared to $N$.</p>
+
+<p>The idea behind a collision algo is to make 2 lists and find an element which exists in both of them.</p>
+
+<p>The proposed algorithm runs in $O(\sqrt{N}log\ N)$ time and is known as the <a href="https://en.wikipedia.org/wiki/Baby-step_giant-step">Shanks Babystep-Giantstep</a> algorithm.</p>
+
+<script type="math/tex; mode=display">n \leftarrow 1 + \lfloor \sqrt{N} \rfloor, \ n > \sqrt{N} \ (1)\\
+ \\ L_1 = \{e, g, g^2, ..., g^n \}, \\
+ L_2 = \{h, h \cdot g^{-n}, h \cdot g ^ {-2n}, ..., h \cdot g ^ {-n^2}\} \\</script>
+
+<p>Find the a match between $L_1$ and $L_2$ such that</p>
+
+<script type="math/tex; mode=display">g ^ i = h \cdot g^{-jn} \\
+x = i + jn</script>
+
+<p>The proof for the runtime is as follows. First we fix $u = g^{-n}$ before creating list 2 as simply $h, hu, hu^2…,hu^n$.
+This means that creating $L_1, L_2$ takes at most $2n$ multiplications. Secondly assuming a match exists we can find a match in $log\ n$ steps using standard sorting and searching techniques. Total runtime is therefore $O(\sqrt{N}log\ N)$. Correctness is proven by showing there always exists a match. Let $x$ be the unknown solution. We can write this as the following</p>
+
+<script type="math/tex; mode=display">x = nq + The ,\ 0 \leq r \lt n</script>
+
+<p>We know that $1\leq x &lt; N$ so</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+q = \frac{x-r}{n} < \frac{N}{n} < n, \ as \ n > \sqrt{N} %]]></script>
+
+<p>therefore we can re-write the problem $g^x=h$ as</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+g ^ {r} = h \cdot g ^ {-qn}\  with\ 0 \leq r, q < n %]]></script>
+
+<p>Therefore $g^r \in L_1$ and $hg^{-qn} \in L_2$.</p>
+
+<h2 id="pohlig-hellman-algorithm">Pohlig-Hellman Algorithm</h2>
+<p>The Pohlig-Hellman algorithm exploits prime-factorisation and the <a href="https://en.wikipedia.org/wiki/Chinese_remainder_theorem">Chinese remainder theorem</a> to obtain a solution to the DLP. The formal definition is as follows.</p>
+
+<p>Suppose we have an algorithm to solve the DLP in $G$ for any element whose order is a power of a prime.
+Let $G$ be a group of order $N$. And suppose that $N$ can be factorised into it’s product of primes</p>
+
+<script type="math/tex; mode=display">N = q^{e_1}_1q^{e_2}_2...q^{e_t}_t</script>
+
+<p>Then the DLP can be solved in</p>
+
+<script type="math/tex; mode=display">O(\sum^{t}_{i=1}S_{q^{e_i}_i} + log \ N) \ \ steps</script>
+
+<p>using the following procedure.</p>
+
+<ol>
+  <li>For each $1\leq i \leq t$ let 
+<script type="math/tex">g_i = g^{N/q_i^{e_i}} \ \ and \ \ h_i = h^{N/q_i^{e_i}}</script>
+Using the given algorithm, $g_i$ has a prime order, we can solve
+<script type="math/tex">g_i^y = h_i</script></li>
+  <li>Use the Chinese remainder theorem to solve
+<script type="math/tex">x \equiv y_1(mod\ q_1 ^ {e_1}), ..., x \equiv y_t (mod \ q_t^{e_t})</script></li>
+</ol>
 
   </div>
 
@@ -175,7 +236,7 @@ This is the ring of integers modulo $p$.</p>
   });
 </script>
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </article>
 
