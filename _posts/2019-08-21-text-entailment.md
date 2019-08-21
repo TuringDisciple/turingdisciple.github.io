@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Solving Textual Entailment with The DecAtt model"
+title: "Solving Textual Entailment with the DecAtt"
 ---
 # Introduction
 In this post I will write about the problem of textual entailment and how one of my favourite models has been used to tackle the problem.
