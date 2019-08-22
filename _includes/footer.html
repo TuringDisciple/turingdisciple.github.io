@@ -14,8 +14,14 @@
             {% include icon-github.html username=site.github_username %}
           </li>
           {% endif %}
-
-          
+          {% if site.twitter_username %}
+          <li>
+                {% include icon-twitter.html username=site.twitter_username %}
+          </li>
+          {% endif %}
+          {% if site.email %} 
+          <li><a class="u-email" href="mailto:{{site.email}}">{{site.email}}</a></li>
+          {% endif %}
         </ul>
       </div>
 
