@@ -1,4 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-22T16:10:37+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nashpotato</title><subtitle></subtitle><entry><title type="html">Solving Textual Entailment with the DecAtt</title><link href="http://localhost:4000/2019/08/21/text-entailment.html" rel="alternate" type="text/html" title="Solving Textual Entailment with the DecAtt" /><published>2019-08-21T00:00:00+01:00</published><updated>2019-08-21T00:00:00+01:00</updated><id>http://localhost:4000/2019/08/21/text-entailment</id><content type="html" xml:base="http://localhost:4000/2019/08/21/text-entailment.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-09-09T12:31:54+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nashpotato</title><subtitle></subtitle><entry><title type="html">Paper Write-up: Generative Adversarial Nets (2014)</title><link href="http://localhost:4000/2019/09/03/gans-paper.html" rel="alternate" type="text/html" title="Paper Write-up: Generative Adversarial Nets (2014)" /><published>2019-09-03T00:00:00+01:00</published><updated>2019-09-03T00:00:00+01:00</updated><id>http://localhost:4000/2019/09/03/gans-paper</id><content type="html" xml:base="http://localhost:4000/2019/09/03/gans-paper.html">&lt;p&gt;&lt;em&gt;I want to start doing blog posts on papers that I am currently reading, or papers that I love. This is the first in the series and it is the paper which proposed the GAN, one of the most exciting neural network models around that has gotten quite a lot of attention due to results.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;what-is-this-about&quot;&gt;What is this about?&lt;/h1&gt;
+&lt;p&gt;Notes on the the generative adversarial nets paper by &lt;a href=&quot;https://arxiv.org/abs/1406.2661&quot;&gt;Goodfellow et.al&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;The basic idea of the adversarial nets framework is that we have a generative model which is pitted against an adversary: a discriminative model that learns to determine whether a sample is from the model distribution or the data distribution.&lt;/p&gt;
+
+&lt;p&gt;A good analogy for this network is imagine a counterfeiter pitted against anti-fraud police. Ultimately the criminal party is trying to create currency that is indistinguishable from the real thing.&lt;/p&gt;
+
+&lt;p&gt;A benefit of these networks is that there’s no dependence on approximate inference and Markov chains. This model is simply trained using back-propagation and sampled using forward propagation.&lt;/p&gt;
+
+&lt;h2 id=&quot;formal-definition&quot;&gt;Formal Definition&lt;/h2&gt;
+&lt;p&gt;To learn the generators distribution $p_g$ over data $\mathbf{x}$ we a define a prior on input noise variables $p_{\mathbf{z}}(\mathbf{z})$ thene represent a mapping to data space as $G(\mathbf{z}; \theta_g)$ where $G$ is a differentiable function represented by a multilayer perceptron (MLP) with parameters $\theta_g$. We define a second MLP $D(\mathbf{x};\theta_d)$ that outputs a single scalar $D(\mathbf{x})$ that represents the probability that $\mathbf{x}$ came from the data rather than from $p_g$. $D$ is trained to maximize the probability of assigning the correct label to both training examples and samples from $G$. We simultaneously train $G$ to minimize $\log(1-D(G(\mathbf{x})))$.&lt;/p&gt;
+
+&lt;p&gt;$D$ and $G$ play the following minimax game with value function $V(G, D)$&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\min_G \max_G V(G, D) = \mathbb{E}_{\mathbf{x}\sim p_{data}(\mathbf{x})}[\log\ D(\mathbf{x})] + \mathbb{E}_{\mathbf{z}\sim p_{\mathbf{z}}(\mathbf{z})}[\log\ (1-D(G(\mathbf{z})))]&lt;/script&gt;
+
+&lt;p&gt;The problem with the above function is that it may not provide a sufficient gradient for $G$ to learn well. Early in the learning process when $G$ still provides poor samples, $D$ can reject samples with high confidence because they’re clearly different from the training data. Rather than train $G$ to minimize $\log\ 1 - D(G(\mathbf{x}))$ we can train it to maximize $\log\ (D(G(\mathbf{z})))$.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gans-prob.png&quot; alt=&quot;Prob Distribution&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The figure above illustrates pictorially the idea behind the training process (taken from the source paper). We have five lines: the black dotted line corresponds to the true distribution $p_{data}$. The green line corresponds to the probability of the generative model $p_{g}$. The blue dotted line corresponds to the discriminator probability. The lower horizontal line corresponds to the space in which $\mathbf{z}$ is sampled and the upper horizontal line is the sample space of $\mathbf{x}$. The upwards arrows show the function $\mathbf{x}=G(\mathbf{z})$.&lt;/p&gt;
+
+&lt;p&gt;As can be seen from the figure, prior to any training let’s consider the case in which $p_{G}$ is near convergence (a). As can be seen in $a$, the discriminator has no certain accuracy, and the generator isn’t producing convincing samples. (b) shows that $D$ is trained to discrimanate samples from dat, converging to $D^*(\mathbf{x}) = \frac{p_{data}(\mathbf{x})}{p_{data}(\mathbf{x}) + p_g(\mathbf{x})}$. (c) shows that after $G$ is updated, the gradient of $D$ has caused $G$ to flow to regions that are more likely. (d) shows the converged case, where after enough training steps, a point is reached which cannot be improved as $p_g = p_{data}$. The discriminator is unable to differentiate between the two probabilities and therefore $D(x) = \frac{1}{2}$.&lt;/p&gt;
+
+&lt;h2 id=&quot;theoretical-results&quot;&gt;Theoretical Results&lt;/h2&gt;
+&lt;p&gt;In this section of the paper, Goodfellow et.al define the algorithm which is used to train the model, as well as showing that the minimax game has a global optimum for $p_g=p_{data}$ and that the algorithm provided optimizes the min-max game function above. I would advise, if interested, to read through the proofs of the above in the &lt;a href=&quot;https://arxiv.org/abs/1406.2661&quot;&gt;original paper&lt;/a&gt;. Below is a screen-shot of the algorithm definition taken from the paper:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gans-alg.png&quot; alt=&quot;Algorithm 1&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+&lt;p&gt;Within this part of the paper, the authors show results of their network when trained on different generative model tasks such digit generation, and face and image generation. Again I would advise the reader to look at their results, although it’s worth noting that since the publishing of the paper GANs have been used to obtain much better &lt;a href=&quot;https://www.youtube.com/watch?time_continue=1&amp;amp;v=kSLJriaOumA&quot;&gt;(and sometimes frightening)&lt;/a&gt; results.&lt;/p&gt;
+
+&lt;h2 id=&quot;advantages-and-disadvantages&quot;&gt;Advantages and Disadvantages&lt;/h2&gt;
+&lt;h3 id=&quot;disadvantages&quot;&gt;Disadvantages&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;No explicit representation of the generative probability&lt;/li&gt;
+  &lt;li&gt;$D$ must be synchronized with $G$ during training so that $G$ is not trained too much without updates to $D$&lt;/li&gt;
+  &lt;li&gt;
+    &lt;h3 id=&quot;advantages&quot;&gt;Advantages&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;No need for Markov chains (only backprop used for training)&lt;/li&gt;
+  &lt;li&gt;No need for inference during learning&lt;/li&gt;
+  &lt;li&gt;Supports a wide range of functions&lt;/li&gt;
+  &lt;li&gt;Can represent “sharp” distributions&lt;/li&gt;
+  &lt;li&gt;Generator network not updated with data examples directly but only with gradients flowing through the discriminator.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Although this paper was released in 2014, it’s relevance can still be felt today through it’s many extensions. I hope I was able to shine a light on the GANs and the world therein.&lt;/p&gt;</content><author><name></name></author><summary type="html">I want to start doing blog posts on papers that I am currently reading, or papers that I love. This is the first in the series and it is the paper which proposed the GAN, one of the most exciting neural network models around that has gotten quite a lot of attention due to results.</summary></entry><entry><title type="html">Solving Textual Entailment with the DecAtt</title><link href="http://localhost:4000/2019/08/21/text-entailment.html" rel="alternate" type="text/html" title="Solving Textual Entailment with the DecAtt" /><published>2019-08-21T00:00:00+01:00</published><updated>2019-08-21T00:00:00+01:00</updated><id>http://localhost:4000/2019/08/21/text-entailment</id><content type="html" xml:base="http://localhost:4000/2019/08/21/text-entailment.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;In this post I will write about the problem of textual entailment and how one of my favourite models has been used to tackle the problem.&lt;/p&gt;
 
 &lt;h1 id=&quot;what-is-textual-entailment&quot;&gt;What is Textual Entailment?&lt;/h1&gt;
