@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Writing a Compiler from Scratch in Rust: The Lexer"
+title: "Writing a Compiler from Scratch in Rust Part 1: The Lexer"
 ---
 
 # Introduction
