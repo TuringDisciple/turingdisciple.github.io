@@ -65,5 +65,14 @@ vec![
     Token::Undefined(Some('x')),
     Token::SemiColon,
     Token::RCurly,
-    ]
+]
 ```
+
+What can be seen is that we're essentially from the source language and just generating representations for key components. Notice that whitespace is ignored as for a language like C0, whitespace serves no purpose other than to make it easier to read for people. 
+The reason that these tokens are encapsulated in a vector is that this is a dynamic data structure, and the data we have is ordered.
+
+# Conclusion
+Logically this isn't hard to understand, we have just provided a representation for the entire source file by just linearly reading the source thereby giving meaning to our source. This is what makes lexers so simple. So simple in fact that some compilers completely do away with an explicit lexing step, and just parse the language straight from source. This does in a sense make this blog post redundant, and I guess it serves a greater purpose as introducing this blog series.
+
+Now that our source has an attached "meaning", we can start parsing over the source language which will be covered in part 2. The source for the lexer can be found [here](https://github.com/nashpotato/C0-Compiler/blob/master/src/lexer/lexer.rs).
+ 

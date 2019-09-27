@@ -9,7 +9,7 @@
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="shortcut icon" type="image/png" href="/favicon.png">
-  <link rel="canonical" href="http://localhost:4000/2019/09/24/c0-compiler-lexer.html">
+  <link rel="canonical" href="http://localhost:4000/2019/09/27/c0-compiler-lexer.html">
   <link rel="alternate" type="application/rss+xml" title="nashpotato" href="/feed.xml">
   
   
@@ -67,9 +67,9 @@
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">Writing a Compiler from Scratch in Rust: The Lexer</h1>
     <p class="post-meta">
-      <time datetime="2019-09-24T00:00:00+01:00" itemprop="datePublished">
+      <time datetime="2019-09-27T00:00:00+01:00" itemprop="datePublished">
         
-        Sep 24, 2019
+        Sep 27, 2019
       </time>
       </p>
   </header>
@@ -137,8 +137,17 @@
     <span class="nn">Token</span><span class="p">::</span><span class="nf">Undefined</span><span class="p">(</span><span class="nf">Some</span><span class="p">(</span><span class="sc">'x'</span><span class="p">)),</span>
     <span class="nn">Token</span><span class="p">::</span><span class="n">SemiColon</span><span class="p">,</span>
     <span class="nn">Token</span><span class="p">::</span><span class="n">RCurly</span><span class="p">,</span>
-    <span class="p">]</span>
+<span class="p">]</span>
 </code></pre></div></div>
+
+<p>What can be seen is that we’re essentially from the source language and just generating representations for key components. Notice that whitespace is ignored as for a language like C0, whitespace serves no purpose other than to make it easier to read for people. 
+The reason that these tokens are encapsulated in a vector is that this is a dynamic data structure, and the data we have is ordered.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>Logically this isn’t hard to understand, we have just provided a representation for the entire source file by just linearly reading the source thereby giving meaning to our source. This is what makes lexers so simple. So simple in fact that some compilers completely do away with an explicit lexing step, and just parse the language straight from source. This does in a sense make this blog post redundant, and I guess it serves a greater purpose as introducing this blog series.</p>
+
+<p>Now that our source has an attached “meaning”, we can start parsing over the source language which will be covered in part 2. The source for the lexer can be found <a href="https://github.com/nashpotato/C0-Compiler/blob/master/src/lexer/lexer.rs">here</a>.</p>
+
 
   </div>
 
