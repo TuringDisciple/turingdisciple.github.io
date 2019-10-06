@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Information theory basics"
+title: "Information Theory Basics"
 --- 
 
 # Introduction
@@ -44,39 +44,38 @@ Furthermore if $p_X(x_k) = 1$ for some $k$, then $H(X) = 0$. This makes sense in
 The source coding theorem shows that the entropy $H(X)$ is a lower bound on the average length of a message using the most efficient code; it is a limit on the compressibility of the data. 
 
 # Joint entropy and conditional entropy
-The joint entropy is just the entropy pf the joint distribution:
+The joint entropy is just the entropy pf the joint distribution
 
 $$
-H(X, Y) = - \sum_{x, y}p_{X,Y}\log_{2} p_{X, Y}(x, y)
+H(X, Y) = - \sum_{x, y} p_{X,Y} \log_{2} p_{X, Y}(x, y)
 $$
 
 
-we can intuitively think of the conditional probabilty as the probability of a value multiplied by the conditional of another value when given the initial one i.e $p_(x, y) = p(x|y)p(y)$.
+we can intuitively think of the conditional probability as the probability of a value multiplied by the conditional of another value when given the initial one i.e $p_(x, y) = p(x\lvert y)p(y)$. The conditional entropy can then be given as follows
 
-The conditional entropy can then be given as follows
 
 $$
-H(X|Y=y) = - \sum_x p_{X|Y}(x|y)\log_2 p_{X|Y}(x|y)
+H(X\lvert Y=y) = - \sum_x p_{X\lvert  Y}(x\lvert y)\log_2 p_{X\lvert Y}(x\lvert y)
 $$
 
 This is the entropy of the variable $X$ if we know $Y=y$. The conditional probability is the **average** of this, averaged of all the values of $y$
 
 $$
-H(X|Y) = - \sum_y p_Y(y)H(X|Y=y) = - \sum_{x, y}p_(X, Y)\log_2 p_{X|Y}(x|y)
+H(X\lvert Y) = - \sum_y p_Y(y)H(X\lvert Y=y) = - \sum_{x, y}p_(X, Y)\log_2 p_{X\lvert Y}(x\lvert y)
 $$ 
 
-If $X$ and $Y$ are independent, then $H(X|Y) = H(X)$. Conversely if $X$ is determined by $Y$ i.e. $x = f(y)$, then in this case
+If $X$ and $Y$ are independent, then $H(X\lvert Y) = H(X)$. Conversely if $X$ is determined by $Y$ i.e. $x = f(y)$, then in this case
 
 $$
-H(X|Y) = 0
+H(X\lvert Y) = 0
 $$
 
-Intuitvely we can think of $H(X|Y)$ to be the average amount of information within $X$ given that we know $Y$.
+Intuitvely we can think of $H(X\lvert Y)$ to be the average amount of information within $X$ given that we know $Y$.
 
 There's also the chain rule of entropy
 
 $$
-H(X, Y) = H(X) + H(Y|X)
+H(X, Y) = H(X) + H(Y\lvert X)
 $$
 
 this intuitively makes sense as it describes how the joint information will be the information in $X$ as well as the information left-over in $Y$ when we have $X$.
@@ -90,4 +89,46 @@ $$
 
 Thus it is the amount of information in X and Y considered separately, minus the amount of information in them considered together.
 
-If the two distributions are independent $I(X, Y) = 0$, conversely if $Y$ is determined by $X$, then $H(Y|X) = 0$ and $H(X,Y) = H(X)$ and $I(X, Y) = H(Y)$.
+If the two distributions are independent $I(X, Y) = 0$, conversely if $Y$ is determined by $X$, then $H(Y\lvert X) = 0$ and $H(X,Y) = H(X)$ and $I(X, Y) = H(Y)$.
+
+Combining the mutual information and the chain rule gives new identities
+
+$$
+I(X, Y) = H(X) - H(X\lvert Y)
+$$
+
+and 
+
+$$ 
+I(X, Y) = H(Y) - H(Y\lvert X)
+$$
+. 
+
+A more direct formula is the following
+
+$$
+I(X, Y) = \sum_{x, y}p_{X, Y}(x, y)\log_2 \frac{p_{X, Y}(x, y)}{p_X(x)p_Y(y)}
+$$
+
+The mutual information is useful in that it determines the relatedness of random variables, irrespective of how the variables are related.
+
+# The data processing inequality
+A Markov chain is a triplet of random variables $X, Y, Z$ where roughly speaking $Z$ only learns about $X$ through $Y$. It's not necessary that $X$ and $Z$ are independent, just that if you know the value of $Y$, knowing the value of $X$ wouldn't tell you more. This is formally written as 
+
+$$ 
+X \rightarrow Y \rightarrow Z
+$$
+
+and say $X, Y, Z$ are a Markov chain if 
+
+$$
+p(x, z\lvert  y) = p(x\lvert y)p(z\lvert y)
+$$
+
+The data processing inequality therefore states
+
+$$
+I(X, Y) \geq I(X, Z)
+$$
+
+thus $Z$ can't know any more about $X$ than $Y$. 

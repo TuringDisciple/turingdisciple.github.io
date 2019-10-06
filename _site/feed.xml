@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-06T15:14:01+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nashpotato</title><subtitle></subtitle><entry><title type="html">Information theory basics</title><link href="http://localhost:4000/2019/10/06/info-theory-basics.html" rel="alternate" type="text/html" title="Information theory basics" /><published>2019-10-06T00:00:00+01:00</published><updated>2019-10-06T00:00:00+01:00</updated><id>http://localhost:4000/2019/10/06/info-theory-basics</id><content type="html" xml:base="http://localhost:4000/2019/10/06/info-theory-basics.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-06T15:29:28+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nashpotato</title><subtitle></subtitle><entry><title type="html">Information Theory Basics</title><link href="http://localhost:4000/2019/10/06/info-theory-basics.html" rel="alternate" type="text/html" title="Information Theory Basics" /><published>2019-10-06T00:00:00+01:00</published><updated>2019-10-06T00:00:00+01:00</updated><id>http://localhost:4000/2019/10/06/info-theory-basics</id><content type="html" xml:base="http://localhost:4000/2019/10/06/info-theory-basics.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Recently I have had the opportunity to learn a bit about information theory. Here are my crash course notes on the basic idea behind information theory. To learn more, Google is a great resource and so is the &lt;a href=&quot;http://www.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf&quot;&gt;original paper&lt;/a&gt; written by Shannon in the late 40s which proposed the theory. This is one of the most exciting mathematical concepts especially when it comes to wide reaching applications in computer science.&lt;/p&gt;
 
 &lt;p&gt;With information theory we are trying to understand the amount of information that can be communicated across a channel by only measuing the statistics of data travelling along that channel.&lt;/p&gt;
@@ -31,50 +31,27 @@
 &lt;p&gt;The source coding theorem shows that the entropy $H(X)$ is a lower bound on the average length of a message using the most efficient code; it is a limit on the compressibility of the data.&lt;/p&gt;
 
 &lt;h1 id=&quot;joint-entropy-and-conditional-entropy&quot;&gt;Joint entropy and conditional entropy&lt;/h1&gt;
-&lt;p&gt;The joint entropy is just the entropy pf the joint distribution:&lt;/p&gt;
+&lt;p&gt;The joint entropy is just the entropy pf the joint distribution&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X, Y) = - \sum_{x, y}p_{X,Y}\log_{2} p_{X, Y}(x, y)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X, Y) = - \sum_{x, y} p_{X,Y} \log_{2} p_{X, Y}(x, y)&lt;/script&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;we can intuitively think of the conditional probabilty as the probability of a value multiplied by the conditional of another value when given the initial one i.e $p_(x, y) = p(x&lt;/td&gt;
-      &lt;td&gt;y)p(y)$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;we can intuitively think of the conditional probability as the probability of a value multiplied by the conditional of another value when given the initial one i.e $p_(x, y) = p(x\lvert y)p(y)$. The conditional entropy can then be given as follows&lt;/p&gt;
 
-&lt;p&gt;The conditional entropy can then be given as follows&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X|Y=y) = - \sum_x p_{X|Y}(x|y)\log_2 p_{X|Y}(x|y)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X\lvert Y=y) = - \sum_x p_{X\lvert  Y}(x\lvert y)\log_2 p_{X\lvert Y}(x\lvert y)&lt;/script&gt;
 
 &lt;p&gt;This is the entropy of the variable $X$ if we know $Y=y$. The conditional probability is the &lt;strong&gt;average&lt;/strong&gt; of this, averaged of all the values of $y$&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X|Y) = - \sum_y p_Y(y)H(X|Y=y) = - \sum_{x, y}p_(X, Y)\log_2 p_{X|Y}(x|y)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X\lvert Y) = - \sum_y p_Y(y)H(X\lvert Y=y) = - \sum_{x, y}p_(X, Y)\log_2 p_{X\lvert Y}(x\lvert y)&lt;/script&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;If $X$ and $Y$ are independent, then $H(X&lt;/td&gt;
-      &lt;td&gt;Y) = H(X)$. Conversely if $X$ is determined by $Y$ i.e. $x = f(y)$, then in this case&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;If $X$ and $Y$ are independent, then $H(X\lvert Y) = H(X)$. Conversely if $X$ is determined by $Y$ i.e. $x = f(y)$, then in this case&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X|Y) = 0&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X\lvert Y) = 0&lt;/script&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Intuitvely we can think of $H(X&lt;/td&gt;
-      &lt;td&gt;Y)$ to be the average amount of information within $X$ given that we know $Y$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;Intuitvely we can think of $H(X\lvert Y)$ to be the average amount of information within $X$ given that we know $Y$.&lt;/p&gt;
 
 &lt;p&gt;There’s also the chain rule of entropy&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X, Y) = H(X) + H(Y|X)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X, Y) = H(X) + H(Y\lvert X)&lt;/script&gt;
 
 &lt;p&gt;this intuitively makes sense as it describes how the joint information will be the information in $X$ as well as the information left-over in $Y$ when we have $X$.&lt;/p&gt;
 
@@ -85,14 +62,37 @@
 
 &lt;p&gt;Thus it is the amount of information in X and Y considered separately, minus the amount of information in them considered together.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;If the two distributions are independent $I(X, Y) = 0$, conversely if $Y$ is determined by $X$, then $H(Y&lt;/td&gt;
-      &lt;td&gt;X) = 0$ and $H(X,Y) = H(X)$ and $I(X, Y) = H(Y)$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name></name></author><summary type="html">Introduction Recently I have had the opportunity to learn a bit about information theory. Here are my crash course notes on the basic idea behind information theory. To learn more, Google is a great resource and so is the original paper written by Shannon in the late 40s which proposed the theory. This is one of the most exciting mathematical concepts especially when it comes to wide reaching applications in computer science.</summary></entry><entry><title type="html">Writing a Compiler from Scratch in Rust Part 1: The Lexer</title><link href="http://localhost:4000/2019/09/27/c0-compiler-lexer.html" rel="alternate" type="text/html" title="Writing a Compiler from Scratch in Rust Part 1: The Lexer" /><published>2019-09-27T00:00:00+01:00</published><updated>2019-09-27T00:00:00+01:00</updated><id>http://localhost:4000/2019/09/27/c0-compiler-lexer</id><content type="html" xml:base="http://localhost:4000/2019/09/27/c0-compiler-lexer.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;If the two distributions are independent $I(X, Y) = 0$, conversely if $Y$ is determined by $X$, then $H(Y\lvert X) = 0$ and $H(X,Y) = H(X)$ and $I(X, Y) = H(Y)$.&lt;/p&gt;
+
+&lt;p&gt;Combining the mutual information and the chain rule gives new identities&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;I(X, Y) = H(X) - H(X\lvert Y)&lt;/script&gt;
+
+&lt;p&gt;and&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;I(X, Y) = H(Y) - H(Y\lvert X)&lt;/script&gt;
+.&lt;/p&gt;
+
+&lt;p&gt;A more direct formula is the following&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;I(X, Y) = \sum_{x, y}p_{X, Y}(x, y)\log_2 \frac{p_{X, Y}(x, y)}{p_X(x)p_Y(y)}&lt;/script&gt;
+
+&lt;p&gt;The mutual information is useful in that it determines the relatedness of random variables, irrespective of how the variables are related.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-data-processing-inequality&quot;&gt;The data processing inequality&lt;/h1&gt;
+&lt;p&gt;A Markov chain is a triplet of random variables $X, Y, Z$ where roughly speaking $Z$ only learns about $X$ through $Y$. It’s not necessary that $X$ and $Z$ are independent, just that if you know the value of $Y$, knowing the value of $X$ wouldn’t tell you more. This is formally written as&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;X \rightarrow Y \rightarrow Z&lt;/script&gt;
+
+&lt;p&gt;and say $X, Y, Z$ are a Markov chain if&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(x, z\lvert  y) = p(x\lvert y)p(z\lvert y)&lt;/script&gt;
+
+&lt;p&gt;The data processing inequality therefore states&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;I(X, Y) \geq I(X, Z)&lt;/script&gt;
+
+&lt;p&gt;thus $Z$ can’t know any more about $X$ than $Y$.&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction Recently I have had the opportunity to learn a bit about information theory. Here are my crash course notes on the basic idea behind information theory. To learn more, Google is a great resource and so is the original paper written by Shannon in the late 40s which proposed the theory. This is one of the most exciting mathematical concepts especially when it comes to wide reaching applications in computer science.</summary></entry><entry><title type="html">Writing a Compiler from Scratch in Rust Part 1: The Lexer</title><link href="http://localhost:4000/2019/09/27/c0-compiler-lexer.html" rel="alternate" type="text/html" title="Writing a Compiler from Scratch in Rust Part 1: The Lexer" /><published>2019-09-27T00:00:00+01:00</published><updated>2019-09-27T00:00:00+01:00</updated><id>http://localhost:4000/2019/09/27/c0-compiler-lexer</id><content type="html" xml:base="http://localhost:4000/2019/09/27/c0-compiler-lexer.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;In May of this year I started embarking on a project to write a full compiler for the &lt;a href=&quot;http://c0.typesafety.net/tutorial/&quot;&gt;C0&lt;/a&gt; programming language. This has been something I’ve been wanting to do for a while, but I had to put development of this compiler on the backburner due to university and work commitments. As of September I have picked up production of the compiler again.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/nashpotato/C0-Compiler&quot;&gt;Source repo&lt;/a&gt;&lt;/p&gt;
