@@ -1,4 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-09-27T23:04:55+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nashpotato</title><subtitle></subtitle><entry><title type="html">Writing a Compiler from Scratch in Rust: The Lexer</title><link href="http://localhost:4000/2019/09/27/c0-compiler-lexer.html" rel="alternate" type="text/html" title="Writing a Compiler from Scratch in Rust: The Lexer" /><published>2019-09-27T00:00:00+01:00</published><updated>2019-09-27T00:00:00+01:00</updated><id>http://localhost:4000/2019/09/27/c0-compiler-lexer</id><content type="html" xml:base="http://localhost:4000/2019/09/27/c0-compiler-lexer.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-06T15:14:01+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nashpotato</title><subtitle></subtitle><entry><title type="html">Information theory basics</title><link href="http://localhost:4000/2019/10/06/info-theory-basics.html" rel="alternate" type="text/html" title="Information theory basics" /><published>2019-10-06T00:00:00+01:00</published><updated>2019-10-06T00:00:00+01:00</updated><id>http://localhost:4000/2019/10/06/info-theory-basics</id><content type="html" xml:base="http://localhost:4000/2019/10/06/info-theory-basics.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Recently I have had the opportunity to learn a bit about information theory. Here are my crash course notes on the basic idea behind information theory. To learn more, Google is a great resource and so is the &lt;a href=&quot;http://www.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf&quot;&gt;original paper&lt;/a&gt; written by Shannon in the late 40s which proposed the theory. This is one of the most exciting mathematical concepts especially when it comes to wide reaching applications in computer science.&lt;/p&gt;
+
+&lt;p&gt;With information theory we are trying to understand the amount of information that can be communicated across a channel by only measuing the statistics of data travelling along that channel.&lt;/p&gt;
+
+&lt;h1 id=&quot;shannons-entropy&quot;&gt;Shannon’s entropy&lt;/h1&gt;
+&lt;p&gt;The theory of information starts with an attemp to allow us to quantify the informativeness of information, but not it’s salience or validity.&lt;/p&gt;
+
+&lt;p&gt;Shannon’s entropy is a single quantity that measures this idea of informativeness, balancing how useful a pieve of information is with how likely you are to get it.&lt;/p&gt;
+
+&lt;p&gt;Let $X$ be random variable for a finite discrete distribution of size $n$, and a probability mass function $p_{X}$ giving probabilities $p_{X}(x_i)$, the entropy is&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X) = - \sum_{x_i \in X} p_X(x_i)\log_2p_X(x_i)&lt;/script&gt;
+
+&lt;p&gt;The first thing to note is that this definition works for any sample space. $H(X)$ is always defined for all sample spaces, as all sample spaces have a defined probability for each element. A prpoperty of Shannon’s entropy is that&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X) \geq 0&lt;/script&gt;
+
+&lt;p&gt;This follows from $0\geq p_X(x_i) \leq 1$. Furthermore it can be trivially proven that if all events are equally likely then&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X) = \log \#(\mathcal X)&lt;/script&gt;
+
+&lt;p&gt;It can be proven also that&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X) \leq \log \# \mathcal(X)&lt;/script&gt;
+
+&lt;p&gt;This essentially means that the most informative an experiment can be is when we have no idea before the experiment of what the outcome is, which is essentially when every possibility is equally likely.&lt;/p&gt;
+
+&lt;p&gt;Furthermore if $p_X(x_k) = 1$ for some $k$, then $H(X) = 0$. This makes sense in that we have absolute certainty in an outcome meaning no information is gained by viewing the outcome.&lt;/p&gt;
+
+&lt;p&gt;The source coding theorem shows that the entropy $H(X)$ is a lower bound on the average length of a message using the most efficient code; it is a limit on the compressibility of the data.&lt;/p&gt;
+
+&lt;h1 id=&quot;joint-entropy-and-conditional-entropy&quot;&gt;Joint entropy and conditional entropy&lt;/h1&gt;
+&lt;p&gt;The joint entropy is just the entropy pf the joint distribution:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X, Y) = - \sum_{x, y}p_{X,Y}\log_{2} p_{X, Y}(x, y)&lt;/script&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;we can intuitively think of the conditional probabilty as the probability of a value multiplied by the conditional of another value when given the initial one i.e $p_(x, y) = p(x&lt;/td&gt;
+      &lt;td&gt;y)p(y)$.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The conditional entropy can then be given as follows&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X|Y=y) = - \sum_x p_{X|Y}(x|y)\log_2 p_{X|Y}(x|y)&lt;/script&gt;
+
+&lt;p&gt;This is the entropy of the variable $X$ if we know $Y=y$. The conditional probability is the &lt;strong&gt;average&lt;/strong&gt; of this, averaged of all the values of $y$&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X|Y) = - \sum_y p_Y(y)H(X|Y=y) = - \sum_{x, y}p_(X, Y)\log_2 p_{X|Y}(x|y)&lt;/script&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;If $X$ and $Y$ are independent, then $H(X&lt;/td&gt;
+      &lt;td&gt;Y) = H(X)$. Conversely if $X$ is determined by $Y$ i.e. $x = f(y)$, then in this case&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X|Y) = 0&lt;/script&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Intuitvely we can think of $H(X&lt;/td&gt;
+      &lt;td&gt;Y)$ to be the average amount of information within $X$ given that we know $Y$.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;There’s also the chain rule of entropy&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X, Y) = H(X) + H(Y|X)&lt;/script&gt;
+
+&lt;p&gt;this intuitively makes sense as it describes how the joint information will be the information in $X$ as well as the information left-over in $Y$ when we have $X$.&lt;/p&gt;
+
+&lt;h1 id=&quot;mutual-information&quot;&gt;Mutual information&lt;/h1&gt;
+&lt;p&gt;The mutual information is the measure of how related two distributions are, it is given by&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;I(X, Y) = H(X) + H(Y) - H(X, Y)&lt;/script&gt;
+
+&lt;p&gt;Thus it is the amount of information in X and Y considered separately, minus the amount of information in them considered together.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;If the two distributions are independent $I(X, Y) = 0$, conversely if $Y$ is determined by $X$, then $H(Y&lt;/td&gt;
+      &lt;td&gt;X) = 0$ and $H(X,Y) = H(X)$ and $I(X, Y) = H(Y)$.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name></name></author><summary type="html">Introduction Recently I have had the opportunity to learn a bit about information theory. Here are my crash course notes on the basic idea behind information theory. To learn more, Google is a great resource and so is the original paper written by Shannon in the late 40s which proposed the theory. This is one of the most exciting mathematical concepts especially when it comes to wide reaching applications in computer science.</summary></entry><entry><title type="html">Writing a Compiler from Scratch in Rust Part 1: The Lexer</title><link href="http://localhost:4000/2019/09/27/c0-compiler-lexer.html" rel="alternate" type="text/html" title="Writing a Compiler from Scratch in Rust Part 1: The Lexer" /><published>2019-09-27T00:00:00+01:00</published><updated>2019-09-27T00:00:00+01:00</updated><id>http://localhost:4000/2019/09/27/c0-compiler-lexer</id><content type="html" xml:base="http://localhost:4000/2019/09/27/c0-compiler-lexer.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;In May of this year I started embarking on a project to write a full compiler for the &lt;a href=&quot;http://c0.typesafety.net/tutorial/&quot;&gt;C0&lt;/a&gt; programming language. This has been something I’ve been wanting to do for a while, but I had to put development of this compiler on the backburner due to university and work commitments. As of September I have picked up production of the compiler again.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/nashpotato/C0-Compiler&quot;&gt;Source repo&lt;/a&gt;&lt;/p&gt;
