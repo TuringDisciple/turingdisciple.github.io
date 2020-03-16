@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Solving Textual Entailment with the DecAtt"
+title: "Solving Textual Entailment with the DecAtt Model"
 ---
 # Introduction
 In this post I will write about the problem of textual entailment and how one of my favourite models has been used to tackle the problem.
@@ -15,7 +15,7 @@ of 3 different classes.
 2. Contradiction $\neg p\rightarrow q$
 3. Neutral: cannot infer any logical relationship
 
-An example shows the problem a bit more clearly. Given the sentence $\textit{"President Trump visited the Detroit, Michigan"}$ an example of sentences which would meet the three categories is given below
+An example shows the problem a bit more clearly. Given the sentence $\textit{"President Trump visited Detroit, Michigan"}$ an example of sentences which would meet the three categories is given below
 
 1. Entailing sentence: $\textit{The President was in a US state}$
 2. Contradicting sentence: $\textit{The President has never left the white house}$
