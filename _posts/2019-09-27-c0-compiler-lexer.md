@@ -55,6 +55,8 @@ vec![
     Token::Undefined(Some('a')),
     Token::Undefined(Some('i')),
     Token::UndefineD(Some('n')),
+    Token::LBracket,
+    Token::RBracket,
     Token::LCurly,
     Token::Int,
     Token::Undefined(Some('x')),
