@@ -83,13 +83,8 @@
 <h1 id="what-are-compilers">What are Compilers?</h1>
 <p>For a brief primer, compilers are one of the most interesting but overlooked and underappreciated areas of CS. A compiler, as most programmers know, is involved in transforming a high level programming languages source code into something that can be understood and executed by a computer. The theory behind how these works is an active research area, and has been for decades. However, apart from compiler engineers themselves, most coders don’t really get into how compilers really work. For me personally I have always been interested in compilers, but never felt too confident in my ability to develop them. But that’s changed.</p>
 
-<h1 id="why-rust">Why Rust?</h1>
-<p><a href="https://www.rust-lang.org/">Rust</a> is a increasingly popular systems programming language. The reason for this popularity is I think down to one reason really.</p>
-
-<p><strong>For a lot of problems it’s preferable to C/C++</strong>: C/C++ are by far the most commonly used languages when it comes to systems programming but as a language it is quite old. Rust offers a host of new paradigms within the space of programming language design that have allowed for programmers to write fast, safe,high-performant code. Language features such as immutability, the ownership model and it’s rich type system mean that programming with Rust is not only more enjoyable but just safer. The Rust compiler, for any Rust programmer, is by far your best friend and the community and documentation are incredibly helpful. That is not to say that Rust is without flaw. Compared to C/C++, Rust isn’t necessarily the language of choice for very low-level close to the metal programming, and of course the ecosystem of systems development is still heavily dominated by C/C++, I still believe Rust to be a great language for development, and is certainly my choice for building this compiler.</p>
-
 <h1 id="the-compiler">The Compiler</h1>
-<p>And now I am done with my diatribe, now I can talk about the compiler. Compilers are typically split into several stages. Each stage represents a different part of the compilation stage. The diagram below illustrates these different stages.</p>
+<p>Compilers are typically split into several stages. Each stage represents a different part of the compilation stage. The diagram below illustrates these different stages.</p>
 
 <p><img src="/assets/compiler-phases.jpg" alt="Compiler Stages" /></p>
 
@@ -127,6 +122,8 @@
     <span class="nn">Token</span><span class="p">::</span><span class="nf">Undefined</span><span class="p">(</span><span class="nf">Some</span><span class="p">(</span><span class="sc">'a'</span><span class="p">)),</span>
     <span class="nn">Token</span><span class="p">::</span><span class="nf">Undefined</span><span class="p">(</span><span class="nf">Some</span><span class="p">(</span><span class="sc">'i'</span><span class="p">)),</span>
     <span class="nn">Token</span><span class="p">::</span><span class="nf">UndefineD</span><span class="p">(</span><span class="nf">Some</span><span class="p">(</span><span class="sc">'n'</span><span class="p">)),</span>
+    <span class="nn">Token</span><span class="p">::</span><span class="n">LBracket</span><span class="p">,</span>
+    <span class="nn">Token</span><span class="p">::</span><span class="n">RBracket</span><span class="p">,</span>
     <span class="nn">Token</span><span class="p">::</span><span class="n">LCurly</span><span class="p">,</span>
     <span class="nn">Token</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span>
     <span class="nn">Token</span><span class="p">::</span><span class="nf">Undefined</span><span class="p">(</span><span class="nf">Some</span><span class="p">(</span><span class="sc">'x'</span><span class="p">)),</span>
