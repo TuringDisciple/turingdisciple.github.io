@@ -4,12 +4,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>My Dissertation</title>
-  <meta name="description" content="A couple of days ago I completed my final year dissertation. It was a research project where I applied programming language theory to assist in formal verifi...">
+  <title>How does Type Theory fit into Programming Languages?</title>
+  <meta name="description" content="If you yourself have decided to make the brave decision to learn more about what makes programming languages tick, you have probably come across the term “Ty...">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="shortcut icon" type="image/png" href="/favicon.png">
-  <link rel="canonical" href="http://localhost:4000/2020/05/16/dissertation.html">
+  <link rel="canonical" href="http://localhost:4000/2020/05/24/types-systems.html">
   <link rel="alternate" type="application/rss+xml" title="nashpotato" href="/feed.xml">
   
   
@@ -65,21 +65,55 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">My Dissertation</h1>
+    <h1 class="post-title" itemprop="name headline">How does Type Theory fit into Programming Languages?</h1>
     <p class="post-meta">
-      <time datetime="2020-05-16T00:00:00+01:00" itemprop="datePublished">
+      <time datetime="2020-05-24T00:00:00+01:00" itemprop="datePublished">
         
-        May 16, 2020
+        May 24, 2020
       </time>
       </p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>A couple of days ago I completed my final year dissertation. It was a research project where I applied programming language theory to assist in formal verification of cryptography.</p>
+    <p>If you yourself have decided to make the brave decision to learn more about what makes programming languages tick, you have probably come across the term “Type Theory”. Regardless of your background the reaction that you may have to such a term is to assume that it relates to an abstract reasoning of type systems in languages - and depending on your attitude to theory you may be intrigued or dismayed.</p>
 
-<p>The full dissertation can be downloaded <a href="/assets/diss-final.pdf">here</a> or can be accessed via github <a href="https://github.com/nashpotato/diss-public">here</a>.</p>
+<p>With this post I wish to highlight what type theory is from an introductory sense, and how it fits into our understanding of programming languages. It should be noted that some ideas may be considered opinionted, but my core aim is for this post to act as a good introduction to the budding language designer/enthusiast to understand how type theory is a priceless tool in our arsenal.</p>
 
-<p><img src="/assets/front.png" alt="front" /></p>
+<h1 id="the-what">The What?</h1>
+<p>Typically when someone is considering learning type theory (TT), they usually struggle to find any introduction to the core ideas without having to deep dive into textbooks. This isn’t necessarily a bad thing; the theory of types does originate from ideas in 20th century mathematics relating to understanding computation and as such suffers from the syndrome of most mathematics in that textbooks are the go to. Textbooks can be hard to parse however if one doesn’t have time to delve into a text or pre-requisite knowledge to fully understand what is going on.</p>
+
+<p>What I seek to highlight TT in relation to our understanding/construction of programming languages (PLs). The idea of type in a language relates to the idea of representations of data. When we consider data in memory, we want to have certain gurantees on the behaviour of said data; this is encapsulated in the concept of a type. By way of example, suppose that we want to allow for data to represent the concept of an integer. In a language like Haskell this would be encapsulated in the <strong>Int</strong> type, which represents “a fixed-precision integer type with at least the range [-2^29 .. 2^29-1]”. With this type, we can assign it to a value, thereby saying that this value is of our <strong>Int</strong> type, and therefore can only take the aforementioned values.</p>
+
+<p>We may even construct other types; a <strong>Char</strong> type can be a representation of a unicode character; a <strong>Float</strong> a IEEE floating point number; an array a contigous collection of some data. All of these are just abstractions on data. Underneath the hood after our programs are compiled everything is just working on 0s and 1s. With types what we really gain is a model of computation that is more intuitive to our understanding of what we are manipulating.</p>
+
+<p>From this we can understand type theory to be the study of these of abstractions.</p>
+
+<h1 id="the-how">The How?</h1>
+<p>The language of abstraction is mathematics. The first major work on TT, the typed $\lambda$-calculus is a major type theory that has inspired major works in programming language theory (PLT). It can act as a perfect introduction into how TT is presented.</p>
+
+<p>The $\lambda$-calculus was created in the early 20th century by the mathematician Alonzo Church. Church wished to present a model of computation that would be used in solving the Entscheidungproblem proposed by David Hilbert and Wilhelm Ackerman.</p>
+
+<h1 id="further-reading">Further reading</h1>
+<p>The following is a list of resources for those wishing to know about TT and PLT in general</p>
+
+<h3 id="general">General</h3>
+<ul>
+  <li><a href="https://github.com/anton-trunov/plt-study">anton-trunov - PLT study</a></li>
+  <li><a href="https://github.com/jozefg/learn-tt">jozefg - learn-tt</a></li>
+</ul>
+
+<h3 id="papers">Papers</h3>
+<ul>
+  <li><a href="https://repository.ubn.ru.nl/bitstream/handle/2066/17231/17231.pdf">HP Barendregt-Lambda calculi with types</a></li>
+  <li><a href="http://homepages.inf.ed.ac.uk/wadler/papers/propositions-as-types/propositions-as-types.pdf">Phillip Wadler - Propositions as Types</a></li>
+</ul>
+
+<h3 id="bookscourse-notes">Books/Course Notes</h3>
+<ul>
+  <li><a href="https://www.cis.upenn.edu/~bcpierce/tapl/">Benjamin C.Pierce -Types and Programming Languages</a></li>
+  <li><a href="https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf">Simon Thompson - Type Theory and Functional Programming</a></li>
+  <li><a href="https://www.cs.ox.ac.uk/andrew.ker/docs/lambdacalculus-lecture-notes-ht2009.pdf">Oxford Course Notes - Lambda Calculus and Types</a></li>
+</ul>
 
   </div>
 
