@@ -4,9 +4,9 @@ title: About
 ---
 
 ### About
-This blog acts as a personal site for me to write about whatever takes my interest.
+I'm a Software Engineer with an interest in programming language design and theory, high-performance computing and computer architecture
 
-My github can be found [here](https://www.github.com/nasherm). My [Twitter](https://twitter.com/_nasherm) if you're interested. 
+My github can be found [here](https://www.github.com/nasherm). 
 
 Opinions my own
 
