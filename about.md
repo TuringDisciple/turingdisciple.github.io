@@ -4,7 +4,7 @@ title: About
 ---
 
 ### About
-I'm a Software Engineer with an interest in programming language design and theory, high-performance computing and computer architecture
+I'm a Software Engineer with an interest in compilers and HPC
 
 My github can be found [here](https://www.github.com/nasherm). 
 
