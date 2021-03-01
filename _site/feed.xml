@@ -1,456 +1,224 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-13T19:37:17+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Nashe Mncube</title><subtitle></subtitle><entry><title type="html">Updates, Restarting my Compiler and Shifting Interests</title><link href="http://localhost:4000/2020/09/13/changes.html" rel="alternate" type="text/html" title="Updates, Restarting my Compiler and Shifting Interests" /><published>2020-09-13T00:00:00+01:00</published><updated>2020-09-13T00:00:00+01:00</updated><id>http://localhost:4000/2020/09/13/changes</id><content type="html" xml:base="http://localhost:4000/2020/09/13/changes.html">&lt;h1 id=&quot;preamble-tldr&quot;&gt;Preamble, TL;DR&lt;/h1&gt;
-&lt;p&gt;It’s been a while since I’ve done a project/post and I intend to (re)start my projects.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-01T20:55:34+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Nashe Mncube</title><subtitle></subtitle><entry><title type="html">The Smallest Free Number - Pearls of Functional Algorithm Design</title><link href="http://localhost:4000/algorithms/2021/03/01/functional-pearls-1.html" rel="alternate" type="text/html" title="The Smallest Free Number - Pearls of Functional Algorithm Design" /><published>2021-03-01T00:00:00+00:00</published><updated>2021-03-01T00:00:00+00:00</updated><id>http://localhost:4000/algorithms/2021/03/01/functional-pearls-1</id><content type="html" xml:base="http://localhost:4000/algorithms/2021/03/01/functional-pearls-1.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
+text &lt;em&gt;Pearls of Functional Algorithm Design&lt;/em&gt; by Richard Bird for myself
+and perhaps yourself, the reader&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h1&gt;….&lt;/h1&gt;
-&lt;p&gt;It has been a while since I last wrote a blog post and the interim period their has been two major developments in my personal life.&lt;/p&gt;
+&lt;p&gt;These imports will become useful.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;I graduated from my MEng Computer Science program at the University of Bristol. This is a pretty big life step and it ends 4 years of 
-thankless but satisfying work. One of the main highlights of which was getting to do research into programming languages in particular 
-I worked on a research compiler for verified cryptography called &lt;a href=&quot;https://www.easycrypt.info/trac/&quot;&gt;EasyCrypt&lt;/a&gt;. The dissertation for my work is actually available on this website &lt;a href=&quot;https://nasherm.github.io/2020/07/16/diss.html&quot;&gt;here&lt;/a&gt;. I am thankful for everything I learnt as a student, and I’m looking forward to building on my foundations.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Which brings me to my next milestone which is that I started working for &lt;a href=&quot;https://www.arm.com/&quot;&gt;Arm&lt;/a&gt;, in particular I’ll be working on high performance computing(HPC) software.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Data.Array&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Data.Array.ST&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Data.List&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;partition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Now that I am fully rested from finishing University, settled into my new workplace, and I’ve started to find a rhythym, I have turned my attention to what’s next. And as such I have a decently sized backlog of projects and a growing reading list. One such project that I started a year and a half ago was the &lt;a href=&quot;https://nasherm.github.io/2019/09/27/c0-compiler-lexer.html&quot;&gt;compiler for the C0 programming language&lt;/a&gt;. That project acted as a way for me to not only develop my skills in the Rust programming language, but to also learn more about compiler construction. And although it has given me a lot of useful knowledge in Rust development I found myself looking at the project after a long hiatus and realising that it would be best to move away from Rust. As such, I have decided to implement the compiler in Haskell. A few months ago I wrote an entire parser and setup a Haskell tech stack, and if you go to the project repo &lt;a href=&quot;https://github.com/nasherm/c0hs&quot;&gt;here&lt;/a&gt; you can see the updated state( I will write another blog post about the parser soon). Next steps will be developing semantic assignment. My reasoning for moving away from Rust were partly pragmatic and partly preference. I do believe Rust to be an amazing language to work with, but for my personal interests I don’t think I can effectively achieve what I want to by tying myself to it. I predict a future where I revisit Rust development, but for now it has been put partly to bed.&lt;/p&gt;
+&lt;h1 id=&quot;the-smallest-free-number&quot;&gt;The Smallest Free Number&lt;/h1&gt;
 
-&lt;p&gt;This project alongside other secret and not-so-secret projects are my primary focus as of writing this. They are all decently large and as such I predict I will have a lot to blog about. There are also multiple subjects that I plan to read and learn about and I will most likely blog about those out of curiosity. It should be noted that my interests as a CS major have narrowed over the year as I found my ‘niche’. If you are interested in programming language design and implementation (especially functional programming), computer architecture, and HPC there’s no doubt I will have something for you. Machine learning and cryptography will most likely not get as much attention from me.&lt;/p&gt;
+&lt;p&gt;The problem is as follows: compute the smallest natural number not in a given
+finite set X of natural numbers.&lt;/p&gt;
 
-&lt;p&gt;Globally speaking, the pandemic has drastically changed the way that we currently live our lives and has made a lot of our collective futures quite murky. I’m grateful that I’ve had a family that have been a great source of strength in these testing times, but I recognise how lucky I am to be in such a situation. I hope that whoever is reading this is keeping safe and thank you for reading.&lt;/p&gt;</content><author><name></name></author><summary type="html">Preamble, TL;DR It’s been a while since I’ve done a project/post and I intend to (re)start my projects.</summary></entry><entry><title type="html">My Dissertation</title><link href="http://localhost:4000/2020/07/16/diss.html" rel="alternate" type="text/html" title="My Dissertation" /><published>2020-07-16T00:00:00+01:00</published><updated>2020-07-16T00:00:00+01:00</updated><id>http://localhost:4000/2020/07/16/diss</id><content type="html" xml:base="http://localhost:4000/2020/07/16/diss.html">&lt;p&gt;My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.&lt;/p&gt;
+&lt;p&gt;The solution is dependent on the representation of X. If we have a set
+that’s sorted, then we can simply search for the first gap. But in an
+unsorted list, we can’t rely on a linear search.
+It turns out that there exists a linear time solution to the
+problem despite the fact that linear time solutions to list sorting
+don’t exist.&lt;/p&gt;
+
+&lt;h2 id=&quot;array-based-solution&quot;&gt;Array Based Solution&lt;/h2&gt;
+&lt;p&gt;We can specify the problem as the following.&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minFree&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;minFree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We use Int so as to only rely on core Haskell without having to import
+a package. I could also implement a Nat datatype manually, but that would
+be extra work distracting from the main purpose of this problem.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;xs\\ys&lt;/code&gt; denotes the list of elements of xs that remain after removing
+any elements in ys.&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eq&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notElem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This solution runs with worst case $n^2$ complexity on a list of length
+$n$. For example, minFree $[n-1, …, 0]$ needs evaluating all  $i \notin [n-1, …, 0]$
+for $0 \le i \le n$ which is $n(n+1)/2$ comparisons.&lt;/p&gt;
+
+&lt;p&gt;The above solution relies on that not every number in the range
+$[0 .. length\ xs]$ can be in xs.&lt;/p&gt;
+
+&lt;p&gt;The above solution conceptually builds a boolean array with n+1 slots
+numbered from 0 to n, whose entries are initially False. For each element
+$x \in xs$, with $x \le n$, we set the position $x$ in $xs$ to True.
+minfree can then be considered to be the position of the first false
+entry&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minFree'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;checklist&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Array&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Bool&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;takeWhile&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elems&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Search in the above context takes a fixed size array of booleans, and
+converts it into a list of booleans and the returns the length
+of the longest initial segment consisting of True entries.&lt;/p&gt;
+
+&lt;p&gt;We can implement &lt;code class=&quot;highlighter-rouge&quot;&gt;checklist&lt;/code&gt; in linear time using the function
+&lt;code class=&quot;highlighter-rouge&quot;&gt;accumArray&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;Data.Array&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;accumArray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Ix&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Array&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;A rundown of this type signature is as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The type constraint &lt;code class=&quot;highlighter-rouge&quot;&gt;Ix i&lt;/code&gt; restricts the type &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; to an index types. These
+are types consisting of a contiguous subrange of values which
+can be mapped to integers. This will be used to name indices
+in our array.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(e-&amp;gt;a-&amp;gt;e)&lt;/code&gt; is an accumulating function which will be used to transform
+array entries and values into new entries,&lt;/li&gt;
+  &lt;li&gt;our second argument is an initial entry for each index,&lt;/li&gt;
+  &lt;li&gt;the third argument is a pair naming the upper and lower indices,&lt;/li&gt;
+  &lt;li&gt;the foruth is an association list of index-value pairs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;What this function will do is build an array by processing the association
+list from left to right, combining entries and values into new entries using
+the accumulating function. This is a linear time process in terms of the length
+of the association list assuming a constant time association function.&lt;/p&gt;
+
+&lt;p&gt;N.B. An association list can be thought of a as a dictionary made from a linked-list
+of key-value pairs. The value is &lt;em&gt;associated&lt;/em&gt; with the key. Search is sequential
+to find a value associated with a key.&lt;/p&gt;
+
+&lt;p&gt;We now define checklist&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;checklist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Array&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Bool&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;checklist&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accumArray&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;||&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;False&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zip&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;repeat&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                      &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;accumArray&lt;/code&gt; can be used to sort a list of numbers in linear time &lt;em&gt;if&lt;/em&gt;
+elements are in a known range e.g. $(0, n)$. We to do this, let’s define a
+similar function to checklist called countlist&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;countlist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Array&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;countlist&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accumArray&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zip&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;repeat&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then we can define a sort function&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concat&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replicate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;assocs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;countlist&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Using &lt;code class=&quot;highlighter-rouge&quot;&gt;countlist&lt;/code&gt; we can implement &lt;code class=&quot;highlighter-rouge&quot;&gt;minFree&lt;/code&gt; as the position of the first $(x, 0)$ entry.&lt;/p&gt;
+
+&lt;p&gt;Another way of implementing checklist is to tick off entries using a constant
+time update operation. This can be done using a monad encapsulating the operations.&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;checklist'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Array&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Bool&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;checklist'&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runSTArray&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;do&lt;/span&gt;
+                      &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newArray&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;False&lt;/span&gt;
+                      &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;writeArray&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;True&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                      &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                      &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What’s going on here in our do? Well it looks quite similar to an imperative program.
+The first line constructs an array with every value in our range $(0, n)$ initialised
+to false. We then perform a list comprehension where we rewrite all values in a
+to true if they are within xs. We require sequence as this transforms our list
+of monads into monad with results. We then return a, our updated array. &lt;code class=&quot;highlighter-rouge&quot;&gt;runSTArray&lt;/code&gt;
+is a way to create a mutable array before returning an immutable result. In particular
+we avoid copying the array for modification before returning it.&lt;/p&gt;
+
+&lt;h2 id=&quot;divide-and-conquer-solution&quot;&gt;Divide and Conquer solution&lt;/h2&gt;
+
+&lt;p&gt;We now turn to a divide and conquer solution. The idea is summed up by
+the expression minfree (xs ++ ys) $\equiv$ minfree xs ++ minfree ys. We first note some properties of &lt;code class=&quot;highlighter-rouge&quot;&gt;\\&lt;/code&gt;. Remember the definition of &lt;code class=&quot;highlighter-rouge&quot;&gt;\\&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eq&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notElem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;with the following properties&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cs&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;These aren’t proven for brevity. These laws are similar to laws of union in set theory where
+&lt;code class=&quot;highlighter-rouge&quot;&gt;++&lt;/code&gt; is union and &lt;code class=&quot;highlighter-rouge&quot;&gt;\\&lt;/code&gt;is difference.
+Suppose that &lt;code class=&quot;highlighter-rouge&quot;&gt;as&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;vs&lt;/code&gt; are disjoint i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;as \\ vs = as&lt;/code&gt;, and
+also &lt;code class=&quot;highlighter-rouge&quot;&gt;bs&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;us&lt;/code&gt; are disjoint so &lt;code class=&quot;highlighter-rouge&quot;&gt;bs\\us = bs&lt;/code&gt;. It follows that&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Lets choose natural number $b$ and let &lt;code class=&quot;highlighter-rouge&quot;&gt;as = [0..b-1]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;bs = [b..]&lt;/code&gt;.
+Let &lt;code class=&quot;highlighter-rouge&quot;&gt;us = filter (&amp;lt; b) xs&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;vs = filter (&amp;gt;= b) xs&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Partition is an efficient function for dividing a list.&lt;/p&gt;
+
+&lt;p&gt;Since &lt;code class=&quot;highlighter-rouge&quot;&gt;head (xs ++ ys) = if null xs then head ys else head xs&lt;/code&gt; we can conclude for natural
+number $b$&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minfree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+             &lt;span class=&quot;kr&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+             &lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+             &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can speed up some of the above operations. For example the check
+&lt;code class=&quot;highlighter-rouge&quot;&gt;null ([0..b-1]\\us)&lt;/code&gt; can be performed in costant time assuming &lt;code class=&quot;highlighter-rouge&quot;&gt;us&lt;/code&gt; is a list
+of distinct natural numbers as well as every element is less than $b$:&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;≡&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can generalise &lt;code class=&quot;highlighter-rouge&quot;&gt;minfree&lt;/code&gt; to a function, which we call &lt;code class=&quot;highlighter-rouge&quot;&gt;minfrom&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;where every element of &lt;code class=&quot;highlighter-rouge&quot;&gt;xs&lt;/code&gt; is assumed to be greater than or equal to &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;. Then provided we select
+$b$ so that both &lt;code class=&quot;highlighter-rouge&quot;&gt;length us&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;length vs&lt;/code&gt; are less than &lt;code class=&quot;highlighter-rouge&quot;&gt;length xs&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minfree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+             &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;
+             &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;otherwise&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;
+             &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So how do we select $b$? Ideally our value of $b$ is such that the maximum of &lt;code class=&quot;highlighter-rouge&quot;&gt;length us&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;length vs&lt;/code&gt; is as small as possible &lt;em&gt;and&lt;/em&gt; $b\gt a$.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;b = a + 1 + n\ div\ 2&lt;/script&gt;
+
+&lt;p&gt;where div is floored division.&lt;/p&gt;
+
+&lt;p&gt;If $n \ne 0$ and &lt;code class=&quot;highlighter-rouge&quot;&gt;length us &amp;lt; b − a&lt;/code&gt;, then
+&lt;code class=&quot;highlighter-rouge&quot;&gt;length us ≤ n div 2 &amp;lt; n&lt;/code&gt;
+And, if &lt;code class=&quot;highlighter-rouge&quot;&gt;length us = b − a&lt;/code&gt;, then &lt;code class=&quot;highlighter-rouge&quot;&gt;length vs = n − n div 2 − 1 ≤ n div 2&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;With this choice the number of steps $T(n)$ for evaluating &lt;code class=&quot;highlighter-rouge&quot;&gt;minfrom 0 xs
+when n = length xs&lt;/code&gt; satisfies $T(n) = T(n\ div\ 2) + Θ(n)$, with the solution
+$T(n) = Θ(n)$.&lt;/p&gt;
+
+&lt;p&gt;A final optimisation is we can avoid computing length by represent xs as a pair &lt;code class=&quot;highlighter-rouge&quot;&gt;(length xs, xs)&lt;/code&gt;. Our final solution then looks like the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minfree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+                  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;otherwise&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                  &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader</summary></entry><entry><title type="html">My Dissertation</title><link href="http://localhost:4000/2020/07/16/diss.html" rel="alternate" type="text/html" title="My Dissertation" /><published>2020-07-16T00:00:00+01:00</published><updated>2020-07-16T00:00:00+01:00</updated><id>http://localhost:4000/2020/07/16/diss</id><content type="html" xml:base="http://localhost:4000/2020/07/16/diss.html">&lt;p&gt;My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.&lt;/p&gt;
 
 &lt;p&gt;The full dissertation can be downloaded &lt;a href=&quot;/assets/diss-final.pdf&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/front.png&quot; alt=&quot;front&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.</summary></entry><entry><title type="html">Information Theory Basics</title><link href="http://localhost:4000/2019/10/06/info-theory-basics.html" rel="alternate" type="text/html" title="Information Theory Basics" /><published>2019-10-06T00:00:00+01:00</published><updated>2019-10-06T00:00:00+01:00</updated><id>http://localhost:4000/2019/10/06/info-theory-basics</id><content type="html" xml:base="http://localhost:4000/2019/10/06/info-theory-basics.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;Recently I have had the opportunity to learn a bit about information theory. Here are my crash course notes on the basic idea behind information theory. To learn more, Google is a great resource and so is the &lt;a href=&quot;http://www.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf&quot;&gt;original paper&lt;/a&gt; written by Shannon in the late 40s which proposed the theory. This is one of the most exciting mathematical concepts especially when it comes to wide reaching applications in computer science.&lt;/p&gt;
-
-&lt;p&gt;With information theory we are trying to understand the amount of information that can be communicated across a channel by only measuing the statistics of data travelling along that channel.&lt;/p&gt;
-
-&lt;h1 id=&quot;shannons-entropy&quot;&gt;Shannon’s entropy&lt;/h1&gt;
-&lt;p&gt;The theory of information starts with an attemp to allow us to quantify the informativeness of information, but not it’s salience or validity.&lt;/p&gt;
-
-&lt;p&gt;Shannon’s entropy is a single quantity that measures this idea of informativeness, balancing how useful a pieve of information is with how likely you are to get it.&lt;/p&gt;
-
-&lt;p&gt;Let $X$ be random variable for a finite discrete distribution of size $n$, and a probability mass function $p_{X}$ giving probabilities $p_{X}(x_i)$, the entropy is&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X) = - \sum_{x_i \in X} p_X(x_i)\log_2p_X(x_i)&lt;/script&gt;
-
-&lt;p&gt;The first thing to note is that this definition works for any sample space. $H(X)$ is always defined for all sample spaces, as all sample spaces have a defined probability for each element. A prpoperty of Shannon’s entropy is that&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X) \geq 0&lt;/script&gt;
-
-&lt;p&gt;This follows from $0\geq p_X(x_i) \leq 1$. Furthermore it can be trivially proven that if all events are equally likely then&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X) = \log \#(\mathcal X)&lt;/script&gt;
-
-&lt;p&gt;It can be proven also that&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X) \leq \log \# \mathcal(X)&lt;/script&gt;
-
-&lt;p&gt;This essentially means that the most informative an experiment can be is when we have no idea before the experiment of what the outcome is, which is essentially when every possibility is equally likely.&lt;/p&gt;
-
-&lt;p&gt;Furthermore if $p_X(x_k) = 1$ for some $k$, then $H(X) = 0$. This makes sense in that we have absolute certainty in an outcome meaning no information is gained by viewing the outcome.&lt;/p&gt;
-
-&lt;p&gt;The source coding theorem shows that the entropy $H(X)$ is a lower bound on the average length of a message using the most efficient code; it is a limit on the compressibility of the data.&lt;/p&gt;
-
-&lt;h1 id=&quot;joint-entropy-and-conditional-entropy&quot;&gt;Joint entropy and conditional entropy&lt;/h1&gt;
-&lt;p&gt;The joint entropy is just the entropy pf the joint distribution&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X, Y) = - \sum_{x, y} p_{X,Y} \log_{2} p_{X, Y}(x, y)&lt;/script&gt;
-
-&lt;p&gt;we can intuitively think of the conditional probability as the probability of a value multiplied by the conditional of another value when given the initial one i.e $p_(x, y) = p(x\lvert y)p(y)$. The conditional entropy can then be given as follows&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X\lvert Y=y) = - \sum_x p_{X\lvert  Y}(x\lvert y)\log_2 p_{X\lvert Y}(x\lvert y)&lt;/script&gt;
-
-&lt;p&gt;This is the entropy of the variable $X$ if we know $Y=y$. The conditional probability is the &lt;strong&gt;average&lt;/strong&gt; of this, averaged of all the values of $y$&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X\lvert Y) = - \sum_y p_Y(y)H(X\lvert Y=y) = - \sum_{x, y}p_(X, Y)\log_2 p_{X\lvert Y}(x\lvert y)&lt;/script&gt;
-
-&lt;p&gt;If $X$ and $Y$ are independent, then $H(X\lvert Y) = H(X)$. Conversely if $X$ is determined by $Y$ i.e. $x = f(y)$, then in this case&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X\lvert Y) = 0&lt;/script&gt;
-
-&lt;p&gt;Intuitvely we can think of $H(X\lvert Y)$ to be the average amount of information within $X$ given that we know $Y$.&lt;/p&gt;
-
-&lt;p&gt;There’s also the chain rule of entropy&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(X, Y) = H(X) + H(Y\lvert X)&lt;/script&gt;
-
-&lt;p&gt;this intuitively makes sense as it describes how the joint information will be the information in $X$ as well as the information left-over in $Y$ when we have $X$.&lt;/p&gt;
-
-&lt;h1 id=&quot;mutual-information&quot;&gt;Mutual information&lt;/h1&gt;
-&lt;p&gt;The mutual information is the measure of how related two distributions are, it is given by&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;I(X, Y) = H(X) + H(Y) - H(X, Y)&lt;/script&gt;
-
-&lt;p&gt;Thus it is the amount of information in X and Y considered separately, minus the amount of information in them considered together.&lt;/p&gt;
-
-&lt;p&gt;If the two distributions are independent $I(X, Y) = 0$, conversely if $Y$ is determined by $X$, then $H(Y\lvert X) = 0$ and $H(X,Y) = H(X)$ and $I(X, Y) = H(Y)$.&lt;/p&gt;
-
-&lt;p&gt;Combining the mutual information and the chain rule gives new identities&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;I(X, Y) = H(X) - H(X\lvert Y)&lt;/script&gt;
-
-&lt;p&gt;and&lt;/p&gt;
-
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;I(X, Y) = H(Y) - H(Y\lvert X)&lt;/script&gt;
-.&lt;/p&gt;
-
-&lt;p&gt;A more direct formula is the following&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;I(X, Y) = \sum_{x, y}p_{X, Y}(x, y)\log_2 \frac{p_{X, Y}(x, y)}{p_X(x)p_Y(y)}&lt;/script&gt;
-
-&lt;p&gt;The mutual information is useful in that it determines the relatedness of random variables, irrespective of how the variables are related.&lt;/p&gt;
-
-&lt;h1 id=&quot;the-data-processing-inequality&quot;&gt;The data processing inequality&lt;/h1&gt;
-&lt;p&gt;A Markov chain is a triplet of random variables $X, Y, Z$ where roughly speaking $Z$ only learns about $X$ through $Y$. It’s not necessary that $X$ and $Z$ are independent, just that if you know the value of $Y$, knowing the value of $X$ wouldn’t tell you more. This is formally written as&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;X \rightarrow Y \rightarrow Z&lt;/script&gt;
-
-&lt;p&gt;and say $X, Y, Z$ are a Markov chain if&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(x, z\lvert  y) = p(x\lvert y)p(z\lvert y)&lt;/script&gt;
-
-&lt;p&gt;The data processing inequality therefore states&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;I(X, Y) \geq I(X, Z)&lt;/script&gt;
-
-&lt;p&gt;thus $Z$ can’t know any more about $X$ than $Y$.&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction Recently I have had the opportunity to learn a bit about information theory. Here are my crash course notes on the basic idea behind information theory. To learn more, Google is a great resource and so is the original paper written by Shannon in the late 40s which proposed the theory. This is one of the most exciting mathematical concepts especially when it comes to wide reaching applications in computer science.</summary></entry><entry><title type="html">Writing a Compiler from Scratch in Rust Part 1: The Lexer</title><link href="http://localhost:4000/2019/09/27/c0-compiler-lexer.html" rel="alternate" type="text/html" title="Writing a Compiler from Scratch in Rust Part 1: The Lexer" /><published>2019-09-27T00:00:00+01:00</published><updated>2019-09-27T00:00:00+01:00</updated><id>http://localhost:4000/2019/09/27/c0-compiler-lexer</id><content type="html" xml:base="http://localhost:4000/2019/09/27/c0-compiler-lexer.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;In May of this year I started embarking on a project to write a full compiler for the &lt;a href=&quot;http://c0.typesafety.net/tutorial/&quot;&gt;C0&lt;/a&gt; programming language. This has been something I’ve been wanting to do for a while, but I had to put development of this compiler on the backburner due to university and work commitments. As of September I have picked up production of the compiler again.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/nashpotato/C0-Compiler&quot;&gt;Source repo&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;what-are-compilers&quot;&gt;What are Compilers?&lt;/h1&gt;
-&lt;p&gt;For a brief primer, compilers are one of the most interesting but overlooked and underappreciated areas of CS. A compiler, as most programmers know, is involved in transforming a high level programming languages source code into something that can be understood and executed by a computer. The theory behind how these works is an active research area, and has been for decades. However, apart from compiler engineers themselves, most coders don’t really get into how compilers really work. For me personally I have always been interested in compilers, but never felt too confident in my ability to develop them. But that’s changed.&lt;/p&gt;
-
-&lt;h1 id=&quot;the-compiler&quot;&gt;The Compiler&lt;/h1&gt;
-&lt;p&gt;Compilers are typically split into several stages. Each stage represents a different part of the compilation stage. The diagram below illustrates these different stages.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/compiler-phases.jpg&quot; alt=&quot;Compiler Stages&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Each stage does the following&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Lexical analysis&lt;/strong&gt;: in this stage we take the source code from the original program and extract out tokens which represent different lexical components.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Syntax analysis&lt;/strong&gt;: in this step we build a representation of syntactic meaning called an &lt;a href=&quot;https://en.wikipedia.org/wiki/Abstract_syntax_tree&quot;&gt;abstract syntax tree&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Semantic analysis&lt;/strong&gt;: here we perform analysis on the AST&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Intermediate code generation&lt;/strong&gt;: here we generate something called intermediate representation code. The purpose of this step is to generate a platform independent representation of the language that can be passed for optimisation. This eliminates the need for writing optimisers that are platform dependent. So if we are compiling for an ARM processor, or a x86 processor, the IR step ensures that we optimise for a representation that is independent from these architectures before being compiled for these architectures. This is easier than writing optimisers for individual architecture languages.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Optimisation&lt;/strong&gt;: this is the really fun step where code is optimised to improve performance. &lt;a href=&quot;https://en.wikipedia.org/wiki/Optimizing_compiler#Types_of_optimization&quot;&gt;There’s a wide range &lt;/a&gt; of optimisations that can be performed in this step.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Code generation&lt;/strong&gt;: here we generate the code that we are compiling to.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Target code optimisation&lt;/strong&gt;: this step may be useful if there are optimisations that are dependent on the target code language.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Target code generation&lt;/strong&gt;: here we produce the executable code for the target.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The descriptions above are quite high level but cover the gist of what is going on in compilers. The purpose of this post is to discuss the lexing step which I have implemented in my compiler.&lt;/p&gt;
-
-&lt;h1 id=&quot;the-lexer&quot;&gt;The Lexer&lt;/h1&gt;
-&lt;p&gt;The lexer is a by far the simplest stage in the compilation step and really just involves taking the original source code, and producing tokens that represent individual language components. This is quite hard to explain in words, so let’s look at some code. Let’s look at an example C0 program&lt;/p&gt;
-
-&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;and let’s look at the output of passing this program through the lexer&lt;/p&gt;
-
-&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;vec!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'m'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'i'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;UndefineD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LBracket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RBracket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LCurly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'x'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SemicColon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'x'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SemiColon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nn&quot;&gt;Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RCurly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;What can be seen is that we’re essentially from the source language and just generating representations for key components. Notice that whitespace is ignored as for a language like C0, whitespace serves no purpose other than to make it easier to read for people. 
-The reason that these tokens are encapsulated in a vector is that this is a dynamic data structure, and the data we have is ordered.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;Logically this isn’t hard to understand, we have just provided a representation for the entire source file by just linearly reading the source thereby giving meaning to our source. This is what makes lexers so simple. So simple in fact that some compilers completely do away with an explicit lexing step, and just parse the language straight from source. This does in a sense make this blog post redundant, and I guess it serves a greater purpose as introducing this blog series.&lt;/p&gt;
-
-&lt;p&gt;Now that our source has an attached “meaning”, we can start parsing over the source language which will be covered in part 2. The source for the lexer can be found &lt;a href=&quot;https://github.com/nashpotato/C0-Compiler/blob/master/src/lexer/lexer.rs&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction In May of this year I started embarking on a project to write a full compiler for the C0 programming language. This has been something I’ve been wanting to do for a while, but I had to put development of this compiler on the backburner due to university and work commitments. As of September I have picked up production of the compiler again.</summary></entry><entry><title type="html">Paper Write-up: Generative Adversarial Nets (2014)</title><link href="http://localhost:4000/2019/09/09/gans-paper.html" rel="alternate" type="text/html" title="Paper Write-up: Generative Adversarial Nets (2014)" /><published>2019-09-09T00:00:00+01:00</published><updated>2019-09-09T00:00:00+01:00</updated><id>http://localhost:4000/2019/09/09/gans-paper</id><content type="html" xml:base="http://localhost:4000/2019/09/09/gans-paper.html">&lt;p&gt;&lt;em&gt;I want to start doing blog posts on papers that I am currently reading, or papers that I love. This is the first in the series and it is the paper which proposed the GAN, one of the most exciting neural network models around that has gotten quite a lot of attention due to results.&lt;/em&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;what-is-this-about&quot;&gt;What is this about?&lt;/h1&gt;
-&lt;p&gt;Notes on the the generative adversarial nets paper by &lt;a href=&quot;https://arxiv.org/abs/1406.2661&quot;&gt;Goodfellow et.al&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;The basic idea of the adversarial nets framework is that we have a generative model which is pitted against an adversary: a discriminative model that learns to determine whether a sample is from the model distribution or the data distribution.&lt;/p&gt;
-
-&lt;p&gt;A good analogy for this network is imagine a counterfeiter pitted against anti-fraud police. Ultimately the criminal party is trying to create currency that is indistinguishable from the real thing.&lt;/p&gt;
-
-&lt;p&gt;A benefit of these networks is that there’s no dependence on approximate inference and Markov chains. This model is simply trained using back-propagation and sampled using forward propagation.&lt;/p&gt;
-
-&lt;h2 id=&quot;formal-definition&quot;&gt;Formal Definition&lt;/h2&gt;
-&lt;p&gt;To learn the generators distribution $p_g$ over data $\mathbf{x}$ we a define a prior on input noise variables $p_{\mathbf{z}}(\mathbf{z})$ thene represent a mapping to data space as $G(\mathbf{z}; \theta_g)$ where $G$ is a differentiable function represented by a multilayer perceptron (MLP) with parameters $\theta_g$. We define a second MLP $D(\mathbf{x};\theta_d)$ that outputs a single scalar $D(\mathbf{x})$ that represents the probability that $\mathbf{x}$ came from the data rather than from $p_g$. $D$ is trained to maximize the probability of assigning the correct label to both training examples and samples from $G$. We simultaneously train $G$ to minimize $\log(1-D(G(\mathbf{x})))$.&lt;/p&gt;
-
-&lt;p&gt;$D$ and $G$ play the following minimax game with value function $V(G, D)$&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\min_G \max_G V(G, D) = \mathbb{E}_{\mathbf{x}\sim p_{data}(\mathbf{x})}[\log\ D(\mathbf{x})] + \mathbb{E}_{\mathbf{z}\sim p_{\mathbf{z}}(\mathbf{z})}[\log\ (1-D(G(\mathbf{z})))]&lt;/script&gt;
-
-&lt;p&gt;The problem with the above function is that it may not provide a sufficient gradient for $G$ to learn well. Early in the learning process when $G$ still provides poor samples, $D$ can reject samples with high confidence because they’re clearly different from the training data. Rather than train $G$ to minimize $\log\ 1 - D(G(\mathbf{x}))$ we can train it to maximize $\log\ (D(G(\mathbf{z})))$.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/gans-prob.png&quot; alt=&quot;Prob Distribution&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The figure above illustrates pictorially the idea behind the training process (taken from the source paper). We have five lines: the black dotted line corresponds to the true distribution $p_{data}$. The green line corresponds to the probability of the generative model $p_{g}$. The blue dotted line corresponds to the discriminator probability. The lower horizontal line corresponds to the space in which $\mathbf{z}$ is sampled and the upper horizontal line is the sample space of $\mathbf{x}$. The upwards arrows show the function $\mathbf{x}=G(\mathbf{z})$.&lt;/p&gt;
-
-&lt;p&gt;As can be seen from the figure, prior to any training let’s consider the case in which $p_{G}$ is near convergence (a). As can be seen in $a$, the discriminator has no certain accuracy, and the generator isn’t producing convincing samples. (b) shows that $D$ is trained to discrimanate samples from dat, converging to $D^*(\mathbf{x}) = \frac{p_{data}(\mathbf{x})}{p_{data}(\mathbf{x}) + p_g(\mathbf{x})}$. (c) shows that after $G$ is updated, the gradient of $D$ has caused $G$ to flow to regions that are more likely. (d) shows the converged case, where after enough training steps, a point is reached which cannot be improved as $p_g = p_{data}$. The discriminator is unable to differentiate between the two probabilities and therefore $D(x) = \frac{1}{2}$.&lt;/p&gt;
-
-&lt;h2 id=&quot;theoretical-results&quot;&gt;Theoretical Results&lt;/h2&gt;
-&lt;p&gt;In this section of the paper, Goodfellow et.al define the algorithm which is used to train the model, as well as showing that the minimax game has a global optimum for $p_g=p_{data}$ and that the algorithm provided optimizes the min-max game function above. I would advise, if interested, to read through the proofs of the above in the &lt;a href=&quot;https://arxiv.org/abs/1406.2661&quot;&gt;original paper&lt;/a&gt;. Below is a screen-shot of the algorithm definition taken from the paper:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/gans-alg.png&quot; alt=&quot;Algorithm 1&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
-&lt;p&gt;Within this part of the paper, the authors show results of their network when trained on different generative model tasks such digit generation, and face and image generation. Again I would advise the reader to look at their results, although it’s worth noting that since the publishing of the paper GANs have been used to obtain much better &lt;a href=&quot;https://www.youtube.com/watch?time_continue=1&amp;amp;v=kSLJriaOumA&quot;&gt;(and sometimes frightening)&lt;/a&gt; results.&lt;/p&gt;
-
-&lt;h2 id=&quot;advantages-and-disadvantages&quot;&gt;Advantages and Disadvantages&lt;/h2&gt;
-&lt;h3 id=&quot;disadvantages&quot;&gt;Disadvantages&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;No explicit representation of the generative probability&lt;/li&gt;
-  &lt;li&gt;$D$ must be synchronized with $G$ during training so that $G$ is not trained too much without updates to $D$&lt;/li&gt;
-  &lt;li&gt;
-    &lt;h3 id=&quot;advantages&quot;&gt;Advantages&lt;/h3&gt;
-  &lt;/li&gt;
-  &lt;li&gt;No need for Markov chains (only backprop used for training)&lt;/li&gt;
-  &lt;li&gt;No need for inference during learning&lt;/li&gt;
-  &lt;li&gt;Supports a wide range of functions&lt;/li&gt;
-  &lt;li&gt;Can represent “sharp” distributions&lt;/li&gt;
-  &lt;li&gt;Generator network not updated with data examples directly but only with gradients flowing through the discriminator.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;Although this paper was released in 2014, it’s relevance can still be felt today through it’s many extensions. I hope I was able to shine a light on the GANs and the world therein.&lt;/p&gt;</content><author><name></name></author><summary type="html">I want to start doing blog posts on papers that I am currently reading, or papers that I love. This is the first in the series and it is the paper which proposed the GAN, one of the most exciting neural network models around that has gotten quite a lot of attention due to results.</summary></entry><entry><title type="html">Solving Textual Entailment with the DecAtt Model</title><link href="http://localhost:4000/2019/08/21/text-entailment.html" rel="alternate" type="text/html" title="Solving Textual Entailment with the DecAtt Model" /><published>2019-08-21T00:00:00+01:00</published><updated>2019-08-21T00:00:00+01:00</updated><id>http://localhost:4000/2019/08/21/text-entailment</id><content type="html" xml:base="http://localhost:4000/2019/08/21/text-entailment.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;In this post I will write about the problem of textual entailment and how one of my favourite models has been used to tackle the problem.&lt;/p&gt;
-
-&lt;h1 id=&quot;what-is-textual-entailment&quot;&gt;What is Textual Entailment?&lt;/h1&gt;
-&lt;p&gt;The problem of textual entailment is simple. Given a premise $p$ and a hypothesis $q$, 
-can you infer the logical relationship between the pairs. $p$ and $q$ are assumed 
-to be grammatically correct sentences and the inferred logical relationship is in one 
-of 3 different classes.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Entailment: $p\rightarrow q$&lt;/li&gt;
-  &lt;li&gt;Contradiction $\neg p\rightarrow q$&lt;/li&gt;
-  &lt;li&gt;Neutral: cannot infer any logical relationship&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;An example shows the problem a bit more clearly. Given the sentence $\textit{“President Trump visited Detroit, Michigan”}$ an example of sentences which would meet the three categories is given below&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Entailing sentence: $\textit{The President was in a US state}$&lt;/li&gt;
-  &lt;li&gt;Contradicting sentence: $\textit{The President has never left the white house}$&lt;/li&gt;
-  &lt;li&gt;Neutral sentence: $\textit{Preying mantises have been shown to be cannibalistic}$&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;research-attempts&quot;&gt;Research Attempts&lt;/h1&gt;
-&lt;p&gt;It turns out that this problem within the field of NLP can be tackled with deep learning and machine learning methods. Some of the more interesting attempts that have come to solve this problem over the past several years will be discussed alongside the DecAtt model.&lt;/p&gt;
-
-&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
-&lt;p&gt;There are currently 3 primary datasets that have been used to benchmark performance on the textual entailment task.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pdfs.semanticscholar.org/1fd8/0b5adeec4d5e921c7499a50c2cfc5b9686ad.pdf&quot;&gt;SICK&lt;/a&gt;: this was proposed as the dataset to use for the 2014 SemEval task 1 dataset. No longer used as the standard dataset, it did serve a purpose as putting forward the textual entailment task in a more formalised matter. This features 10,000 sentence pairs/&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://nlp.stanford.edu/projects/snli/&quot;&gt;SNLI&lt;/a&gt;: most likely considered the golden standard for the textual entailment task. This dataset features 500,000 sentence pairs, annotated and accuracy of model prediction is the primary metric.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.nyu.edu/projects/bowman/multinli/&quot;&gt;MNLI&lt;/a&gt;: another standard dataset, can be used in conjunction with SNLI dataset. The reason why this dataset differs from SNLI is that it deals with multi-genre which adds a layer of difficulty compared to SNLI as all SNLI assumes all text assumes the same style.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;decatt-2016&quot;&gt;DecAtt (2016)&lt;/h2&gt;
-&lt;p&gt;Proposed in &lt;a href=&quot;https://arxiv.org/pdf/1606.01933v1.pdf&quot;&gt;2016 by Parikh et.al&lt;/a&gt;, this model is notably worth discussing due to it’s high performance against its very low complexity. Compared to the &lt;a href=&quot;https://www.aclweb.org/anthology/N16-1108&quot;&gt;PWIM&lt;/a&gt; model which uses almost a whole factor of 10 more parameters, it outperforms this model considerably.&lt;/p&gt;
-
-&lt;p&gt;The model works by using several feed-forward neural networks, which serve to attend on different aligned sub-parts of phrases. First by converting input sentences to 200D input encoding, the pairs of sentences go through three steps.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Attend&lt;/em&gt;: the attend step is the first step and what it does is it takes the input sentences represented as $\mathbf{a}=(a_1, …, a_{l_a})$ and $\mathbf{b}=(b_1, …, b_{l_a})$ and using a variant of neural attention and decomposes the problem into a comparison of aligned sub-phrases. First an un-normalized attention matrix with entries denoted as $e_{ij}$ is computed as the following 
- &lt;script type=&quot;math/tex&quot;&gt;e_{ij} = F(a_i)^TF(b_i)&lt;/script&gt;
- It should be noted that in the above equation, $F$ is a feed-forward neural network with ReLU activations. The attention weights are then normalised as follows&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\beta_i = \sum^{l_b}_{j=1} \frac{exp(e_{ij})}{\sum^{l_b}_{k=1}exp(e_{ik})}b_j\\
-     \alpha_j = \sum^{l_a}_{i=1} \frac{exp(e_{ij})}{\sum^{l_a}_{k=1}exp(e_{kj})}a_i\\&lt;/script&gt;
-
-&lt;p&gt;$\beta_i$ is the subphrase in $\mathbf{b}$ softly aligned to $a_i$ and vice-versa for $\alpha_i$.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Compare&lt;/em&gt;: In the compare step, aligned phrases are separately compared.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbf{v}_{1, i} := G([a_i, \beta_i])\ \ \forall i \in [1, ..., l_a]\\
-\mathbf{v}_{2, j} := G([b_j, \alpha_j]) \ \ \forall i \in [1, ..., l_b]&lt;/script&gt;
-
-&lt;p&gt;Note that in the above $G$ is another feed-forward neural network. $[., .]$ brackets denote concatenation.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Aggregate&lt;/em&gt;:
-There are now two comparison vectors $\mathbf{v_1}, \mathbf{v_2}$ . These are aggregated over&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbf{v_1} = \sum^{l_a}_{i=1}\mathbf{v_{1, i}}\ \ \ \ \ , \ \ \ \ \ 
-\mathbf{v_2} = \sum^{l_b}_{j=1}\mathbf{v_{1, j}}&lt;/script&gt;
-
-&lt;p&gt;and fed through a final feed-forward neural network $H$ which provides a label array $\mathbf{y}\in \mathbb{R}^D$
-&lt;script type=&quot;math/tex&quot;&gt;\mathbf{y} = H([\mathbf{v}_1, \mathbf{v}_2])&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;All other information regarding choice of performace, training parameters and computational complexity can be found in the original paper &lt;a href=&quot;https://arxiv.org/pdf/1606.01933v1.pdf&quot;&gt;here&lt;/a&gt;. The paper reports &lt;strong&gt;86%&lt;/strong&gt; accuracy on the SNLI dataset.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;What is interesting about this model is that infers logical relationships between sentence pairs by training a model to approximate attention weightings within a sentence pair matrix. This is not necessarily a unique idea, and models such as &lt;a href=&quot;https://arxiv.org/pdf/1609.06038.pdf&quot;&gt;ESIM&lt;/a&gt; try to do a similar thing. But these require a much greater computational load due their use of LSTMs. Another model, briefly mentioned, called &lt;a href=&quot;https://www.aclweb.org/anthology/N16-1108&quot;&gt;PWIM&lt;/a&gt; takes a novel approach to this problem by converting the problem into a computer vision problem by using a convolutional neural net.&lt;/p&gt;
-
-&lt;p&gt;In 2019, the best performing models for this task are &lt;a href=&quot;https://paperswithcode.com/sota/natural-language-inference-on-snli&quot;&gt;very large deep learning&lt;/a&gt; models of the BERT variety, but it is worth considering that there is still potential research to be done into simpler approaches.&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction In this post I will write about the problem of textual entailment and how one of my favourite models has been used to tackle the problem.</summary></entry><entry><title type="html">The Discrete Logarithm Problem</title><link href="http://localhost:4000/2019/08/20/intro-to-math-crypto-2.html" rel="alternate" type="text/html" title="The Discrete Logarithm Problem" /><published>2019-08-20T00:00:00+01:00</published><updated>2019-08-20T00:00:00+01:00</updated><id>http://localhost:4000/2019/08/20/intro-to-math-crypto-2</id><content type="html" xml:base="http://localhost:4000/2019/08/20/intro-to-math-crypto-2.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;These are just some notes on the discrete logarithm problem following the book introduction to mathematical cryptography and other sources.&lt;/p&gt;
-
-&lt;h2 id=&quot;formal-definition&quot;&gt;Formal definition&lt;/h2&gt;
-&lt;p&gt;Let $g$ be a primitive root for $F_{p}$, and h be a non-zero element of this field, then the discrete logarithm problem is finding an exponent x st&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;g^{x} = h (mod\ p)&lt;/script&gt;
-
-&lt;p&gt;x is called the discrete logarithm of h to the base g and is denoted $log_{g}(h)$&lt;/p&gt;
-
-&lt;p&gt;This definition can extend to a group. Given a group $G$ with group operation *, the DLP for the group is simply for any two given elements $g$ and $h$, find $x$ such that&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;g ^{x} = h&lt;/script&gt;
-
-&lt;h2 id=&quot;diffe-hellman-key-exchange&quot;&gt;Diffe-Hellman Key Exchange&lt;/h2&gt;
-&lt;p&gt;The Diffie-Hellman key exchange algorithm solves the problem of exchanging secure information over an insecure channel. In particular we want to share a secret key for encryption over an insecure channel for a symmetric cipher.&lt;/p&gt;
-
-&lt;h3 id=&quot;formal-defintion&quot;&gt;Formal defintion&lt;/h3&gt;
-&lt;p&gt;Two parties Akice and Bob agree on a large prime $p$ and non-zero integer $g$ modulo $p$. Alice and bob make these values public knowledge. Then Alice and Bob respectively compute the following. Alice selects private integer $a$ and Bob selects private integer $b$&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;A = g ^ {a} (mod\ p)\\
-B = g ^ {b} (mod\ p )&lt;/script&gt;
-
-&lt;p&gt;They then exchange $A$ and $B$ over the insecure channel and compute the following respectively&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;A' = B ^{a}(mod\ p)\\
-B' = A^ {b}(mod\ p)&lt;/script&gt;
-
-&lt;p&gt;Note that $A’ = B’$ proof below&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;A' = B ^ {a} = g^{ba} = g ^ {ab} = A^{b} = B'&lt;/script&gt;
-
-&lt;p&gt;This value $A’(B’)$ is the the private key for the two schemes
-The security of the DHP comes from the difficulty of the Diffe-Hellman problem. This problem is defined as the difficulty of computing $g^{ab} (mod p)$ from $g^{a} (mod p)$
-and $g^{b} (mod p)$&lt;/p&gt;
-
-&lt;p&gt;If the DLP can be solved, then it’s trivial to solve the DHP. However it is not known whether the converse is true. If an attacker can solve the DHP, can they use that algorithm for the DLP.&lt;/p&gt;
-
-&lt;h2 id=&quot;elgamal&quot;&gt;ElGamal&lt;/h2&gt;
-&lt;p&gt;The Diffe-Hellman key exchange unfortunately doesn’t act as a full PKE scheme as it doesn’t allow for the transfer of specific messages but rather random bits. The ElGamal encryption scheme uses the difficulty of the DLP to enable encryption.&lt;/p&gt;
-
-&lt;p&gt;The formal definition of the scheme is as follows. Alice selects a screte number $a$ to act as her private key and she computes&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;A = g ^ {a} (mod\ p)&lt;/script&gt;
-
-&lt;p&gt;This is the public key. This is used by Bob to encrypt a message which is between $m \leftarrow 2 … p$. To encrypt the message Bob selects a number $k$ modulo $p$. Bob uses $k$ to encrypt only one message, then discards the key. The number k is called an ephemeral key. Bob takes all these values and computes the following&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;c_1 = g^k (mod\ p)\\
-c_2 = mA^k(mod\ p)&lt;/script&gt;
-
-&lt;p&gt;The encryption that Bob generates is this pair of numbers $(c_1, c_2)$. For Alice to decrypt she first computes $x \leftarrow c_{1}^{a} (mod \ p)$. And then computes the message $m \leftarrow x^{-1}\cdot c_2$. A proof as to why this encryption works is as follows&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x = c_1^a(mod\ p) = g ^ {ak}(mod \ p) = A^k\\
-x^{-1} \cdot c_2 = A^{-k}mA^k (mod\ p) = m (mod\ p)&lt;/script&gt;
-
-&lt;h2 id=&quot;hardness-of-the-dlp&quot;&gt;Hardness of the DLP&lt;/h2&gt;
-&lt;p&gt;NOTE: a primer on order notation. We say that a function $f(x)$ is big-$O$ $g(x)$ if there exists positive constants $c$ and $C$ such that&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f (x) \leq cg(x) \  \forall x \geq C&lt;/script&gt;
-
-&lt;p&gt;Alternatively one could understand big-$O$ notation in terms of taking limits. In paritcular if the limit of the following exists&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\lim_{x \to \infty} \frac{f(x)}{g(x)}&lt;/script&gt;
-
-&lt;p&gt;then $f(x)=O(g(x))$.&lt;/p&gt;
-
-&lt;p&gt;We start with our original dlp $g^x = h$ in $G=\mathbb{F}^*_p$. If we select $p$ to be between $2^k$ and $2^{k+1}$, $g, h$ and $p$ all require at most $k$ bits. Then we can solve the original dlp in $O(p)=O(2^k)$ time using a trial and error method. This is exponential time.&lt;/p&gt;
-
-&lt;p&gt;Considering the DLP in the group $G=\mathbb{F}_p$, where the group operation is addition, the DLP in this case asks for a solution $x$ to the congruence $x\cdot g\equiv h \ (mod \ p)$&lt;/p&gt;
-
-&lt;p&gt;By using the extended Euclidean algorithm, to compute $g^{-1} (mod \ p)$ , you can compute $x = g^{-1} \cdot h (mod \ p)$.
-This takes $O(log\ p)$ steps.&lt;/p&gt;
-
-&lt;p&gt;NOTE: notation&lt;/p&gt;
-
-&lt;p&gt;$\mathbb{Z}/p\mathbb{Z}$ and $\mathbb{F}_p$ denote the finite field defined as below&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbb{F}_p = \{0, 1, 2, ..., p-1\}&lt;/script&gt;
-
-&lt;p&gt;This is the ring of integers modulo $p$.&lt;/p&gt;
-
-&lt;p&gt;$(\mathbb{Z}/p\mathbb{Z})^*$ and $\mathbb{F}^*_p$ denotes the group of units modulo $p$.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbb{F}^*_p=\{a \in \mathbb{F}_p : gcd(a, p) = 1 \}&lt;/script&gt;
-
-&lt;p&gt;It can be trivially seen from above that if $p$ is prime then the group $\mathbb{F}^*_p = {1, .., p-1}$.&lt;/p&gt;
-
-&lt;h2 id=&quot;a-collision-algorithm-for-the-dlp&quot;&gt;A Collision Algorithm for the DLP&lt;/h2&gt;
-&lt;p&gt;A trivial bound can be found for the DLP by simply considering the following proposition. Let $G$ be the group $g \in G$ be an element of order N, then the DLP&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;g ^ x = h&lt;/script&gt;
-
-&lt;p&gt;can be solved in $O(N)$ steps, where each step consists of multiplication by $g$. The proof of this is simply to make a list of values of $g^x$ for $x=1,2,..,N-1$. This list can simply be generated by just multiplying by $g$ in each step. If a solution exists, $h$ should be in the list.&lt;/p&gt;
-
-&lt;p&gt;If working in $\mathbb{F}^*_p$ then each computation of $g^x(mod \ p)$ requires $O(log^k(p))$ computer operations. The total number of steps then becomes $O(Nlog^k(p))$ but we can ignore the $log^k(p)$ term as it’s neglible compared to $N$.&lt;/p&gt;
-
-&lt;p&gt;The idea behind a collision algo is to make 2 lists and find an element which exists in both of them.&lt;/p&gt;
-
-&lt;p&gt;The proposed algorithm runs in $O(\sqrt{N}log\ N)$ time and is known as the &lt;a href=&quot;https://en.wikipedia.org/wiki/Baby-step_giant-step&quot;&gt;Shanks Babystep-Giantstep&lt;/a&gt; algorithm.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;n \leftarrow 1 + \lfloor \sqrt{N} \rfloor, \ n &gt; \sqrt{N} \ (1)\\
- \\ L_1 = \{e, g, g^2, ..., g^n \}, \\
- L_2 = \{h, h \cdot g^{-n}, h \cdot g ^ {-2n}, ..., h \cdot g ^ {-n^2}\} \\&lt;/script&gt;
-
-&lt;p&gt;Find the a match between $L_1$ and $L_2$ such that&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;g ^ i = h \cdot g^{-jn} \\
-x = i + jn&lt;/script&gt;
-
-&lt;p&gt;The proof for the runtime is as follows. First we fix $u = g^{-n}$ before creating list 2 as simply $h, hu, hu^2…,hu^n$.
-This means that creating $L_1, L_2$ takes at most $2n$ multiplications. Secondly assuming a match exists we can find a match in $log\ n$ steps using standard sorting and searching techniques. Total runtime is therefore $O(\sqrt{N}log\ N)$. Correctness is proven by showing there always exists a match. Let $x$ be the unknown solution. We can write this as the following&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x = nq + The ,\ 0 \leq r \lt n&lt;/script&gt;
-
-&lt;p&gt;We know that $1\leq x &amp;lt; N$ so&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-q = \frac{x-r}{n} &lt; \frac{N}{n} &lt; n, \ as \ n &gt; \sqrt{N} %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;therefore we can re-write the problem $g^x=h$ as&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-g ^ {r} = h \cdot g ^ {-qn}\  with\ 0 \leq r, q &lt; n %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;Therefore $g^r \in L_1$ and $hg^{-qn} \in L_2$.&lt;/p&gt;
-
-&lt;h2 id=&quot;pohlig-hellman-algorithm&quot;&gt;Pohlig-Hellman Algorithm&lt;/h2&gt;
-&lt;p&gt;The Pohlig-Hellman algorithm exploits prime-factorisation and the &lt;a href=&quot;https://en.wikipedia.org/wiki/Chinese_remainder_theorem&quot;&gt;Chinese remainder theorem&lt;/a&gt; to obtain a solution to the DLP. The formal definition is as follows.&lt;/p&gt;
-
-&lt;p&gt;Suppose we have an algorithm to solve the DLP in $G$ for any element whose order is a power of a prime.
-Let $G$ be a group of order $N$. And suppose that $N$ can be factorised into it’s product of primes&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;N = q^{e_1}_1q^{e_2}_2...q^{e_t}_t&lt;/script&gt;
-
-&lt;p&gt;Then the DLP can be solved in&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;O(\sum^{t}_{i=1}S_{q^{e_i}_i} + log \ N) \ \ steps&lt;/script&gt;
-
-&lt;p&gt;using the following procedure.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;For each $1\leq i \leq t$ let 
-&lt;script type=&quot;math/tex&quot;&gt;g_i = g^{N/q_i^{e_i}} \ \ and \ \ h_i = h^{N/q_i^{e_i}}&lt;/script&gt;
-Using the given algorithm, $g_i$ has a prime order, we can solve
-&lt;script type=&quot;math/tex&quot;&gt;g_i^y = h_i&lt;/script&gt;&lt;/li&gt;
-  &lt;li&gt;Use the Chinese remainder theorem to solve
-&lt;script type=&quot;math/tex&quot;&gt;x \equiv y_1(mod\ q_1 ^ {e_1}), ..., x \equiv y_t (mod \ q_t^{e_t})&lt;/script&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name></name></author><summary type="html">Introduction These are just some notes on the discrete logarithm problem following the book introduction to mathematical cryptography and other sources.</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/assets/front.png&quot; alt=&quot;front&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.</summary></entry></feed>
