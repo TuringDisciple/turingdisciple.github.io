@@ -1,0 +1,195 @@
+<p>This problem was proposed by Martin Rem in 1988.</p>
+
+<p>We define the surpasser of an element in an array to be the
+element <code class="highlighter-rouge">x[j]</code> such that for element <code class="highlighter-rouge">x[i]</code>, <code class="highlighter-rouge">x[i] &lt; x[j]</code>
+for $i \lt j$. From this definition, we define the surpasser
+count to be the number of surpassers in an array. Here’s an illustrative
+example using the ASCII string GENERATING</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    G E N E R A T I N G
+    5 6 2 5 1 4 0 1 0 0
+</code></pre></div></div>
+
+<p>this is assuming ASCII encoding of letters, i.e. A=41, B=42 …
+The problem is to compute the maximum surpasser count
+of an array length $n &gt; 1$, and to do so in $\mathcal{O}(n\log n)$
+time.</p>
+
+<p>– Naive Solution
+We represent our input as a list, and specify the problem:</p>
+
+<blockquote>
+  <p>– msc :: Ord a =&gt; [a] -&gt; Int
+– msc xs = maximum [scount z zs | z:zs &lt;- tails xs]
+scount x xs = length (filter (x &lt; ) xs)</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">scount</code> caclulates the surpasser count for an element x in xs.
+Tails will return the non-empty tails of a list</p>
+
+<blockquote>
+  <p>tails :: [a] -&gt; [[a]]
+tails [] = []
+tails (x:xs) = (x:xs):tails xs</p>
+</blockquote>
+
+<p>This solution is quadratic. <code class="highlighter-rouge">scount</code> will perform
+with worst case $\mathcal{O}(n^2)$ complexity. <code class="highlighter-rouge">maximum</code>
+performs with $\theta(n)$ complexity.</p>
+
+<p>– Divide and Conquer Solution
+Our target complexity is $\mathcal{O}(n\log n)$. If we
+can find a divide and conquer solution such that</p>
+
+<blockquote>
+  <p>– msc(xs ++ ys) = join (msc xs) (msc ys)</p>
+</blockquote>
+
+<p>with <code class="highlighter-rouge">join</code> computing in linear time, then our solution with
+perform with complexity $T(n) = 2T(n/2) + \mathcal{O}(n)$, our solution
+would be $T(n) = \matchcal{O}(n\log n)$. We don’t have enough
+information yet however to define this linear join. Suppose we build
+a table of all the surpasser counts</p>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>– table xs = [(z, scount z zs)</td>
+        <td>z:zs &lt;- tails xs]</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>Then <code class="highlighter-rouge">msc = maximum.map snd.table</code>. With this table, we can try and
+find a linear join s.t.</p>
+
+<blockquote>
+  <p>– table (xs ++ ys) = join (table xs) (table ys)</p>
+</blockquote>
+
+<p>There’s a property of tails that can assist in solving this problem,
+from text</p>
+
+<blockquote>
+  <p>– tails (xs ++ ys) = map (++ys) (tails xs) ++ tails ys</p>
+</blockquote>
+
+<p>This leads to the following derivation</p>
+
+<blockquote>
+  <p>– table (xs ++ ys)
+– = – {definition-}
+– [(z , scount z zs) | z : zs ← tails (xs ++ ys)]
+– = – {divide and conquer property of tails}
+– [(z , scount z zs) | z : zs ← map (++ys) (tails xs) ++ tails ys]
+– = – {distributing ← over ++ &amp; desugaring map}
+– [(z , scount z (zs ++ ys)) | z : zs ← tails xs] ++
+– [(z , scount z zs) | z : zs ← tails ys])
+– = – {since scount z (zs ++ ys) = scount z zs + scount z ys}
+– [(z , scount z zs + scount z ys) | z : zs ← tails xs] ++
+– [(z , scount z zs) | z : zs ← tails ys])
+– = – {definition of table and ys = map fst (table ys)}
+– [(z , c + scount z (map fst (table ys))) | (z , c) ← table xs] ++ table ys</p>
+</blockquote>
+
+<p>This means we can define join as the following</p>
+
+<blockquote>
+  <p>– join txs tys  = [(z, c + tcount z tys) | (z, c) &lt;- txs] ++ tys
+– tcount z tys = scount z (map fst tys)</p>
+</blockquote>
+
+<p>This isn’t a linear time solution however as join will not perform in
+linear time due to the <code class="highlighter-rouge">tcount</code> operation. If the input to tcount is sorted in ascending
+order we can reason the following</p>
+
+<blockquote>
+  <p>– tcount z tys
+– = {definition of tcount and scount}
+– length (filter (z &lt;) (map fst tys))
+– = {since filter p · map f = map f · filter (p · f )}
+– length (map fst (filter ((z &lt;) · fst) tys))
+– = {since length · map f = length}
+– length (filter ((z &lt;) · fst) tys)
+– = {since tys is sorted on first argument}
+– length (dropWhile ((z ≥) · fst) tys)</p>
+</blockquote>
+
+<p>Therefore</p>
+
+<blockquote>
+  <p>tcount z tys = length (dropWhile ((z &gt;=).fst) tys)</p>
+</blockquote>
+
+<p>With this calculation, we need table to store values in
+ascending order of the first component.</p>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>– table xs = sort [(z, scount z zs)</td>
+        <td>z:zs &lt;- tails xs]</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>Performing the above calulation of table we get the following
+property.</p>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>– join txs tys = [(x , c + tcount x tys)</td>
+        <td>(x , c) &lt;- txs] ^^ tys</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>where <code class="highlighter-rouge">^^</code> is an operation to merge two sorted lists.</p>
+
+<p>We derive a recursive efficient version of <code class="highlighter-rouge">join</code>.</p>
+
+<blockquote>
+  <p>– join txs [] = txs
+– join [] tys = tys
+– join txs@((x, c):txs’) tys@((y, d):tys’) = ((x, c + tcount x tys):[(x, c + tcount x tys) | (x, c) &lt;- txs’]) ^^ tys</p>
+</blockquote>
+
+<p>To perform (^^) we need to merge compare $x$ and $y$. In the
+case that $x \lt y, then it’s the element on the left and
+with <code class="highlighter-rouge">tcount x tys = length tys</code>, this reduces to.</p>
+
+<p>`(x, c + length tys):join txs’ tys’</p>
+
+<p>If $x = y$, we compare <code class="highlighter-rouge">c + tcount x tys</code> and <code class="highlighter-rouge">d=tcount x tys'</code>. In this case this
+reduces</p>
+
+<p><code class="highlighter-rouge">(y, d): join txs tys'</code>.</p>
+
+<p>This result is also true for $x &gt; y$.</p>
+
+<p>Our final algorithm becomes the following, we add amother argument to join to avoid
+recalculating length:</p>
+
+<blockquote>
+  <p>msc :: Ord a =&gt; [a] -&gt; Int
+msc = maximum.map snd.table
+table [x] = [(x, 0)]
+table xs = join (m - n) (table ys) (table zs)
+              where m = length xs
+                    n = m <code class="highlighter-rouge">div</code> 2
+                    (ys, zs) = splitAt n xs
+join 0 txs [] = txs
+join n [] tys = tys
+join n txs@((x, c):txs’) tys@((y, d):tys’)
+      | x &lt; y  = (x, c + n):join n txs’ tys
+      | x &gt;= y = (y, d):join (n - 1) txs tys’</p>
+</blockquote>
+
+<p>With linear join, we have a $\mathcal{O}(n)$ algorithm.</p>
