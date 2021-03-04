@@ -5,7 +5,7 @@ categories: [Algorithms, Functional Programming]
 ---
 **This blog post acts as expository notes on the content in the
 text _Pearls of Functional Algorithm Design_ by Richard Bird for myself
-and perhaps yourself, the reader**
+and perhaps yourself, the reader. All source examples are in Haskell**
 
 This problem was proposed by Martin Rem in 1988.
 
@@ -45,7 +45,7 @@ tails (x:xs) = (x:xs):tails xs
 
 This solution is quadratic. `scount` will perform
 with worst case $\mathcal{O}(n^2)$ complexity. `maximum`
-performs with $\theta(n)$ complexity.
+performs with $\Theta(n)$ complexity.
 
 
 ## Divide and Conquer Solution

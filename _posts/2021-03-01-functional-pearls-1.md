@@ -5,7 +5,7 @@ categories: [Algorithms, Functional Programming]
 ---
 **This blog post acts as expository notes on the content in the
 text _Pearls of Functional Algorithm Design_ by Richard Bird for myself
-and perhaps yourself, the reader**
+and perhaps yourself, the reader. All source examples are in Haskell**
 
 These imports will become useful.
 
