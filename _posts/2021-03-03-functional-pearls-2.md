@@ -12,16 +12,16 @@ This problem was proposed by Martin Rem in 1988.
 We define the surpasser of an element in an array to be the
 element `x[j]` such that for element `x[i]`, `x[i] < x[j]`
 for $i \lt j$. From this definition, we define the surpasser
-count to be the number of surpassers in an array. Here's an illustrative
+count to be the number of surpassers in an array for an element. Here's an illustrative
 example using the ASCII string GENERATING
 
 ```
-    G E N E R A T I N G
-    5 6 2 5 1 4 0 1 0 0
+             G E N E R A T I N G
+surpassers = 5 6 2 5 1 4 0 1 0 0
 ```
 
-this is assuming ASCII encoding of letters, i.e. A=41, B=42 ...
-The problem is to compute the maximum surpasser count
+this is assuming ASCII encoding of letters, i.e. A=0x41, B=0x42 ...
+The problem we wish to solve is to compute the maximum surpasser count (`msc`)
 of an array length $n > 1$, and to do so in $\mathcal{O}(n\log n)$
 time.
 
@@ -43,9 +43,9 @@ tails [] = []
 tails (x:xs) = (x:xs):tails xs
 ```
 
-This solution is quadratic. `scount` will perform
-with worst case $\mathcal{O}(n^2)$ complexity. `maximum`
-performs with $\Theta(n)$ complexity.
+This solution is quadratic. `msc` will perform
+with worst case $\mathcal{O}(n^2)$ complexity due to calls to `scount`. 
+`maximum` performs with $\Theta(n)$ complexity.
 
 
 ## Divide and Conquer Solution
@@ -164,7 +164,7 @@ reduces
 
 This result is also true for $x > y$.
 
-Our final algorithm becomes the following, we add amother argument to join to avoid
+Our final algorithm becomes the following, we add another argument to join to avoid
 recalculating length:
 
 ```haskell

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-04T21:02:23+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Nashe Mncube</title><subtitle></subtitle><entry><title type="html">A Surpassing Problem - Pearls of Functional Algorithm Design</title><link href="http://localhost:4000/algorithms/functional%20programming/2021/03/03/functional-pearls-2.html" rel="alternate" type="text/html" title="A Surpassing Problem - Pearls of Functional Algorithm Design" /><published>2021-03-03T00:00:00+00:00</published><updated>2021-03-03T00:00:00+00:00</updated><id>http://localhost:4000/algorithms/functional%20programming/2021/03/03/functional-pearls-2</id><content type="html" xml:base="http://localhost:4000/algorithms/functional%20programming/2021/03/03/functional-pearls-2.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-05T22:32:56+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Nashe Mncube</title><subtitle></subtitle><entry><title type="html">A Surpassing Problem - Pearls of Functional Algorithm Design</title><link href="http://localhost:4000/algorithms/functional%20programming/2021/03/03/functional-pearls-2.html" rel="alternate" type="text/html" title="A Surpassing Problem - Pearls of Functional Algorithm Design" /><published>2021-03-03T00:00:00+00:00</published><updated>2021-03-03T00:00:00+00:00</updated><id>http://localhost:4000/algorithms/functional%20programming/2021/03/03/functional-pearls-2</id><content type="html" xml:base="http://localhost:4000/algorithms/functional%20programming/2021/03/03/functional-pearls-2.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
 text &lt;em&gt;Pearls of Functional Algorithm Design&lt;/em&gt; by Richard Bird for myself
 and perhaps yourself, the reader. All source examples are in Haskell&lt;/strong&gt;&lt;/p&gt;
 
@@ -7,15 +7,15 @@ and perhaps yourself, the reader. All source examples are in Haskell&lt;/strong&
 &lt;p&gt;We define the surpasser of an element in an array to be the
 element &lt;code class=&quot;highlighter-rouge&quot;&gt;x[j]&lt;/code&gt; such that for element &lt;code class=&quot;highlighter-rouge&quot;&gt;x[i]&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;x[i] &amp;lt; x[j]&lt;/code&gt;
 for $i \lt j$. From this definition, we define the surpasser
-count to be the number of surpassers in an array. Here’s an illustrative
+count to be the number of surpassers in an array for an element. Here’s an illustrative
 example using the ASCII string GENERATING&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    G E N E R A T I N G
-    5 6 2 5 1 4 0 1 0 0
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;             G E N E R A T I N G
+surpassers = 5 6 2 5 1 4 0 1 0 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;this is assuming ASCII encoding of letters, i.e. A=41, B=42 …
-The problem is to compute the maximum surpasser count
+&lt;p&gt;this is assuming ASCII encoding of letters, i.e. A=0x41, B=0x42 …
+The problem we wish to solve is to compute the maximum surpasser count (&lt;code class=&quot;highlighter-rouge&quot;&gt;msc&lt;/code&gt;)
 of an array length $n &amp;gt; 1$, and to do so in $\mathcal{O}(n\log n)$
 time.&lt;/p&gt;
 
@@ -35,9 +35,9 @@ Tails will return the non-empty tails of a list&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;tails&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This solution is quadratic. &lt;code class=&quot;highlighter-rouge&quot;&gt;scount&lt;/code&gt; will perform
-with worst case $\mathcal{O}(n^2)$ complexity. &lt;code class=&quot;highlighter-rouge&quot;&gt;maximum&lt;/code&gt;
-performs with $\Theta(n)$ complexity.&lt;/p&gt;
+&lt;p&gt;This solution is quadratic. &lt;code class=&quot;highlighter-rouge&quot;&gt;msc&lt;/code&gt; will perform
+with worst case $\mathcal{O}(n^2)$ complexity due to calls to &lt;code class=&quot;highlighter-rouge&quot;&gt;scount&lt;/code&gt;. 
+&lt;code class=&quot;highlighter-rouge&quot;&gt;maximum&lt;/code&gt; performs with $\Theta(n)$ complexity.&lt;/p&gt;
 
 &lt;h2 id=&quot;divide-and-conquer-solution&quot;&gt;Divide and Conquer Solution&lt;/h2&gt;
 &lt;p&gt;Our target complexity is $\mathcal{O}(n\log n)$. If we
@@ -144,7 +144,7 @@ reduces&lt;/p&gt;
 
 &lt;p&gt;This result is also true for $x &amp;gt; y$.&lt;/p&gt;
 
-&lt;p&gt;Our final algorithm becomes the following, we add amother argument to join to avoid
+&lt;p&gt;Our final algorithm becomes the following, we add another argument to join to avoid
 recalculating length:&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;msc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Ord&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;
@@ -240,7 +240,7 @@ in our array.&lt;/li&gt;
 array entries and values into new entries,&lt;/li&gt;
   &lt;li&gt;our second argument is an initial entry for each index,&lt;/li&gt;
   &lt;li&gt;the third argument is a pair naming the upper and lower indices,&lt;/li&gt;
-  &lt;li&gt;the foruth is an association list of index-value pairs.&lt;/li&gt;
+  &lt;li&gt;the fourth is an association list of index-value pairs.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;What this function will do is build an array by processing the association

@@ -89,15 +89,15 @@ and perhaps yourself, the reader. All source examples are in Haskell</strong></p
 <p>We define the surpasser of an element in an array to be the
 element <code class="highlighter-rouge">x[j]</code> such that for element <code class="highlighter-rouge">x[i]</code>, <code class="highlighter-rouge">x[i] &lt; x[j]</code>
 for $i \lt j$. From this definition, we define the surpasser
-count to be the number of surpassers in an array. Here’s an illustrative
+count to be the number of surpassers in an array for an element. Here’s an illustrative
 example using the ASCII string GENERATING</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    G E N E R A T I N G
-    5 6 2 5 1 4 0 1 0 0
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             G E N E R A T I N G
+surpassers = 5 6 2 5 1 4 0 1 0 0
 </code></pre></div></div>
 
-<p>this is assuming ASCII encoding of letters, i.e. A=41, B=42 …
-The problem is to compute the maximum surpasser count
+<p>this is assuming ASCII encoding of letters, i.e. A=0x41, B=0x42 …
+The problem we wish to solve is to compute the maximum surpasser count (<code class="highlighter-rouge">msc</code>)
 of an array length $n &gt; 1$, and to do so in $\mathcal{O}(n\log n)$
 time.</p>
 
@@ -117,9 +117,9 @@ Tails will return the non-empty tails of a list</p>
 <span class="n">tails</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span><span class="o">:</span><span class="n">tails</span> <span class="n">xs</span>
 </code></pre></div></div>
 
-<p>This solution is quadratic. <code class="highlighter-rouge">scount</code> will perform
-with worst case $\mathcal{O}(n^2)$ complexity. <code class="highlighter-rouge">maximum</code>
-performs with $\Theta(n)$ complexity.</p>
+<p>This solution is quadratic. <code class="highlighter-rouge">msc</code> will perform
+with worst case $\mathcal{O}(n^2)$ complexity due to calls to <code class="highlighter-rouge">scount</code>. 
+<code class="highlighter-rouge">maximum</code> performs with $\Theta(n)$ complexity.</p>
 
 <h2 id="divide-and-conquer-solution">Divide and Conquer Solution</h2>
 <p>Our target complexity is $\mathcal{O}(n\log n)$. If we
@@ -226,7 +226,7 @@ reduces</p>
 
 <p>This result is also true for $x &gt; y$.</p>
 
-<p>Our final algorithm becomes the following, we add amother argument to join to avoid
+<p>Our final algorithm becomes the following, we add another argument to join to avoid
 recalculating length:</p>
 
 <div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">msc</span> <span class="o">::</span> <span class="kt">Ord</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Int</span>

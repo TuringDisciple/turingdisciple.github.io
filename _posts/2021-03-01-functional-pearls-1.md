@@ -86,7 +86,7 @@ in our array.
 array entries and values into new entries,
 - our second argument is an initial entry for each index,
 - the third argument is a pair naming the upper and lower indices,
-- the foruth is an association list of index-value pairs.
+- the fourth is an association list of index-value pairs.
 
 What this function will do is build an array by processing the association
 list from left to right, combining entries and values into new entries using
