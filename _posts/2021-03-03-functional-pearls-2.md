@@ -44,7 +44,7 @@ tails (x:xs) = (x:xs):tails xs
 ```
 
 This solution is quadratic. `msc` will perform
-with worst case $\mathcal{O}(n^2)$ complexity due to calls to `scount`. 
+with worst case $\mathcal{O}(n^2)$ complexity due to calls to `scount`.
 `maximum` performs with $\Theta(n)$ complexity.
 
 
