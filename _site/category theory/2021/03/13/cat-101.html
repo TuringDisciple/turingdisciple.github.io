@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>What is a Category - Category Theory</title>
+  <meta name="description" content="These are inspired by the text Category Theory for Programmers by Bartosz Milewski and the subject of category theory. These act as personal notes for my own...">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="http://localhost:4000/category%20theory/2021/03/13/cat-101.html">
+  <link rel="alternate" type="application/rss+xml" title="Nashe Mncube" href="/feed.xml">
+  
+  
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">Nashe Mncube</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/about.html">About</a>
+            
+          
+            
+            
+            <a class="page-link" href="/categories.html">Posts by Category</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">What is a Category - Category Theory</h1>
+    <p class="post-meta">
+      <time datetime="2021-03-13T00:00:00+00:00" itemprop="datePublished">
+        
+        Mar 13, 2021
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><strong>These are inspired by the text <em>Category Theory for Programmers</em> by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning
+and potentially yours the reader, but these aren’t intended to be wholly comprehensive.</strong></p>
+
+<h2 id="what-is-a-category">What is a category?</h2>
+<p>Categories encapsulate an abstract sense
+of mathematical structure and the theory of categories
+has seen applications in computer science and mathematics.
+Categories in informal terms consist of objects
+and the “relations” which go between objects.</p>
+
+<h2 id="defintion">Defintion</h2>
+<p>A category $C$ consists of:</p>
+<ul>
+  <li>a class of objects,</li>
+  <li>a class of arrows or morphisms which map from a source object to target object,</li>
+  <li>a binary operator which composes morphisms such that for morphisms $f, g$ which
+map $A \to B$ and $B\to C$ respectively, we can define a morphism $h = g\circ f$ and
+$h$ is in our category.</li>
+</ul>
+
+<p>For easier future notation, we’ll say that for catgory $C$ the class of
+objects of the category will be denoted $ob(C)$ and the class of morphisms
+will be denoted $hom(C)$. For a morphism $f$ with source object $A$ and target $B$, we denote that morphism as
+$f: A\to B$. The expression $hom(A, B)$ will denote the class of all morphisms from $A$ to $B$</p>
+
+<p>One can see the similarity of this definition to how we may define functions on sets, where our objects are the elements of the set and our morphisms are functions between elements.
+But careful! Categories are
+more abstract than that and are concerned with <em>structure</em>, in fact sets form their <a href="https://en.wikipedia.org/wiki/Category_of_sets">own category</a>. So does the <a href="https://en.wikipedia.org/wiki/Category_of_metric_spaces">category of metric spaces</a> or even more abstractly the <a href="https://ncatlab.org/nlab/show/arrow+category">category of arrows</a>.</p>
+
+<h3 id="laws-of-composition">Laws of Composition</h3>
+<p>The property of composition is essential to the definition of a category.
+There are two laws that composition in a category must obey, as well as the implicit law that I defined
+earlier that the result of composition is in our category i.e. $h = g \circ f \in hom(C)$</p>
+
+<p><strong>Associativity</strong></p>
+
+<p>For all morphisms $f, g, h$ in our category,</p>
+
+<script type="math/tex; mode=display">f \circ (g \circ h) = (f\circ g) \circ h = f \circ g \circ h</script>
+
+<p><strong>Identity</strong></p>
+
+<p>For every object $A$ in our category, there’s an arrow which is called
+the unit of composition, denoted $\mathbf{id}_A$. This is an arrow of an
+object to itself. When composed with an arrow $f$ which goes from $A\to B$</p>
+
+<script type="math/tex; mode=display">f \circ \mathbf{id}_A = f</script>
+
+<p>and</p>
+
+<script type="math/tex; mode=display">\mathbf{id}_B \circ f = f</script>
+
+<p>With this all we have our definition of a category. It may not be obvious yet, but this definition really
+encapsulates an idea of structure. This will be expanded upon in later posts. Below is an example problem
+where we try to define a category.</p>
+
+<h2 id="problems">Problems</h2>
+<blockquote>
+  <p>In what context is a directed graph a category?</p>
+</blockquote>
+
+<p>We can approach this question by first defining a directed graph $G$. We define the set of nodes (or vertices)
+of the graph as the set $N$ and we define $E$ to be the set of ordered pairs $(a, b)\in E$ which define
+an edge from node $a$ to node $b$ where $a, b\in N$.</p>
+
+<p>We can then consider what the category of a directed graph $G=\langle N,E\rangle$ will be.</p>
+
+<ul>
+  <li>We define $ob(C)$ to be $N$</li>
+  <li>We define $hom(C)$ to be $E$</li>
+  <li>We define composition: for edges $(a, b)$ and $(b, c)$, compostion is $(b, c)\circ (a, b)$ where
+$a, b, c\in ob(C)$. Analagous to taking the path from a node $a$ to $b$, and then from node $b$ to $c$.</li>
+</ul>
+
+<p>This isn’t a complete definition as we haven’t considered our laws of composition. Associativity is quite simple,
+with our composition function we have associativity as edges compose and there’s an ordering of composition due to ordering of pairs $(a, b)\in E$.</p>
+
+<p>We can say that if there exists some path from node $a\to b \to c$, then there must be $(a, c)\in E$.
+What does this mean when we consider what our graph $G$ looks like?
+This isn’t necessarily a straightforward question to answer but consider the graph below</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   f1        fn
+ Y-----&gt;....-----&gt;X
+</code></pre></div></div>
+
+<p>The above graph reads that there exists some path from node $Y$ to node $X$, and that $n$ edges lead to $X$. If
+this is the case, we can express this path as the morphism $h = f_n \circ \dots \circ f_1$. That means that our rudimentary
+graph must look like the following,</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   f1        fn
+ Y-----&gt;....-----&gt;X
+  \-------&gt;-------/
+          h
+</code></pre></div></div>
+
+<p>We can define this relationship formally. For some node $x\in N$, we define the the set of parents of $x$ to be all
+nodes such that $parent(x) = [ y| y\in N, (y, x)\in E ]$. Our graph $G$ is then <em>well connected</em> if $\forall z \in parent(y)$,
+there exists an edge $(z, x) \in E$. This definition must hold for all $x\in N$ for composition to behave in our category $G$.</p>
+
+<p>Our graph, to be defined as a category, must also obey the identity law of categories. This would be obeyed simply if every node $a$
+in our graph has an edge to itself i.e. $(a, a)\in E$.</p>
+
+<p>With this, we have shown that a directed graph is a category when it is well connected(per our definition) and all nodes have identity edges to themselves!</p>
+
+  </div>
+
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</article>
+
+
+      </div>
+    </main><footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Nashe Mncube</h2>
+
+    <div class="footer-col-wrapper">
+      
+
+      <div class="footer-col footer-col-1">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/nasherm"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">nasherm</span></a>
+
+          </li>
+          
+          
+           
+          <li><a class="u-email" href="mailto:mncubenashe@gmail.com">mncubenashe@gmail.com</a></li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

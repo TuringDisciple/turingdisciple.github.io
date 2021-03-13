@@ -1,4 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-08T19:36:53+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Nashe Mncube</title><subtitle></subtitle><entry><title type="html">Saddleback Search - Pearls of Functional Algorithm Design</title><link href="http://localhost:4000/algorithms/functional%20programming/2021/03/08/functional-pearls-3.html" rel="alternate" type="text/html" title="Saddleback Search - Pearls of Functional Algorithm Design" /><published>2021-03-08T00:00:00+00:00</published><updated>2021-03-08T00:00:00+00:00</updated><id>http://localhost:4000/algorithms/functional%20programming/2021/03/08/functional-pearls-3</id><content type="html" xml:base="http://localhost:4000/algorithms/functional%20programming/2021/03/08/functional-pearls-3.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-13T17:25:13+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Nashe Mncube</title><subtitle></subtitle><entry><title type="html">What is a Category - Category Theory</title><link href="http://localhost:4000/category%20theory/2021/03/13/cat-101.html" rel="alternate" type="text/html" title="What is a Category - Category Theory" /><published>2021-03-13T00:00:00+00:00</published><updated>2021-03-13T00:00:00+00:00</updated><id>http://localhost:4000/category%20theory/2021/03/13/cat-101</id><content type="html" xml:base="http://localhost:4000/category%20theory/2021/03/13/cat-101.html">&lt;p&gt;&lt;strong&gt;These are inspired by the text &lt;em&gt;Category Theory for Programmers&lt;/em&gt; by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning
+and potentially yours the reader, but these aren’t intended to be wholly comprehensive.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-a-category&quot;&gt;What is a category?&lt;/h2&gt;
+&lt;p&gt;Categories encapsulate an abstract sense
+of mathematical structure and the theory of categories
+has seen applications in computer science and mathematics.
+Categories in informal terms consist of objects
+and the “relations” which go between objects.&lt;/p&gt;
+
+&lt;h2 id=&quot;defintion&quot;&gt;Defintion&lt;/h2&gt;
+&lt;p&gt;A category $C$ consists of:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;a class of objects,&lt;/li&gt;
+  &lt;li&gt;a class of arrows or morphisms which map from a source object to target object,&lt;/li&gt;
+  &lt;li&gt;a binary operator which composes morphisms such that for morphisms $f, g$ which
+map $A \to B$ and $B\to C$ respectively, we can define a morphism $h = g\circ f$ and
+$h$ is in our category.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For easier future notation, we’ll say that for catgory $C$ the class of
+objects of the category will be denoted $ob(C)$ and the class of morphisms
+will be denoted $hom(C)$. For a morphism $f$ with source object $A$ and target $B$, we denote that morphism as
+$f: A\to B$. The expression $hom(A, B)$ will denote the class of all morphisms from $A$ to $B$&lt;/p&gt;
+
+&lt;p&gt;One can see the similarity of this definition to how we may define functions on sets, where our objects are the elements of the set and our morphisms are functions between elements.
+But careful! Categories are
+more abstract than that and are concerned with &lt;em&gt;structure&lt;/em&gt;, in fact sets form their &lt;a href=&quot;https://en.wikipedia.org/wiki/Category_of_sets&quot;&gt;own category&lt;/a&gt;. So does the &lt;a href=&quot;https://en.wikipedia.org/wiki/Category_of_metric_spaces&quot;&gt;category of metric spaces&lt;/a&gt; or even more abstractly the &lt;a href=&quot;https://ncatlab.org/nlab/show/arrow+category&quot;&gt;category of arrows&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;laws-of-composition&quot;&gt;Laws of Composition&lt;/h3&gt;
+&lt;p&gt;The property of composition is essential to the definition of a category.
+There are two laws that composition in a category must obey, as well as the implicit law that I defined
+earlier that the result of composition is in our category i.e. $h = g \circ f \in hom(C)$&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Associativity&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For all morphisms $f, g, h$ in our category,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f \circ (g \circ h) = (f\circ g) \circ h = f \circ g \circ h&lt;/script&gt;
+
+&lt;p&gt;&lt;strong&gt;Identity&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For every object $A$ in our category, there’s an arrow which is called
+the unit of composition, denoted $\mathbf{id}_A$. This is an arrow of an
+object to itself. When composed with an arrow $f$ which goes from $A\to B$&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f \circ \mathbf{id}_A = f&lt;/script&gt;
+
+&lt;p&gt;and&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbf{id}_B \circ f = f&lt;/script&gt;
+
+&lt;p&gt;With this all we have our definition of a category. It may not be obvious yet, but this definition really
+encapsulates an idea of structure. This will be expanded upon in later posts. Below is an example problem
+where we try to define a category.&lt;/p&gt;
+
+&lt;h2 id=&quot;problems&quot;&gt;Problems&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;In what context is a directed graph a category?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We can approach this question by first defining a directed graph $G$. We define the set of nodes (or vertices)
+of the graph as the set $N$ and we define $E$ to be the set of ordered pairs $(a, b)\in E$ which define
+an edge from node $a$ to node $b$ where $a, b\in N$.&lt;/p&gt;
+
+&lt;p&gt;We can then consider what the category of a directed graph $G=\langle N,E\rangle$ will be.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We define $ob(C)$ to be $N$&lt;/li&gt;
+  &lt;li&gt;We define $hom(C)$ to be $E$&lt;/li&gt;
+  &lt;li&gt;We define composition: for edges $(a, b)$ and $(b, c)$, compostion is $(b, c)\circ (a, b)$ where
+$a, b, c\in ob(C)$. Analagous to taking the path from a node $a$ to $b$, and then from node $b$ to $c$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This isn’t a complete definition as we haven’t considered our laws of composition. Associativity is quite simple,
+with our composition function we have associativity as edges compose and there’s an ordering of composition due to ordering of pairs $(a, b)\in E$.&lt;/p&gt;
+
+&lt;p&gt;We can say that if there exists some path from node $a\to b \to c$, then there must be $(a, c)\in E$.
+What does this mean when we consider what our graph $G$ looks like?
+This isn’t necessarily a straightforward question to answer but consider the graph below&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   f1        fn
+ Y-----&amp;gt;....-----&amp;gt;X
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The above graph reads that there exists some path from node $Y$ to node $X$, and that $n$ edges lead to $X$. If
+this is the case, we can express this path as the morphism $h = f_n \circ \dots \circ f_1$. That means that our rudimentary
+graph must look like the following,&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   f1        fn
+ Y-----&amp;gt;....-----&amp;gt;X
+  \-------&amp;gt;-------/
+          h
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can define this relationship formally. For some node $x\in N$, we define the the set of parents of $x$ to be all
+nodes such that $parent(x) = [ y| y\in N, (y, x)\in E ]$. Our graph $G$ is then &lt;em&gt;well connected&lt;/em&gt; if $\forall z \in parent(y)$,
+there exists an edge $(z, x) \in E$. This definition must hold for all $x\in N$ for composition to behave in our category $G$.&lt;/p&gt;
+
+&lt;p&gt;Our graph, to be defined as a category, must also obey the identity law of categories. This would be obeyed simply if every node $a$
+in our graph has an edge to itself i.e. $(a, a)\in E$.&lt;/p&gt;
+
+&lt;p&gt;With this, we have shown that a directed graph is a category when it is well connected(per our definition) and all nodes have identity edges to themselves!&lt;/p&gt;</content><author><name></name></author><summary type="html">These are inspired by the text Category Theory for Programmers by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning and potentially yours the reader, but these aren’t intended to be wholly comprehensive.</summary></entry><entry><title type="html">Saddleback Search - Pearls of Functional Algorithm Design</title><link href="http://localhost:4000/algorithms/functional%20programming/2021/03/08/functional-pearls-3.html" rel="alternate" type="text/html" title="Saddleback Search - Pearls of Functional Algorithm Design" /><published>2021-03-08T00:00:00+00:00</published><updated>2021-03-08T00:00:00+00:00</updated><id>http://localhost:4000/algorithms/functional%20programming/2021/03/08/functional-pearls-3</id><content type="html" xml:base="http://localhost:4000/algorithms/functional%20programming/2021/03/08/functional-pearls-3.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
 text &lt;em&gt;Pearls of Functional Algorithm Design&lt;/em&gt; by Richard Bird for myself
 and perhaps yourself, the reader. All source examples are in Haskell.&lt;/strong&gt;&lt;/p&gt;
 
