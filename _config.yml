@@ -26,7 +26,12 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-
+google-site-verification: googleecb48f6383f32ea7.html
+author: nashemncube, Nashe Mncube, nasherm
+seo:
+  type: Person,BlogPosting
+  link: github.com/nasherm,https://github.com/nasherm,http://github.com/nasherm
+  
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
