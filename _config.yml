@@ -17,7 +17,7 @@ title: Nashe Mncube
 email: mncubenashe@gmail.com
 description: >- # this means to ignore newlines until "baseurl:" Computer science student, interested in cyber security. Yet to own a dog.
 baseurl: "" # "/blog" # the subpath of your site, e.g. /blog
-url: "" #"http://NasheMncube.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://nasherm.github.io" #"http://NasheMncube.com" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  nasherm
 
 # Build settings
@@ -26,12 +26,13 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
 google-site-verification: googleecb48f6383f32ea7.html
 author: nashemncube, Nashe Mncube, nasherm
 seo:
   type: Person,BlogPosting
   link: github.com/nasherm,https://github.com/nasherm,http://github.com/nasherm
-  
+
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
