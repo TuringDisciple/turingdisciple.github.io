@@ -4,8 +4,8 @@ title: About
 ---
 
 ### About
-I'm a Software Engineer with an interest in mathematics, programming language theory and design,
-and functional programming.
+I'm a Software Engineer with an interest in low-level programming (kernel downwards), high performance computing
+and theoretical computer science.
 
 My github can be found [here](https://www.github.com/nasherm).
 
