@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: Nashe Mncube
 email: mncubenashe@gmail.com
-description: Software Engineer working in HPC. Amateur mathematician.
+description: Software Engineer working in HPC. I write mainly technical posts in maths.
 url: "https://nasherm.github.io"
 github_username:  nasherm
 favicon: "favicon.png"
