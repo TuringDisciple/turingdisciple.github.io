@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Smallest Free Number - Pearls of Functional Algorithm Design
-categories: [Algorithms, Functional Programming]
+category: Functional Programming
 ---
 **This blog post acts as expository notes on the content in the
 text _Pearls of Functional Algorithm Design_ by Richard Bird for myself

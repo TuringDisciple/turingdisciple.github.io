@@ -1,0 +1,37 @@
+entries:
+  - title: Info
+    entries:
+      - title: Github
+        url: https://github.com/nasherm
+
+  - title: Posts by Category
+    entries:
+      - title: Category Theory
+        entries:
+        post_list:
+          category: "Category Theory"
+          show_more: true
+          show_more_text: See more posts...
+      - title: Functional Programming
+        entries:
+        post_list:
+          category: "Functional Programming"
+          show_more: true
+          show_more_text: See more posts...
+      - title: Type Theory
+        entries:
+        post_list:
+          category: "Type Theory"
+          show_more: true
+          show_more_text: See more posts...
+
+  - title: All Posts
+    post_list:
+      limit: 5
+      show_more: true
+      show_more_text: See archive...
+      show_more_url: archive.html
+
+  - title: rss
+    url: feed.xml
+  

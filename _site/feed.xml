@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-17T20:41:07+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Nashe Mncube</title><subtitle></subtitle><author><name>nashemncube, Nashe Mncube, nasherm</name></author><entry><title type="html">What is a Category? - Category Theory</title><link href="http://localhost:4000/category%20theory/2021/03/13/cat-101.html" rel="alternate" type="text/html" title="What is a Category? - Category Theory" /><published>2021-03-13T00:00:00+00:00</published><updated>2021-03-13T00:00:00+00:00</updated><id>http://localhost:4000/category%20theory/2021/03/13/cat-101</id><content type="html" xml:base="http://localhost:4000/category%20theory/2021/03/13/cat-101.html">&lt;p&gt;&lt;strong&gt;These are inspired by the text &lt;em&gt;Category Theory for Programmers&lt;/em&gt; by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://nasherm.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nasherm.github.io/" rel="alternate" type="text/html" /><updated>2021-05-06T20:30:06+01:00</updated><id>https://nasherm.github.io/feed.xml</id><title type="html">Nashe Mncube</title><subtitle>Software Engineer working in HPC. Amateur mathematician.</subtitle><author><name>nashemncube, Nashe Mncube, nasherm</name></author><entry><title type="html">What is a Category? - Category Theory</title><link href="https://nasherm.github.io/category%20theory/2021/03/13/cat-101.html" rel="alternate" type="text/html" title="What is a Category? - Category Theory" /><published>2021-03-13T00:00:00+00:00</published><updated>2021-03-13T00:00:00+00:00</updated><id>https://nasherm.github.io/category%20theory/2021/03/13/cat-101</id><content type="html" xml:base="https://nasherm.github.io/category%20theory/2021/03/13/cat-101.html">&lt;p&gt;&lt;strong&gt;These are inspired by the text &lt;em&gt;Category Theory for Programmers&lt;/em&gt; by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning
 and potentially yours the reader, but these aren’t intended to be wholly comprehensive.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;what-is-a-category&quot;&gt;What is a category?&lt;/h2&gt;
@@ -36,7 +36,7 @@ earlier that the result of composition is in our category i.e. $h = g \circ f \i
 
 &lt;p&gt;For all morphisms $f, g, h$ in our category,&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f \circ (g \circ h) = (f\circ g) \circ h = f \circ g \circ h&lt;/script&gt;
+\[f \circ (g \circ h) = (f\circ g) \circ h = f \circ g \circ h\]
 
 &lt;p&gt;&lt;strong&gt;Identity&lt;/strong&gt;&lt;/p&gt;
 
@@ -44,11 +44,11 @@ earlier that the result of composition is in our category i.e. $h = g \circ f \i
 the unit of composition, denoted $\mathbf{id}_A$. This is an arrow of an
 object to itself. When composed with an arrow $f$ which goes from $A\to B$&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f \circ \mathbf{id}_A = f&lt;/script&gt;
+\[f \circ \mathbf{id}_A = f\]
 
 &lt;p&gt;and&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbf{id}_B \circ f = f&lt;/script&gt;
+\[\mathbf{id}_B \circ f = f\]
 
 &lt;p&gt;With this all we have our definition of a category. It may not be obvious yet, but this definition really
 encapsulates an idea of structure. This will be expanded upon in later posts. Below is an example problem
@@ -79,7 +79,7 @@ with our composition function we have associativity as edges compose and there�
 What does this mean when we consider what our graph $G$ looks like?
 This isn’t necessarily a straightforward question to answer but consider the graph below&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   f1        fn
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   f1        fn
  Y-----&amp;gt;....-----&amp;gt;X
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -87,7 +87,7 @@ This isn’t necessarily a straightforward question to answer but consider the g
 this is the case, we can express this path as the morphism $h = f_n \circ \dots \circ f_1$. That means that our rudimentary
 graph must look like the following,&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   f1        fn
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   f1        fn
  Y-----&amp;gt;....-----&amp;gt;X
   \-------&amp;gt;-------/
           h
@@ -100,13 +100,13 @@ there exists an edge $(z, x) \in E$. This definition must hold for all $x\in N$ 
 &lt;p&gt;Our graph, to be defined as a category, must also obey the identity law of categories. This would be obeyed simply if every node $a$
 in our graph has an edge to itself i.e. $(a, a)\in E$.&lt;/p&gt;
 
-&lt;p&gt;With this, we have shown that a directed graph is a category when it is well connected(per our definition) and all nodes have identity edges to themselves!&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><summary type="html">These are inspired by the text Category Theory for Programmers by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning and potentially yours the reader, but these aren’t intended to be wholly comprehensive.</summary></entry><entry><title type="html">Saddleback Search - Pearls of Functional Algorithm Design</title><link href="http://localhost:4000/algorithms/functional%20programming/2021/03/08/functional-pearls-3.html" rel="alternate" type="text/html" title="Saddleback Search - Pearls of Functional Algorithm Design" /><published>2021-03-08T00:00:00+00:00</published><updated>2021-03-08T00:00:00+00:00</updated><id>http://localhost:4000/algorithms/functional%20programming/2021/03/08/functional-pearls-3</id><content type="html" xml:base="http://localhost:4000/algorithms/functional%20programming/2021/03/08/functional-pearls-3.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
+&lt;p&gt;With this, we have shown that a directed graph is a category when it is well connected(per our definition) and all nodes have identity edges to themselves!&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><category term="Category Theory" /><summary type="html">These are inspired by the text Category Theory for Programmers by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning and potentially yours the reader, but these aren’t intended to be wholly comprehensive.</summary></entry><entry><title type="html">Saddleback Search - Pearls of Functional Algorithm Design</title><link href="https://nasherm.github.io/functional%20programming/2021/03/08/functional-pearls-3.html" rel="alternate" type="text/html" title="Saddleback Search - Pearls of Functional Algorithm Design" /><published>2021-03-08T00:00:00+00:00</published><updated>2021-03-08T00:00:00+00:00</updated><id>https://nasherm.github.io/functional%20programming/2021/03/08/functional-pearls-3</id><content type="html" xml:base="https://nasherm.github.io/functional%20programming/2021/03/08/functional-pearls-3.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
 text &lt;em&gt;Pearls of Functional Algorithm Design&lt;/em&gt; by Richard Bird for myself
 and perhaps yourself, the reader. All source examples are in Haskell.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;The problem is stated as the following. Suppose
 we are given a function $f:\mathbb{R}\times\mathbb{R} \to\mathbb{R}$.
-The value of &lt;code class=&quot;highlighter-rouge&quot;&gt;invert f z&lt;/code&gt; is a list of all pairs $x, y$ s.t.
+The value of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;invert f z&lt;/code&gt; is a list of all pairs $x, y$ s.t.
 $f(x, y) = z$. We can assume that f is strictly increasing in
 each argument, but nothing else.&lt;/p&gt;
 
@@ -134,7 +134,7 @@ slight improvement.&lt;/p&gt;
 values within a grid, that satisfy a property defined
 by our function:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    (0, z)
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    (0, z)
         ______________ (z, z)
         |              |
         |              |
@@ -157,7 +157,7 @@ searching $(0\to x, 0\to z-x)$.&lt;/p&gt;
 potentially gain something. Suppose we start
 our search from $(0, z)$, what do we get?&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(0, z)
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(0, z)
      ______________ (z, z)
     |              |
     |    (u,v)     |
@@ -180,7 +180,7 @@ our search space.&lt;/p&gt;
 
 &lt;p&gt;This constrains the number of checks we perform to $z^2$, which isn’t
 an improvement, but invites us to a different mode of thinking of our
-problem and improving &lt;code class=&quot;highlighter-rouge&quot;&gt;find&lt;/code&gt;.&lt;/p&gt;
+problem and improving &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt;.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -197,7 +197,7 @@ our search in the column i.e. we search $f(u, v’ \lt v)$.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;The above facts lead us to the following improved definition of &lt;code class=&quot;highlighter-rouge&quot;&gt;find&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The above facts lead us to the following improved definition of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- values outside our square&lt;/span&gt;
@@ -238,24 +238,24 @@ $f(0, -1), f(-1, 0) = 0$. With these values of $x_{max}$ and
 $y_{max}$, our invert function will take $2\log z + x_{max} + y_{max}$
 evaluations in the worst case and $2\log z + min(x_{max}, y_{max})$ in
 the best case. If $x, y$ are substantially smaller then $z$, we essentially have $\mathcal{O}(\log z)$
-complexity algorithm.&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><summary type="html">This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell.</summary></entry><entry><title type="html">A Surpassing Problem - Pearls of Functional Algorithm Design</title><link href="http://localhost:4000/algorithms/functional%20programming/2021/03/03/functional-pearls-2.html" rel="alternate" type="text/html" title="A Surpassing Problem - Pearls of Functional Algorithm Design" /><published>2021-03-03T00:00:00+00:00</published><updated>2021-03-03T00:00:00+00:00</updated><id>http://localhost:4000/algorithms/functional%20programming/2021/03/03/functional-pearls-2</id><content type="html" xml:base="http://localhost:4000/algorithms/functional%20programming/2021/03/03/functional-pearls-2.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
+complexity algorithm.&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><category term="Functional Programming" /><summary type="html">This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell.</summary></entry><entry><title type="html">A Surpassing Problem - Pearls of Functional Algorithm Design</title><link href="https://nasherm.github.io/functional%20programming/2021/03/03/functional-pearls-2.html" rel="alternate" type="text/html" title="A Surpassing Problem - Pearls of Functional Algorithm Design" /><published>2021-03-03T00:00:00+00:00</published><updated>2021-03-03T00:00:00+00:00</updated><id>https://nasherm.github.io/functional%20programming/2021/03/03/functional-pearls-2</id><content type="html" xml:base="https://nasherm.github.io/functional%20programming/2021/03/03/functional-pearls-2.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
 text &lt;em&gt;Pearls of Functional Algorithm Design&lt;/em&gt; by Richard Bird for myself
 and perhaps yourself, the reader. All source examples are in Haskell&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;This problem was proposed by Martin Rem in 1988.&lt;/p&gt;
 
 &lt;p&gt;We define the surpasser of an element in an array to be the
-element &lt;code class=&quot;highlighter-rouge&quot;&gt;x[j]&lt;/code&gt; such that for element &lt;code class=&quot;highlighter-rouge&quot;&gt;x[i]&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;x[i] &amp;lt; x[j]&lt;/code&gt;
+element &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x[j]&lt;/code&gt; such that for element &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x[i]&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x[i] &amp;lt; x[j]&lt;/code&gt;
 for $i \lt j$. From this definition, we define the surpasser
 count to be the number of surpassers in an array for an element. Here’s an illustrative
 example using the ASCII string GENERATING&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;             G E N E R A T I N G
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;             G E N E R A T I N G
 surpassers = 5 6 2 5 1 4 0 1 0 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;this is assuming ASCII encoding of letters, i.e. A=0x41, B=0x42 …
-The problem we wish to solve is to compute the maximum surpasser count (&lt;code class=&quot;highlighter-rouge&quot;&gt;msc&lt;/code&gt;)
+The problem we wish to solve is to compute the maximum surpasser count (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;msc&lt;/code&gt;)
 of an array length $n &amp;gt; 1$, and to do so in $\mathcal{O}(n\log n)$
 time.&lt;/p&gt;
 
@@ -267,7 +267,7 @@ time.&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;scount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scount&lt;/code&gt; caclulates the surpasser count for an element x in xs.
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scount&lt;/code&gt; caclulates the surpasser count for an element x in xs.
 Tails will return the non-empty tails of a list&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;tails&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
@@ -275,9 +275,9 @@ Tails will return the non-empty tails of a list&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;tails&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This solution is quadratic. &lt;code class=&quot;highlighter-rouge&quot;&gt;msc&lt;/code&gt; will perform
-with worst case $\mathcal{O}(n^2)$ complexity due to calls to &lt;code class=&quot;highlighter-rouge&quot;&gt;scount&lt;/code&gt;.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;maximum&lt;/code&gt; performs with $\Theta(n)$ complexity.&lt;/p&gt;
+&lt;p&gt;This solution is quadratic. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;msc&lt;/code&gt; will perform
+with worst case $\mathcal{O}(n^2)$ complexity due to calls to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scount&lt;/code&gt;.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;maximum&lt;/code&gt; performs with $\Theta(n)$ complexity.&lt;/p&gt;
 
 &lt;h2 id=&quot;divide-and-conquer-solution&quot;&gt;Divide and Conquer Solution&lt;/h2&gt;
 &lt;p&gt;Our target complexity is $\mathcal{O}(n\log n)$. If we
@@ -286,7 +286,7 @@ can find a divide and conquer solution such that&lt;/p&gt;
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;msc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;with &lt;code class=&quot;highlighter-rouge&quot;&gt;join&lt;/code&gt; computing in linear time, then our solution will
+&lt;p&gt;with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join&lt;/code&gt; computing in linear time, then our solution will
 perform with complexity $T(n) = 2T(n/2) + \mathcal{O}(n)$, our solution
 would be $T(n) = \mathcal{O}(n\log n)$. We don’t have enough
 information yet however to define this linear join. Suppose we build
@@ -295,7 +295,7 @@ a table of all the surpasser counts&lt;/p&gt;
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Then &lt;code class=&quot;highlighter-rouge&quot;&gt;msc = maximum.map snd.table&lt;/code&gt;. With this table, we can try and
+&lt;p&gt;Then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;msc = maximum.map snd.table&lt;/code&gt;. With this table, we can try and
 find a linear join s.t.&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -330,7 +330,7 @@ find a linear join s.t.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;This isn’t a linear time solution however as join will not perform in
-linear time due to the &lt;code class=&quot;highlighter-rouge&quot;&gt;tcount&lt;/code&gt; operation. If the input to tcount is sorted in ascending
+linear time due to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tcount&lt;/code&gt; operation. If the input to tcount is sorted in ascending
 order we can reason the following&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;tcount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys&lt;/span&gt;
@@ -361,9 +361,9 @@ property.&lt;/p&gt;
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;where &lt;code class=&quot;highlighter-rouge&quot;&gt;^^&lt;/code&gt; is an operation to merge two sorted lists.&lt;/p&gt;
+&lt;p&gt;where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^^&lt;/code&gt; is an operation to merge two sorted lists.&lt;/p&gt;
 
-&lt;p&gt;We derive a recursive efficient version of &lt;code class=&quot;highlighter-rouge&quot;&gt;join&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We derive a recursive efficient version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join&lt;/code&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txs&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txs&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys&lt;/span&gt;
@@ -371,16 +371,16 @@ property.&lt;/p&gt;
     &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;To perform &lt;code class=&quot;highlighter-rouge&quot;&gt;(^^)&lt;/code&gt; we need to merge compare $x$ and $y$. In the
+&lt;p&gt;To perform &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(^^)&lt;/code&gt; we need to merge compare $x$ and $y$. In the
 case that $x \lt y$, then it’s the element on the left and
-with &lt;code class=&quot;highlighter-rouge&quot;&gt;tcount x tys = length tys&lt;/code&gt;, this reduces to.&lt;/p&gt;
+with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tcount x tys = length tys&lt;/code&gt;, this reduces to.&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(x, c + length tys):join txs' tys'&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(x, c + length tys):join txs' tys'&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;If $x = y$, we compare &lt;code class=&quot;highlighter-rouge&quot;&gt;c + tcount x tys&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;d=tcount x tys'&lt;/code&gt;. In this case this
+&lt;p&gt;If $x = y$, we compare &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c + tcount x tys&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;d=tcount x tys'&lt;/code&gt;. In this case this
 reduces&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(y, d): join txs tys'&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(y, d): join txs tys'&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;This result is also true for $x &amp;gt; y$.&lt;/p&gt;
 
@@ -401,7 +401,7 @@ recalculating length:&lt;/p&gt;
       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tys'&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;With linear join, we have a $\mathcal{O}(n\log n)$ algorithm.&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><summary type="html">This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell</summary></entry><entry><title type="html">The Smallest Free Number - Pearls of Functional Algorithm Design</title><link href="http://localhost:4000/algorithms/functional%20programming/2021/03/01/functional-pearls-1.html" rel="alternate" type="text/html" title="The Smallest Free Number - Pearls of Functional Algorithm Design" /><published>2021-03-01T00:00:00+00:00</published><updated>2021-03-01T00:00:00+00:00</updated><id>http://localhost:4000/algorithms/functional%20programming/2021/03/01/functional-pearls-1</id><content type="html" xml:base="http://localhost:4000/algorithms/functional%20programming/2021/03/01/functional-pearls-1.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
+&lt;p&gt;With linear join, we have a $\mathcal{O}(n\log n)$ algorithm.&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><category term="Functional Programming" /><summary type="html">This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell</summary></entry><entry><title type="html">The Smallest Free Number - Pearls of Functional Algorithm Design</title><link href="https://nasherm.github.io/functional%20programming/2021/03/01/functional-pearls-1.html" rel="alternate" type="text/html" title="The Smallest Free Number - Pearls of Functional Algorithm Design" /><published>2021-03-01T00:00:00+00:00</published><updated>2021-03-01T00:00:00+00:00</updated><id>https://nasherm.github.io/functional%20programming/2021/03/01/functional-pearls-1</id><content type="html" xml:base="https://nasherm.github.io/functional%20programming/2021/03/01/functional-pearls-1.html">&lt;p&gt;&lt;strong&gt;This blog post acts as expository notes on the content in the
 text &lt;em&gt;Pearls of Functional Algorithm Design&lt;/em&gt; by Richard Bird for myself
 and perhaps yourself, the reader. All source examples are in Haskell&lt;/strong&gt;&lt;/p&gt;
 
@@ -434,7 +434,7 @@ don’t exist.&lt;/p&gt;
 &lt;p&gt;We use Int so as to only rely on core Haskell without having to import
 a package. I could also implement a Nat datatype manually, but that would
 be extra work distracting from the main purpose of this problem.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;xs\\ys&lt;/code&gt; denotes the list of elements of xs that remain after removing
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xs\\ys&lt;/code&gt; denotes the list of elements of xs that remain after removing
 any elements in ys.&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eq&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
@@ -463,8 +463,8 @@ entry&lt;/p&gt;
 converts it into a list of booleans and the returns the length
 of the longest initial segment consisting of True entries.&lt;/p&gt;
 
-&lt;p&gt;We can implement &lt;code class=&quot;highlighter-rouge&quot;&gt;checklist&lt;/code&gt; in linear time using the function
-&lt;code class=&quot;highlighter-rouge&quot;&gt;accumArray&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;Data.Array&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We can implement &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;checklist&lt;/code&gt; in linear time using the function
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;accumArray&lt;/code&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Data.Array&lt;/code&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;accumArray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Ix&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Array&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -472,11 +472,11 @@ of the longest initial segment consisting of True entries.&lt;/p&gt;
 &lt;p&gt;A rundown of this type signature is as follows:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The type constraint &lt;code class=&quot;highlighter-rouge&quot;&gt;Ix i&lt;/code&gt; restricts the type &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; to an index types. These
+  &lt;li&gt;The type constraint &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ix i&lt;/code&gt; restricts the type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; to an index types. These
 are types consisting of a contiguous subrange of values which
 can be mapped to integers. This will be used to name indices
 in our array.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(e-&amp;gt;a-&amp;gt;e)&lt;/code&gt; is an accumulating function which will be used to transform
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(e-&amp;gt;a-&amp;gt;e)&lt;/code&gt; is an accumulating function which will be used to transform
 array entries and values into new entries,&lt;/li&gt;
   &lt;li&gt;our second argument is an initial entry for each index,&lt;/li&gt;
   &lt;li&gt;the third argument is a pair naming the upper and lower indices,&lt;/li&gt;
@@ -500,7 +500,7 @@ to find a value associated with a key.&lt;/p&gt;
                       &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;accumArray&lt;/code&gt; can be used to sort a list of numbers in linear time &lt;em&gt;if&lt;/em&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;accumArray&lt;/code&gt; can be used to sort a list of numbers in linear time &lt;em&gt;if&lt;/em&gt;
 elements are in a known range e.g. $(0, n)$. We to do this, let’s define a
 similar function to checklist called countlist&lt;/p&gt;
 
@@ -513,7 +513,7 @@ similar function to checklist called countlist&lt;/p&gt;
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concat&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replicate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;assocs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;countlist&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Using &lt;code class=&quot;highlighter-rouge&quot;&gt;countlist&lt;/code&gt; we can implement &lt;code class=&quot;highlighter-rouge&quot;&gt;minFree&lt;/code&gt; as the position of the first $(x, 0)$ entry.&lt;/p&gt;
+&lt;p&gt;Using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;countlist&lt;/code&gt; we can implement &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minFree&lt;/code&gt; as the position of the first $(x, 0)$ entry.&lt;/p&gt;
 
 &lt;p&gt;Another way of implementing checklist is to tick off entries using a constant
 time update operation. This can be done using a monad encapsulating the operations.&lt;/p&gt;
@@ -530,14 +530,14 @@ time update operation. This can be done using a monad encapsulating the operatio
 The first line constructs an array with every value in our range $(0, n)$ initialised
 to false. We then perform a list comprehension where we rewrite all values in a
 to true if they are within xs. We require sequence as this transforms our list
-of monads into monad with results. We then return a, our updated array. &lt;code class=&quot;highlighter-rouge&quot;&gt;runSTArray&lt;/code&gt;
+of monads into monad with results. We then return a, our updated array. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runSTArray&lt;/code&gt;
 is a way to create a mutable array before returning an immutable result. In particular
 we avoid copying the array for modification before returning it.&lt;/p&gt;
 
 &lt;h2 id=&quot;divide-and-conquer-solution&quot;&gt;Divide and Conquer solution&lt;/h2&gt;
 
 &lt;p&gt;We now turn to a divide and conquer solution. The idea is summed up by
-the expression minfree (xs ++ ys) $\equiv$ minfree xs ++ minfree ys. We first note some properties of &lt;code class=&quot;highlighter-rouge&quot;&gt;\\&lt;/code&gt;. Remember the definition of &lt;code class=&quot;highlighter-rouge&quot;&gt;\\&lt;/code&gt;:&lt;/p&gt;
+the expression minfree (xs ++ ys) $\equiv$ minfree xs ++ minfree ys. We first note some properties of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\&lt;/code&gt;. Remember the definition of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\&lt;/code&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Eq&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notElem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
@@ -551,22 +551,22 @@ the expression minfree (xs ++ ys) $\equiv$ minfree xs ++ minfree ys. We first no
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;These aren’t proven for brevity. These laws are similar to laws of union in set theory where
-&lt;code class=&quot;highlighter-rouge&quot;&gt;++&lt;/code&gt; is union and &lt;code class=&quot;highlighter-rouge&quot;&gt;\\&lt;/code&gt;is difference.
-Suppose that &lt;code class=&quot;highlighter-rouge&quot;&gt;as&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;vs&lt;/code&gt; are disjoint i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;as \\ vs = as&lt;/code&gt;, and
-also &lt;code class=&quot;highlighter-rouge&quot;&gt;bs&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;us&lt;/code&gt; are disjoint so &lt;code class=&quot;highlighter-rouge&quot;&gt;bs\\us = bs&lt;/code&gt;. It follows that&lt;/p&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;++&lt;/code&gt; is union and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\&lt;/code&gt;is difference.
+Suppose that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;as&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vs&lt;/code&gt; are disjoint i.e &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;as \\ vs = as&lt;/code&gt;, and
+also &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bs&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;us&lt;/code&gt; are disjoint so &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bs\\us = bs&lt;/code&gt;. It follows that&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Lets choose natural number $b$ and let &lt;code class=&quot;highlighter-rouge&quot;&gt;as = [0..b-1]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;bs = [b..]&lt;/code&gt;.
-Let &lt;code class=&quot;highlighter-rouge&quot;&gt;us = filter (&amp;lt; b) xs&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;vs = filter (&amp;gt;= b) xs&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Lets choose natural number $b$ and let &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;as = [0..b-1]&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bs = [b..]&lt;/code&gt;.
+Let &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;us = filter (&amp;lt; b) xs&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vs = filter (&amp;gt;= b) xs&lt;/code&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Partition is an efficient function for dividing a list.&lt;/p&gt;
 
-&lt;p&gt;Since &lt;code class=&quot;highlighter-rouge&quot;&gt;head (xs ++ ys) = if null xs then head ys else head xs&lt;/code&gt; we can conclude for natural
+&lt;p&gt;Since &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;head (xs ++ ys) = if null xs then head ys else head xs&lt;/code&gt; we can conclude for natural
 number $b$&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minfree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -576,19 +576,19 @@ number $b$&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;We can speed up some of the above operations. For example the check
-&lt;code class=&quot;highlighter-rouge&quot;&gt;null ([0..b-1]\\us)&lt;/code&gt; can be performed in costant time assuming &lt;code class=&quot;highlighter-rouge&quot;&gt;us&lt;/code&gt; is a list
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;null ([0..b-1]\\us)&lt;/code&gt; can be performed in costant time assuming &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;us&lt;/code&gt; is a list
 of distinct natural numbers as well as every element is less than $b$:&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;≡&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;We can generalise &lt;code class=&quot;highlighter-rouge&quot;&gt;minfree&lt;/code&gt; to a function, which we call &lt;code class=&quot;highlighter-rouge&quot;&gt;minfrom&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We can generalise &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minfree&lt;/code&gt; to a function, which we call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minfrom&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;where every element of &lt;code class=&quot;highlighter-rouge&quot;&gt;xs&lt;/code&gt; is assumed to be greater than or equal to &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;. Then provided we select
-$b$ so that both &lt;code class=&quot;highlighter-rouge&quot;&gt;length us&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;length vs&lt;/code&gt; are less than &lt;code class=&quot;highlighter-rouge&quot;&gt;length xs&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;where every element of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xs&lt;/code&gt; is assumed to be greater than or equal to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;. Then provided we select
+$b$ so that both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;length us&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;length vs&lt;/code&gt; are less than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;length xs&lt;/code&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minfree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
@@ -597,21 +597,21 @@ $b$ so that both &lt;code class=&quot;highlighter-rouge&quot;&gt;length us&lt;/c
              &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;So how do we select $b$? Ideally our value of $b$ is such that the maximum of &lt;code class=&quot;highlighter-rouge&quot;&gt;length us&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;length vs&lt;/code&gt; is as small as possible &lt;em&gt;and&lt;/em&gt; $b\gt a$.&lt;/p&gt;
+&lt;p&gt;So how do we select $b$? Ideally our value of $b$ is such that the maximum of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;length us&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;length vs&lt;/code&gt; is as small as possible &lt;em&gt;and&lt;/em&gt; $b\gt a$.&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;b = a + 1 + n\ div\ 2&lt;/script&gt;
+\[b = a + 1 + n\ div\ 2\]
 
 &lt;p&gt;where div is floored division.&lt;/p&gt;
 
-&lt;p&gt;If $n \ne 0$ and &lt;code class=&quot;highlighter-rouge&quot;&gt;length us &amp;lt; b − a&lt;/code&gt;, then
-&lt;code class=&quot;highlighter-rouge&quot;&gt;length us ≤ n div 2 &amp;lt; n&lt;/code&gt;
-And, if &lt;code class=&quot;highlighter-rouge&quot;&gt;length us = b − a&lt;/code&gt;, then &lt;code class=&quot;highlighter-rouge&quot;&gt;length vs = n − n div 2 − 1 ≤ n div 2&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If $n \ne 0$ and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;length us &amp;lt; b − a&lt;/code&gt;, then
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;length us ≤ n div 2 &amp;lt; n&lt;/code&gt;
+And, if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;length us = b − a&lt;/code&gt;, then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;length vs = n − n div 2 − 1 ≤ n div 2&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;With this choice the number of steps $T(n)$ for evaluating &lt;code class=&quot;highlighter-rouge&quot;&gt;minfrom 0 xs
+&lt;p&gt;With this choice the number of steps $T(n)$ for evaluating &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minfrom 0 xs
 when n = length xs&lt;/code&gt; satisfies $T(n) = T(n\ div\ 2) + Θ(n)$, with the solution
 $T(n) = Θ(n)$.&lt;/p&gt;
 
-&lt;p&gt;A final optimisation is we can avoid computing length by represent xs as a pair &lt;code class=&quot;highlighter-rouge&quot;&gt;(length xs, xs)&lt;/code&gt;. Our final solution then looks like the following:&lt;/p&gt;
+&lt;p&gt;A final optimisation is we can avoid computing length by represent xs as a pair &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(length xs, xs)&lt;/code&gt;. Our final solution then looks like the following:&lt;/p&gt;
 
 &lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;minfree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;minfrom&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
@@ -620,8 +620,6 @@ $T(n) = Θ(n)$.&lt;/p&gt;
                   &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;
                         &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
                         &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><summary type="html">This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell</summary></entry><entry><title type="html">My Dissertation</title><link href="http://localhost:4000/type%20theory/2020/07/16/diss.html" rel="alternate" type="text/html" title="My Dissertation" /><published>2020-07-16T00:00:00+01:00</published><updated>2020-07-16T00:00:00+01:00</updated><id>http://localhost:4000/type%20theory/2020/07/16/diss</id><content type="html" xml:base="http://localhost:4000/type%20theory/2020/07/16/diss.html">&lt;p&gt;My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><category term="Functional Programming" /><summary type="html">This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell</summary></entry><entry><title type="html">My Dissertation</title><link href="https://nasherm.github.io/type%20theory/2020/07/16/diss.html" rel="alternate" type="text/html" title="My Dissertation" /><published>2020-07-16T00:00:00+01:00</published><updated>2020-07-16T00:00:00+01:00</updated><id>https://nasherm.github.io/type%20theory/2020/07/16/diss</id><content type="html" xml:base="https://nasherm.github.io/type%20theory/2020/07/16/diss.html">&lt;p&gt;My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.&lt;/p&gt;
 
-&lt;p&gt;The full dissertation can be downloaded &lt;a href=&quot;/assets/diss-final.pdf&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/front.png&quot; alt=&quot;front&quot; /&gt;&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><summary type="html">My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.</summary></entry></feed>
+&lt;p&gt;The full dissertation can be downloaded &lt;a href=&quot;/assets/diss-final.pdf&quot;&gt;here&lt;/a&gt;&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><category term="Type Theory" /><summary type="html">My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.</summary></entry></feed>

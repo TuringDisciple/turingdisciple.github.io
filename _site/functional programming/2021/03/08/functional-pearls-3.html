@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Saddleback Search - Pearls of Functional Algorithm Design</title><!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Saddleback Search - Pearls of Functional Algorithm Design" />
+<meta name="author" content="nashemncube, Nashe Mncube, nasherm" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell." />
+<meta property="og:description" content="This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell." />
+<link rel="canonical" href="https://nasherm.github.io/functional%20programming/2021/03/08/functional-pearls-3.html" />
+<meta property="og:url" content="https://nasherm.github.io/functional%20programming/2021/03/08/functional-pearls-3.html" />
+<meta property="og:site_name" content="Nashe Mncube" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-08T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Saddleback Search - Pearls of Functional Algorithm Design" />
+<script type="application/ld+json">
+{"url":"https://nasherm.github.io/functional%20programming/2021/03/08/functional-pearls-3.html","author":{"@type":"Person","name":"nashemncube, Nashe Mncube, nasherm"},"headline":"Saddleback Search - Pearls of Functional Algorithm Design","dateModified":"2021-03-08T00:00:00+00:00","datePublished":"2021-03-08T00:00:00+00:00","description":"This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell.","mainEntityOfPage":{"@type":"WebPage","@id":"https://nasherm.github.io/functional%20programming/2021/03/08/functional-pearls-3.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="https://nasherm.github.io/feed.xml" title="Nashe Mncube" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head><body a="dark">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Saddleback Search - Pearls of Functional Algorithm Design</h1>
+    <p class="post-meta">
+      <time datetime="2021-03-08T00:00:00+00:00" itemprop="datePublished">
+        
+        Mar 8, 2021
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><strong>This blog post acts as expository notes on the content in the
+text <em>Pearls of Functional Algorithm Design</em> by Richard Bird for myself
+and perhaps yourself, the reader. All source examples are in Haskell.</strong></p>
+
+<p>The problem is stated as the following. Suppose
+we are given a function $f:\mathbb{R}\times\mathbb{R} \to\mathbb{R}$.
+The value of <code class="language-plaintext highlighter-rouge">invert f z</code> is a list of all pairs $x, y$ s.t.
+$f(x, y) = z$. We can assume that f is strictly increasing in
+each argument, but nothing else.</p>
+
+<p>We can approach this problem naively; knowing that the arguments
+to our function are strictly increasing, we can imply that
+$x,y\le z$. Hence we can perform a list comprehension search.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">invert</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)]</span>
+<span class="n">invert</span> <span class="n">f</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">|</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">z</span><span class="p">],</span> <span class="n">y</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">z</span><span class="p">],</span> <span class="n">f</span> <span class="n">x</span> <span class="n">y</span> <span class="o">==</span> <span class="n">z</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>This isn’t very efficient as we perform $(z+1)^2$ evaluations
+of our function. We can actually place a stronger bound
+on our search space of values, by knowing that $f(x, y) \ge x + y$
+following from our stricly increasing assumption. This leads to the
+following:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">invert</span> <span class="n">f</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">|</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">z</span><span class="p">],</span> <span class="n">y</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">z</span> <span class="o">-</span> <span class="n">x</span><span class="p">],</span> <span class="n">f</span> <span class="n">x</span> <span class="n">y</span> <span class="o">==</span> <span class="n">z</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>This bounds us to $z(z-x)$ searches, which is still quadratic, but a
+slight improvement.</p>
+
+<p>Our problem is starting to take the shape of searching
+values within a grid, that satisfy a property defined
+by our function:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    (0, z)
+        ______________ (z, z)
+        |              |
+        |              |
+        |              |
+        |              |
+        |              |
+        |______________|
+    (0,0)              (z, 0)
+
+</code></pre></div></div>
+
+<p>Visually, this illuminates our search space.
+Our initial solution was equivalent to iterating
+over $x$, and searching each column $(x, 0\to z)$
+for our solution set. Our second solution bounded
+our search space and reduced our problem to
+searching $(0\to x, 0\to z-x)$.</p>
+
+<p>We can search our space in a different order, and
+potentially gain something. Suppose we start
+our search from $(0, z)$, what do we get?</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(0, z)
+     ______________ (z, z)
+    |              |
+    |    (u,v)     |
+    |      ________|
+    |      |       |
+    |      |       |
+    |      |       |
+    |______|_______|
+(0,0)              (z, 0)
+
+</code></pre></div></div>
+
+<p>What is useful is that with each step we constrain
+our search space.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">find</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)]</span>
+<span class="n">find</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="n">f</span> <span class="n">z</span>  <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">|</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="n">u</span><span class="o">..</span><span class="n">z</span><span class="p">],</span> <span class="n">y</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">..</span> <span class="mi">0</span><span class="p">],</span> <span class="n">f</span> <span class="n">x</span> <span class="n">y</span> <span class="o">==</span> <span class="n">z</span><span class="p">]</span>
+<span class="n">invert</span> <span class="n">f</span> <span class="n">z</span> <span class="o">=</span> <span class="n">find</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="n">f</span> <span class="n">z</span>
+</code></pre></div></div>
+
+<p>This constrains the number of checks we perform to $z^2$, which isn’t
+an improvement, but invites us to a different mode of thinking of our
+problem and improving <code class="language-plaintext highlighter-rouge">find</code>.</p>
+
+<ol>
+  <li>
+    <p>If we evaluate our function on our starting
+point ,  $f(u, v)$, and find it to be less than $z$, we can actually skip
+searching $v’ \lt v$ as we know that $f(u,v) \lt z \implies f(u, v’\lt v) \lt z$.</p>
+  </li>
+  <li>
+    <p>In the case where $f(u, v) &gt; z$, we can try find a closer value by decreasing
+our search in the column i.e. we search $f(u, v’ \lt v)$.</p>
+  </li>
+  <li>
+    <p>In the case where $f(u, v)\equiv z$, we can skip searching our columns and row.</p>
+  </li>
+</ol>
+
+<p>The above facts lead us to the following improved definition of <code class="language-plaintext highlighter-rouge">find</code></p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">find</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="n">f</span> <span class="n">z</span>
+      <span class="o">|</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="n">z</span> <span class="o">||</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">=</span> <span class="kt">[]</span> <span class="c1">-- values outside our square</span>
+      <span class="o">|</span> <span class="n">z'</span> <span class="o">&lt;</span> <span class="n">z</span>         <span class="o">=</span> <span class="n">find</span> <span class="p">(</span><span class="n">u</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="n">f</span> <span class="n">z</span>        <span class="c1">-- condition 1</span>
+      <span class="o">|</span> <span class="n">z'</span> <span class="o">&gt;</span> <span class="n">z</span>         <span class="o">=</span> <span class="n">find</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="n">f</span> <span class="n">z</span>        <span class="c1">-- condition 2</span>
+      <span class="o">|</span> <span class="n">z'</span> <span class="o">==</span> <span class="n">z</span>        <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span><span class="o">:</span><span class="n">find</span> <span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">f</span> <span class="n">z</span> <span class="c1">-- condition 3</span>
+      <span class="kr">where</span> <span class="n">z'</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>With the above definition we have a best case of only $z+1$ evaluations,
+this corresponds to the case where we simply proceed to the bottom or
+rightmost boundary. In the worst case we have $2z + 1$ evaluations
+where find traverses the perimeter of the square from $(0, z)$ to $(z, z)$
+then proceeds downward to $(z, 0)$. This is a massive improvement in
+performance as we now have a linear time solution, all from switching
+the order of our search.</p>
+
+<p>Perhaps we can constrain our search space even further, knowing that $x+y\le z$.
+If we know the maximum values of $x$ and
+$y$ that satisfy the equation $f(x_{max}, m), f(n, y_{max})=z$, then we
+can constrain search to values $n\le x_{max}\le z$ and $m\le y_{max}\le z$.
+Finding these maximum values would constrain our search space to $(x_{max}+1)(y_{max}+1)$
+and is essentially finding a starting rectangle. These maximum values can
+be found via binary search.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bsearch</span> <span class="n">g</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="n">z</span>
+      <span class="o">|</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">b</span>  <span class="o">=</span> <span class="n">a</span>
+      <span class="o">|</span> <span class="n">g</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="n">z</span>    <span class="o">=</span> <span class="n">bsearch</span> <span class="n">g</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="n">z</span>
+      <span class="o">|</span> <span class="n">otherwise</span>   <span class="o">=</span> <span class="n">bsearch</span> <span class="n">g</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="n">z</span>
+      <span class="kr">where</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="p">`</span><span class="n">div</span><span class="p">`</span> <span class="mi">2</span>
+<span class="n">ymax</span> <span class="n">z</span> <span class="n">f</span> <span class="o">=</span> <span class="n">bsearch</span> <span class="p">(</span><span class="nf">\</span><span class="n">y</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">z</span>
+<span class="n">xmax</span> <span class="n">z</span> <span class="n">f</span> <span class="o">=</span> <span class="n">bsearch</span> <span class="p">(</span><span class="nf">\</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">z</span>
+</code></pre></div></div>
+
+<p>In the above snippet, $g$ is an increasing function on the natural
+numbers. We have extended the range that $f$ operates over so that
+$f(0, -1), f(-1, 0) = 0$. With these values of $x_{max}$ and
+$y_{max}$, our invert function will take $2\log z + x_{max} + y_{max}$
+evaluations in the worst case and $2\log z + min(x_{max}, y_{max})$ in
+the best case. If $x, y$ are substantially smaller then $z$, we essentially have $\mathcal{O}(\log z)$
+complexity algorithm.</p>
+
+  </div>
+
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</article>
+
+
+      </div>
+    </main></body>
+</html>

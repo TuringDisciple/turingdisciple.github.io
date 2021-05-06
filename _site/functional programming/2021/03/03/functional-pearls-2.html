@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>A Surpassing Problem - Pearls of Functional Algorithm Design</title><!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="A Surpassing Problem - Pearls of Functional Algorithm Design" />
+<meta name="author" content="nashemncube, Nashe Mncube, nasherm" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell" />
+<meta property="og:description" content="This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell" />
+<link rel="canonical" href="https://nasherm.github.io/functional%20programming/2021/03/03/functional-pearls-2.html" />
+<meta property="og:url" content="https://nasherm.github.io/functional%20programming/2021/03/03/functional-pearls-2.html" />
+<meta property="og:site_name" content="Nashe Mncube" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-03T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="A Surpassing Problem - Pearls of Functional Algorithm Design" />
+<script type="application/ld+json">
+{"url":"https://nasherm.github.io/functional%20programming/2021/03/03/functional-pearls-2.html","author":{"@type":"Person","name":"nashemncube, Nashe Mncube, nasherm"},"headline":"A Surpassing Problem - Pearls of Functional Algorithm Design","dateModified":"2021-03-03T00:00:00+00:00","datePublished":"2021-03-03T00:00:00+00:00","description":"This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell","mainEntityOfPage":{"@type":"WebPage","@id":"https://nasherm.github.io/functional%20programming/2021/03/03/functional-pearls-2.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="https://nasherm.github.io/feed.xml" title="Nashe Mncube" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head><body a="dark">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">A Surpassing Problem - Pearls of Functional Algorithm Design</h1>
+    <p class="post-meta">
+      <time datetime="2021-03-03T00:00:00+00:00" itemprop="datePublished">
+        
+        Mar 3, 2021
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><strong>This blog post acts as expository notes on the content in the
+text <em>Pearls of Functional Algorithm Design</em> by Richard Bird for myself
+and perhaps yourself, the reader. All source examples are in Haskell</strong></p>
+
+<p>This problem was proposed by Martin Rem in 1988.</p>
+
+<p>We define the surpasser of an element in an array to be the
+element <code class="language-plaintext highlighter-rouge">x[j]</code> such that for element <code class="language-plaintext highlighter-rouge">x[i]</code>, <code class="language-plaintext highlighter-rouge">x[i] &lt; x[j]</code>
+for $i \lt j$. From this definition, we define the surpasser
+count to be the number of surpassers in an array for an element. Here’s an illustrative
+example using the ASCII string GENERATING</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             G E N E R A T I N G
+surpassers = 5 6 2 5 1 4 0 1 0 0
+</code></pre></div></div>
+
+<p>this is assuming ASCII encoding of letters, i.e. A=0x41, B=0x42 …
+The problem we wish to solve is to compute the maximum surpasser count (<code class="language-plaintext highlighter-rouge">msc</code>)
+of an array length $n &gt; 1$, and to do so in $\mathcal{O}(n\log n)$
+time.</p>
+
+<h2 id="naive-solution">Naive Solution</h2>
+<p>We represent our input as a list, and specify the problem:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">msc</span> <span class="o">::</span> <span class="kt">Ord</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Int</span>
+<span class="n">msc</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">maximum</span> <span class="p">[</span><span class="n">scount</span> <span class="n">z</span> <span class="n">zs</span> <span class="o">|</span> <span class="n">z</span><span class="o">:</span><span class="n">zs</span> <span class="o">&lt;-</span> <span class="n">tails</span> <span class="n">xs</span><span class="p">]</span>
+<span class="n">scount</span> <span class="n">x</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">length</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="p">)</span> <span class="n">xs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">scount</code> caclulates the surpasser count for an element x in xs.
+Tails will return the non-empty tails of a list</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tails</span> <span class="o">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[[</span><span class="n">a</span><span class="p">]]</span>
+<span class="n">tails</span> <span class="kt">[]</span> <span class="o">=</span> <span class="kt">[]</span>
+<span class="n">tails</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span><span class="o">:</span><span class="n">tails</span> <span class="n">xs</span>
+</code></pre></div></div>
+
+<p>This solution is quadratic. <code class="language-plaintext highlighter-rouge">msc</code> will perform
+with worst case $\mathcal{O}(n^2)$ complexity due to calls to <code class="language-plaintext highlighter-rouge">scount</code>.
+<code class="language-plaintext highlighter-rouge">maximum</code> performs with $\Theta(n)$ complexity.</p>
+
+<h2 id="divide-and-conquer-solution">Divide and Conquer Solution</h2>
+<p>Our target complexity is $\mathcal{O}(n\log n)$. If we
+can find a divide and conquer solution such that</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">msc</span><span class="p">(</span><span class="n">xs</span> <span class="o">++</span> <span class="n">ys</span><span class="p">)</span> <span class="o">=</span> <span class="n">join</span> <span class="p">(</span><span class="n">msc</span> <span class="n">xs</span><span class="p">)</span> <span class="p">(</span><span class="n">msc</span> <span class="n">ys</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>with <code class="language-plaintext highlighter-rouge">join</code> computing in linear time, then our solution will
+perform with complexity $T(n) = 2T(n/2) + \mathcal{O}(n)$, our solution
+would be $T(n) = \mathcal{O}(n\log n)$. We don’t have enough
+information yet however to define this linear join. Suppose we build
+a table of all the surpasser counts</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span> <span class="n">xs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">z</span><span class="p">,</span> <span class="n">scount</span> <span class="n">z</span> <span class="n">zs</span><span class="p">)</span> <span class="o">|</span> <span class="n">z</span><span class="o">:</span><span class="n">zs</span> <span class="o">&lt;-</span> <span class="n">tails</span> <span class="n">xs</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Then <code class="language-plaintext highlighter-rouge">msc = maximum.map snd.table</code>. With this table, we can try and
+find a linear join s.t.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span> <span class="p">(</span><span class="n">xs</span> <span class="o">++</span> <span class="n">ys</span><span class="p">)</span> <span class="o">=</span> <span class="n">join</span> <span class="p">(</span><span class="n">table</span> <span class="n">xs</span><span class="p">)</span> <span class="p">(</span><span class="n">table</span> <span class="n">ys</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>There’s a property of tails that can assist in solving this problem:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tails</span> <span class="p">(</span><span class="n">xs</span> <span class="o">++</span> <span class="n">ys</span><span class="p">)</span> <span class="o">=</span> <span class="n">map</span> <span class="p">(</span><span class="o">++</span><span class="n">ys</span><span class="p">)</span> <span class="p">(</span><span class="n">tails</span> <span class="n">xs</span><span class="p">)</span> <span class="o">++</span> <span class="n">tails</span> <span class="n">ys</span>
+</code></pre></div></div>
+
+<p>This leads to the following derivation</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">table</span> <span class="p">(</span><span class="n">xs</span> <span class="o">++</span> <span class="n">ys</span><span class="p">)</span>
+ <span class="o">=</span> <span class="c1">-- {definition-}</span>
+ <span class="p">[(</span><span class="n">z</span> <span class="p">,</span> <span class="n">scount</span> <span class="n">z</span> <span class="n">zs</span><span class="p">)</span> <span class="o">|</span> <span class="n">z</span> <span class="o">:</span> <span class="n">zs</span> <span class="o">&lt;-</span> <span class="n">tails</span> <span class="p">(</span><span class="n">xs</span> <span class="o">++</span> <span class="n">ys</span><span class="p">)]</span>
+ <span class="o">=</span> <span class="c1">-- {divide and conquer property of tails}</span>
+ <span class="p">[(</span><span class="n">z</span> <span class="p">,</span> <span class="n">scount</span> <span class="n">z</span> <span class="n">zs</span><span class="p">)</span> <span class="o">|</span> <span class="n">z</span> <span class="o">:</span> <span class="n">zs</span> <span class="o">&lt;-</span> <span class="n">map</span> <span class="p">(</span><span class="o">++</span><span class="n">ys</span><span class="p">)</span> <span class="p">(</span><span class="n">tails</span> <span class="n">xs</span><span class="p">)</span> <span class="o">++</span> <span class="n">tails</span> <span class="n">ys</span><span class="p">]</span>
+ <span class="o">=</span> <span class="c1">-- {distributing ← over ++ &amp; desugaring map}</span>
+ <span class="p">[(</span><span class="n">z</span> <span class="p">,</span> <span class="n">scount</span> <span class="n">z</span> <span class="p">(</span><span class="n">zs</span> <span class="o">++</span> <span class="n">ys</span><span class="p">))</span> <span class="o">|</span> <span class="n">z</span> <span class="o">:</span> <span class="n">zs</span> <span class="o">&lt;-</span> <span class="n">tails</span> <span class="n">xs</span><span class="p">]</span> <span class="o">++</span>
+ <span class="p">[(</span><span class="n">z</span> <span class="p">,</span> <span class="n">scount</span> <span class="n">z</span> <span class="n">zs</span><span class="p">)</span> <span class="o">|</span> <span class="n">z</span> <span class="o">:</span> <span class="n">zs</span> <span class="o">&lt;-</span> <span class="n">tails</span> <span class="n">ys</span><span class="p">])</span>
+ <span class="o">=</span> <span class="c1">-- {since scount z (zs ++ ys) = scount z zs + scount z ys}</span>
+ <span class="p">[(</span><span class="n">z</span> <span class="p">,</span> <span class="n">scount</span> <span class="n">z</span> <span class="n">zs</span> <span class="o">+</span> <span class="n">scount</span> <span class="n">z</span> <span class="n">ys</span><span class="p">)</span> <span class="o">|</span> <span class="n">z</span> <span class="o">:</span> <span class="n">zs</span> <span class="o">&lt;-</span> <span class="n">tails</span> <span class="n">xs</span><span class="p">]</span> <span class="o">++</span>
+ <span class="p">[(</span><span class="n">z</span> <span class="p">,</span> <span class="n">scount</span> <span class="n">z</span> <span class="n">zs</span><span class="p">)</span> <span class="o">|</span> <span class="n">z</span> <span class="o">:</span> <span class="n">zs</span> <span class="o">&lt;-</span> <span class="n">tails</span> <span class="n">ys</span><span class="p">])</span>
+ <span class="o">=</span> <span class="c1">-- {definition of table and ys = map fst (table ys)}</span>
+ <span class="p">[(</span><span class="n">z</span> <span class="p">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">scount</span> <span class="n">z</span> <span class="p">(</span><span class="n">map</span> <span class="n">fst</span> <span class="p">(</span><span class="n">table</span> <span class="n">ys</span><span class="p">)))</span> <span class="o">|</span> <span class="p">(</span><span class="n">z</span> <span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">table</span> <span class="n">xs</span><span class="p">]</span> <span class="o">++</span> <span class="n">table</span> <span class="n">ys</span>
+</code></pre></div></div>
+
+<p>This means we can define join as the following</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">join</span> <span class="n">txs</span> <span class="n">tys</span>  <span class="o">=</span> <span class="p">[(</span><span class="n">z</span><span class="p">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">tcount</span> <span class="n">z</span> <span class="n">tys</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">txs</span><span class="p">]</span> <span class="o">++</span> <span class="n">tys</span>
+<span class="n">tcount</span> <span class="n">z</span> <span class="n">tys</span> <span class="o">=</span> <span class="n">scount</span> <span class="n">z</span> <span class="p">(</span><span class="n">map</span> <span class="n">fst</span> <span class="n">tys</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This isn’t a linear time solution however as join will not perform in
+linear time due to the <code class="language-plaintext highlighter-rouge">tcount</code> operation. If the input to tcount is sorted in ascending
+order we can reason the following</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tcount</span> <span class="n">z</span> <span class="n">tys</span>
+<span class="o">=</span>  <span class="c1">-- {definition of tcount and scount}</span>
+<span class="n">length</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="n">z</span> <span class="o">&lt;</span><span class="p">)</span> <span class="p">(</span><span class="n">map</span> <span class="n">fst</span> <span class="n">tys</span><span class="p">))</span>
+<span class="o">=</span>  <span class="c1">-- {since filter p · map f = map f · filter (p · f )}</span>
+<span class="n">length</span> <span class="p">(</span><span class="n">map</span> <span class="n">fst</span> <span class="p">(</span><span class="n">filter</span> <span class="p">((</span><span class="n">z</span> <span class="o">&lt;</span><span class="p">)</span> <span class="o">.</span> <span class="n">fst</span><span class="p">)</span> <span class="n">tys</span><span class="p">))</span>
+<span class="o">=</span>  <span class="c1">-- {since length · map f = length}</span>
+<span class="n">length</span> <span class="p">(</span><span class="n">filter</span> <span class="p">((</span><span class="n">z</span> <span class="o">&lt;</span><span class="p">)</span> <span class="o">.</span> <span class="n">fst</span><span class="p">)</span> <span class="n">tys</span><span class="p">)</span>
+<span class="o">=</span>  <span class="c1">-- {since tys is sorted on first argument}</span>
+<span class="n">length</span> <span class="p">(</span><span class="n">dropWhile</span> <span class="p">((</span><span class="n">z</span> <span class="o">&gt;=</span><span class="p">)</span> <span class="o">.</span> <span class="n">fst</span><span class="p">)</span> <span class="n">tys</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Therefore</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tcount</span> <span class="n">z</span> <span class="n">tys</span> <span class="o">=</span> <span class="n">length</span> <span class="p">(</span><span class="n">dropWhile</span> <span class="p">((</span><span class="n">z</span> <span class="o">&gt;=</span><span class="p">)</span><span class="o">.</span><span class="n">fst</span><span class="p">)</span> <span class="n">tys</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>With this calculation, we need table to store values in
+ascending order of the first component.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">sort</span> <span class="p">[(</span><span class="n">z</span><span class="p">,</span> <span class="n">scount</span> <span class="n">z</span> <span class="n">zs</span><span class="p">)</span> <span class="o">|</span> <span class="n">z</span><span class="o">:</span><span class="n">zs</span> <span class="o">&lt;-</span> <span class="n">tails</span> <span class="n">xs</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Performing the above calulation of table we get the following
+property.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">join</span> <span class="n">txs</span> <span class="n">tys</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span> <span class="p">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">tcount</span> <span class="n">x</span> <span class="n">tys</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">txs</span><span class="p">]</span> <span class="o">^^</span> <span class="n">tys</span>
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">^^</code> is an operation to merge two sorted lists.</p>
+
+<p>We derive a recursive efficient version of <code class="language-plaintext highlighter-rouge">join</code>.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">join</span> <span class="n">txs</span> <span class="kt">[]</span> <span class="o">=</span> <span class="n">txs</span>
+<span class="n">join</span> <span class="kt">[]</span> <span class="n">tys</span> <span class="o">=</span> <span class="n">tys</span>
+<span class="n">join</span> <span class="n">txs</span><span class="o">@</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">:</span><span class="n">txs'</span><span class="p">)</span> <span class="n">tys</span><span class="o">@</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span><span class="o">:</span><span class="n">tys'</span><span class="p">)</span> <span class="o">=</span>
+    <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">tcount</span> <span class="n">x</span> <span class="n">tys</span><span class="p">)</span><span class="o">:</span><span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">tcount</span> <span class="n">x</span> <span class="n">tys</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">txs'</span><span class="p">])</span> <span class="o">^^</span> <span class="n">tys</span>
+</code></pre></div></div>
+
+<p>To perform <code class="language-plaintext highlighter-rouge">(^^)</code> we need to merge compare $x$ and $y$. In the
+case that $x \lt y$, then it’s the element on the left and
+with <code class="language-plaintext highlighter-rouge">tcount x tys = length tys</code>, this reduces to.</p>
+
+<p><code class="language-plaintext highlighter-rouge">(x, c + length tys):join txs' tys'</code></p>
+
+<p>If $x = y$, we compare <code class="language-plaintext highlighter-rouge">c + tcount x tys</code> and <code class="language-plaintext highlighter-rouge">d=tcount x tys'</code>. In this case this
+reduces</p>
+
+<p><code class="language-plaintext highlighter-rouge">(y, d): join txs tys'</code>.</p>
+
+<p>This result is also true for $x &gt; y$.</p>
+
+<p>Our final algorithm becomes the following, we add another argument to join to avoid
+recalculating length:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">msc</span> <span class="o">::</span> <span class="kt">Ord</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Int</span>
+<span class="n">msc</span> <span class="o">=</span> <span class="n">maximum</span><span class="o">.</span><span class="n">map</span> <span class="n">snd</span><span class="o">.</span><span class="n">table</span>
+<span class="n">table</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="n">table</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">join</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">n</span><span class="p">)</span> <span class="p">(</span><span class="n">table</span> <span class="n">ys</span><span class="p">)</span> <span class="p">(</span><span class="n">table</span> <span class="n">zs</span><span class="p">)</span>
+              <span class="kr">where</span> <span class="n">m</span> <span class="o">=</span> <span class="n">length</span> <span class="n">xs</span>
+                    <span class="n">n</span> <span class="o">=</span> <span class="n">m</span> <span class="p">`</span><span class="n">div</span><span class="p">`</span> <span class="mi">2</span>
+                    <span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">zs</span><span class="p">)</span> <span class="o">=</span> <span class="n">splitAt</span> <span class="n">n</span> <span class="n">xs</span>
+<span class="n">join</span> <span class="mi">0</span> <span class="n">txs</span> <span class="kt">[]</span> <span class="o">=</span> <span class="n">txs</span>
+<span class="n">join</span> <span class="n">n</span> <span class="kt">[]</span> <span class="n">tys</span> <span class="o">=</span> <span class="n">tys</span>
+<span class="n">join</span> <span class="n">n</span> <span class="n">txs</span><span class="o">@</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">:</span><span class="n">txs'</span><span class="p">)</span> <span class="n">tys</span><span class="o">@</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span><span class="o">:</span><span class="n">tys'</span><span class="p">)</span>
+      <span class="o">|</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span>  <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span><span class="n">join</span> <span class="n">n</span> <span class="n">txs'</span> <span class="n">tys</span>
+      <span class="o">|</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span><span class="o">:</span><span class="n">join</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="n">txs</span> <span class="n">tys'</span>
+</code></pre></div></div>
+
+<p>With linear join, we have a $\mathcal{O}(n\log n)$ algorithm.</p>
+
+  </div>
+
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</article>
+
+
+      </div>
+    </main></body>
+</html>
