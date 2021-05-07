@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://nasherm.github.io/category%20theory/2020/05/07/monoids-and-writer.html</loc>
+<lastmod>2020-05-07T00:00:00+01:00</lastmod>
+</url>
+<url>
 <loc>https://nasherm.github.io/type%20theory/2020/07/16/diss.html</loc>
 <lastmod>2020-07-16T00:00:00+01:00</lastmod>
 </url>
@@ -19,9 +23,6 @@
 <url>
 <loc>https://nasherm.github.io/category%20theory/2021/03/13/cat-101.html</loc>
 <lastmod>2021-03-13T00:00:00+00:00</lastmod>
-</url>
-<url>
-<loc>https://nasherm.github.io/about.html</loc>
 </url>
 <url>
 <loc>https://nasherm.github.io/archive.html</loc>
@@ -43,7 +44,7 @@
 </url>
 <url>
 <loc>https://nasherm.github.io/category-theory/milewski/3-categories-great-and-small.html</loc>
-<lastmod>2021-05-06T18:54:07+01:00</lastmod>
+<lastmod>2021-05-07T20:30:08+01:00</lastmod>
 </url>
 <url>
 <loc>https://nasherm.github.io/cv/main.pdf</loc>

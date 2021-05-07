@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://nasherm.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nasherm.github.io/" rel="alternate" type="text/html" /><updated>2021-05-06T20:36:00+01:00</updated><id>https://nasherm.github.io/feed.xml</id><title type="html">Nashe Mncube</title><subtitle>Software Engineer working in HPC. Amateur mathematician.</subtitle><author><name>nashemncube, Nashe Mncube, nasherm</name></author><entry><title type="html">What is a Category? - Category Theory</title><link href="https://nasherm.github.io/category%20theory/2021/03/13/cat-101.html" rel="alternate" type="text/html" title="What is a Category? - Category Theory" /><published>2021-03-13T00:00:00+00:00</published><updated>2021-03-13T00:00:00+00:00</updated><id>https://nasherm.github.io/category%20theory/2021/03/13/cat-101</id><content type="html" xml:base="https://nasherm.github.io/category%20theory/2021/03/13/cat-101.html">&lt;p&gt;&lt;strong&gt;These are inspired by the text &lt;em&gt;Category Theory for Programmers&lt;/em&gt; by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://nasherm.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nasherm.github.io/" rel="alternate" type="text/html" /><updated>2021-05-07T20:42:54+01:00</updated><id>https://nasherm.github.io/feed.xml</id><title type="html">Nashe Mncube</title><subtitle>Software Engineer working in HPC. I write mainly technical posts on whatever takes my fancy.</subtitle><author><name>nashemncube, Nashe Mncube, nasherm</name></author><entry><title type="html">What is a Category? - Category Theory</title><link href="https://nasherm.github.io/category%20theory/2021/03/13/cat-101.html" rel="alternate" type="text/html" title="What is a Category? - Category Theory" /><published>2021-03-13T00:00:00+00:00</published><updated>2021-03-13T00:00:00+00:00</updated><id>https://nasherm.github.io/category%20theory/2021/03/13/cat-101</id><content type="html" xml:base="https://nasherm.github.io/category%20theory/2021/03/13/cat-101.html">&lt;p&gt;&lt;strong&gt;These are inspired by the text &lt;em&gt;Category Theory for Programmers&lt;/em&gt; by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning
 and potentially yours the reader, but these aren’t intended to be wholly comprehensive.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;what-is-a-category&quot;&gt;What is a category?&lt;/h2&gt;
@@ -622,4 +622,147 @@ $T(n) = Θ(n)$.&lt;/p&gt;
                         &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;us&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><category term="Functional Programming" /><summary type="html">This blog post acts as expository notes on the content in the text Pearls of Functional Algorithm Design by Richard Bird for myself and perhaps yourself, the reader. All source examples are in Haskell</summary></entry><entry><title type="html">My Dissertation</title><link href="https://nasherm.github.io/type%20theory/2020/07/16/diss.html" rel="alternate" type="text/html" title="My Dissertation" /><published>2020-07-16T00:00:00+01:00</published><updated>2020-07-16T00:00:00+01:00</updated><id>https://nasherm.github.io/type%20theory/2020/07/16/diss</id><content type="html" xml:base="https://nasherm.github.io/type%20theory/2020/07/16/diss.html">&lt;p&gt;My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.&lt;/p&gt;
 
-&lt;p&gt;The full dissertation can be downloaded &lt;a href=&quot;/assets/diss-final.pdf&quot;&gt;here&lt;/a&gt;&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><category term="Type Theory" /><summary type="html">My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.</summary></entry></feed>
+&lt;p&gt;The full dissertation can be downloaded &lt;a href=&quot;/assets/diss-final.pdf&quot;&gt;here&lt;/a&gt;&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><category term="Type Theory" /><summary type="html">My final year dissertation. A research project where I applied programming language theory to assist in formal verification of cryptography.</summary></entry><entry><title type="html">Monoids and the Writer Monad</title><link href="https://nasherm.github.io/category%20theory/2020/05/07/monoids-and-writer.html" rel="alternate" type="text/html" title="Monoids and the Writer Monad" /><published>2020-05-07T00:00:00+01:00</published><updated>2020-05-07T00:00:00+01:00</updated><id>https://nasherm.github.io/category%20theory/2020/05/07/monoids-and-writer</id><content type="html" xml:base="https://nasherm.github.io/category%20theory/2020/05/07/monoids-and-writer.html">&lt;p&gt;&lt;strong&gt;These are inspired by the text &lt;em&gt;Category Theory for Programmers&lt;/em&gt; by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning
+and potentially yours, the reader, but these aren’t intended to be wholly comprehensive.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A good way to learn about category theory is to think about different
+categories, so here are a few.&lt;/p&gt;
+
+&lt;h1 id=&quot;monoids&quot;&gt;Monoids&lt;/h1&gt;
+
+&lt;h2 id=&quot;orders-the-categories-of-le-relations&quot;&gt;Orders: The Categories of $\le$ relations&lt;/h2&gt;
+&lt;p&gt;Suppose we have a category where the morphism between objects $a$ and $b$ is
+the less-than-or-equal relation. Why is this a category? We need to check
+the category laws which are the following:&lt;/p&gt;
+
+&lt;p&gt;A category $C$ consists of&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;a class of objects,&lt;/li&gt;
+  &lt;li&gt;a class of arrows or morphisms which map from a source object to target object,&lt;/li&gt;
+  &lt;li&gt;a binary operator which composes morphisms such that for morphisms $f, g$ which
+map $A \to B$ and $B\to C$ respectively, we can define a morphism $h = g\circ f$ and
+$h$ is in our category.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are two laws that composition in a category must obey, there’s the implicit law that I just defined,
+i.e. $h = g \circ f \in hom(C)$, and there’s the law of associativity&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Associativity&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For all morphisms $f, g, h$ in our category,&lt;/p&gt;
+
+\[f \circ (g \circ h) = (f\circ g) \circ h = f \circ g \circ h\]
+
+&lt;p&gt;&lt;strong&gt;Identity&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For every object $A$ in our category, there’s an arrow which is called
+the unit of composition, denoted $\mathbf{id}_A$. This is an arrow of an
+object to itself. When composed with an arrow $f$ which goes from $A\to B$&lt;/p&gt;
+
+\[f \circ \mathbf{id}_A = f\]
+
+&lt;p&gt;and&lt;/p&gt;
+
+\[\mathbf{id}_B \circ f = f\]
+
+&lt;p&gt;We have defined our category and it’s class of objects as well as morphisms. We simply need
+to check the laws of compisition.&lt;/p&gt;
+
+&lt;p&gt;Do we have identity morphisms? Yes, every object $a$ will have a relation $a\le a$.&lt;/p&gt;
+
+&lt;p&gt;Do we have associative composition? Yes, if $a\le b$ and $b\le c$ then $a\le c$&lt;/p&gt;
+
+&lt;p&gt;The name of this set with this relation is called a pre-order. If we add stronger condition
+such that if $a\le b$ and $b\le a$ then they are the same object, we would have a partial
+order.&lt;/p&gt;
+
+&lt;h1 id=&quot;monoid&quot;&gt;Monoid&lt;/h1&gt;
+&lt;p&gt;A monoid outside of category theory is known as one of the simplest type of algebraic structures you can have
+in abstract algebra. It’s simply a set, with an associative binary operation and the set contains an element
+which behaves as the identity. This sounds familiar…&lt;/p&gt;
+
+&lt;p&gt;These structures are quite common and show up in a range of situations for example natural numbers under addition
+form a monoid as for all $a,b,c\in\mathbb{N}$&lt;/p&gt;
+
+\[a + (b + c) = (a + b) + c\]
+
+&lt;p&gt;and we have identity 0 such that&lt;/p&gt;
+
+\[0 + a = a = a + 0\]
+
+&lt;p&gt;For computer scientists such as myself, the first time I came across monoids was through Haskell. In Haskell,
+monoids are a well known type-class&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Monoid&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mempty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mappend&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Relating it to our previous mathematical definition, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mempty&lt;/code&gt; corresponds to our identity element and
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mappend&lt;/code&gt; is our associative binary operator. However, in Haskell we can’t explicitly define the properties
+of these functions, and we leave that to the programmer (proof assistants to the rescue). We could declare
+our natural set of natural numbers as a monoid in Haskell as the following&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Monoid&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;where&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mempty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mappend&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;the-monoid-category&quot;&gt;The Monoid Category&lt;/h3&gt;
+&lt;p&gt;When we think of the monoid category, we come to an interesting more abstract understanding of the structure
+of a monoid. Let’s shift perspective and consider the binary operator of monoid to be a morphism which shifts
+things about the set we act on - we’ll call these adders to avoid confusion with traditional functions.
+Relating this to the function signature of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mappend:: m -&amp;gt; m -&amp;gt; m&lt;/code&gt;, via currying, our adders have this signature
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m -&amp;gt; (m -&amp;gt; m)&lt;/code&gt; i.e. they take some m and return a morphism from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt;.
+This makes sense when we consider that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mappend&lt;/code&gt; always generates an element
+within our set already. Our category will also have the adder which takes a morphism and doesn’t “move” it, i.e. an identity. This can be thought of as the the result of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mappend&lt;/code&gt; when we pass &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mempty&lt;/code&gt; as a
+function parameter.  Morphisms are these adder functions which map to this object. Trivially we have an identity and composition laws are obeyed by the definition of morphisms. In fact our category
+consists of only one object. With this we have our monoid category which is simply the category with one object and appropriately behaved morphisms.&lt;/p&gt;
+
+&lt;h1 id=&quot;kleisli-and-the-writer-category&quot;&gt;Kleisli and the Writer Category&lt;/h1&gt;
+&lt;p&gt;Pure functions in functional programming are functions which have no side effects, this means that they don’t modify or access some global state and they return the same output for every input. We may wish to allow for side-effects when we code to allow for operations that rely on them e.g. I/O operations.
+We can model side effects using category theory.
+Programmers who may have experience with FP languages such as Haskell will be familiar with monads which are used to model stateful computations.
+Monads are a type of category, but I won’t discuss those here just yet. Instead I will start with a discussion of how would we model a function that logs and traces it’s execution.
+The key issue with this problem is as we perform functions, we want to add some extra functionality ontop by embellishing the return types of these functions. In our example, we would want to produce some type of log of information derived
+from the return type of a function. We define a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Writer&lt;/code&gt; category through Haskel.&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Writer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;our morphisms are functions of type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:: a -&amp;gt; Writer a&lt;/code&gt;. We’ll define composition as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;=&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Writer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Writer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Writer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;m1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;kr&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+    &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We’ll define an identity morphism, called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;return&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Writer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;An example of how we could use this category for logging function calls.&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;upCase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Writer&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;upCase&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toupper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;upCase &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;toWords&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Writer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;toWords&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;words&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;toWords &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Notice that the two functions modify their inputs differently, but still return a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Writer&lt;/code&gt; category. This means that
+despite the difference, we can still compose them. This acts as a fitting abstraction, as we can have even more complex functions
+but still concatenate and log as long as we return a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Writer&lt;/code&gt; type.&lt;/p&gt;
+
+&lt;div class=&quot;language-haskell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;process&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Writer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;process&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;upCase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toWords&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So what we’ve done is not only allowed for composition, but added extra embellishments to our types thereby extending
+functionality. This type of category is known as a Kleisli category. In our context, our objects are types for the our programming
+language. Morphisms are functions that a map a type $A$ to an embellished type $B$.&lt;/p&gt;</content><author><name>nashemncube, Nashe Mncube, nasherm</name></author><category term="Category Theory" /><summary type="html">These are inspired by the text Category Theory for Programmers by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning and potentially yours, the reader, but these aren’t intended to be wholly comprehensive.</summary></entry></feed>

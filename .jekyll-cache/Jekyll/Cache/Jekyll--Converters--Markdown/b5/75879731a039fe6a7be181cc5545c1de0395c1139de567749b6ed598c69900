@@ -1,0 +1,145 @@
+I"�0<p><strong>These are inspired by the text <em>Category Theory for Programmers</em> by Bartosz Milewski and the subject of category theory. These act as personal notes for my own learning
+and potentially yours, the reader, but these aren’t intended to be wholly comprehensive.</strong></p>
+
+<p>A good way to learn about category theory is to think about different
+categories, so here are a few.</p>
+
+<h1 id="monoids">Monoids</h1>
+
+<h2 id="orders-the-categories-of-le-relations">Orders: The Categories of $\le$ relations</h2>
+<p>Suppose we have a category where the morphism between objects $a$ and $b$ is
+the less-than-or-equal relation. Why is this a category? We need to check
+the category laws which are the following:</p>
+
+<p>A category $C$ consists of</p>
+
+<ul>
+  <li>a class of objects,</li>
+  <li>a class of arrows or morphisms which map from a source object to target object,</li>
+  <li>a binary operator which composes morphisms such that for morphisms $f, g$ which
+map $A \to B$ and $B\to C$ respectively, we can define a morphism $h = g\circ f$ and
+$h$ is in our category.</li>
+</ul>
+
+<p>There are two laws that composition in a category must obey, there’s the implicit law that I just defined,
+i.e. $h = g \circ f \in hom(C)$, and there’s the law of associativity</p>
+
+<p><strong>Associativity</strong></p>
+
+<p>For all morphisms $f, g, h$ in our category,</p>
+
+\[f \circ (g \circ h) = (f\circ g) \circ h = f \circ g \circ h\]
+
+<p><strong>Identity</strong></p>
+
+<p>For every object $A$ in our category, there’s an arrow which is called
+the unit of composition, denoted $\mathbf{id}_A$. This is an arrow of an
+object to itself. When composed with an arrow $f$ which goes from $A\to B$</p>
+
+\[f \circ \mathbf{id}_A = f\]
+
+<p>and</p>
+
+\[\mathbf{id}_B \circ f = f\]
+
+<p>We have defined our category and it’s class of objects as well as morphisms. We simply need
+to check the laws of compisition.</p>
+
+<p>Do we have identity morphisms? Yes, every object $a$ will have a relation $a\le a$.</p>
+
+<p>Do we have associative composition? Yes, if $a\le b$ and $b\le c$ then $a\le c$</p>
+
+<p>The name of this set with this relation is called a pre-order. If we add stronger condition
+such that if $a\le b$ and $b\le a$ then they are the same object, we would have a partial
+order.</p>
+
+<h1 id="monoid">Monoid</h1>
+<p>A monoid outside of category theory is known as one of the simplest type of algebraic structures you can have
+in abstract algebra. It’s simply a set, with an associative binary operation and the set contains an element
+which behaves as the identity. This sounds familiar…</p>
+
+<p>These structures are quite common and show up in a range of situations for example natural numbers under addition
+form a monoid as for all $a,b,c\in\mathbb{N}$</p>
+
+\[a + (b + c) = (a + b) + c\]
+
+<p>and we have identity 0 such that</p>
+
+\[0 + a = a = a + 0\]
+
+<p>For computer scientists such as myself, the first time I came across monoids was through Haskell. In Haskell,
+monoids are a well known type-class</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">class</span> <span class="kt">Monoid</span> <span class="n">m</span> <span class="kr">where</span>
+    <span class="n">mempty</span> <span class="o">::</span> <span class="n">m</span>
+    <span class="n">mappend</span> <span class="o">::</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">m</span>
+</code></pre></div></div>
+
+<p>Relating it to our previous mathematical definition, <code class="language-plaintext highlighter-rouge">mempty</code> corresponds to our identity element and
+<code class="language-plaintext highlighter-rouge">mappend</code> is our associative binary operator. However, in Haskell we can’t explicitly define the properties
+of these functions, and we leave that to the programmer (proof assistants to the rescue). We could declare
+our natural set of natural numbers as a monoid in Haskell as the following</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">class</span> <span class="kt">Monoid</span> <span class="kt">Int</span> <span class="kr">where</span>
+    <span class="n">mempty</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">mappend</span> <span class="o">=</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="the-monoid-category">The Monoid Category</h3>
+<p>When we think of the monoid category, we come to an interesting more abstract understanding of the structure
+of a monoid. Let’s shift perspective and consider the binary operator of monoid to be a morphism which shifts
+things about the set we act on - we’ll call these adders to avoid confusion with traditional functions.
+Relating this to the function signature of <code class="language-plaintext highlighter-rouge">mappend:: m -&gt; m -&gt; m</code>, via currying, our adders have this signature
+<code class="language-plaintext highlighter-rouge">m -&gt; (m -&gt; m)</code> i.e. they take some m and return a morphism from <code class="language-plaintext highlighter-rouge">m</code> to <code class="language-plaintext highlighter-rouge">m</code>.
+This makes sense when we consider that <code class="language-plaintext highlighter-rouge">mappend</code> always generates an element
+within our set already. Our category will also have the adder which takes a morphism and doesn’t “move” it, i.e. an identity. This can be thought of as the the result of <code class="language-plaintext highlighter-rouge">mappend</code> when we pass <code class="language-plaintext highlighter-rouge">mempty</code> as a
+function parameter.  Morphisms are these adder functions which map to this object. Trivially we have an identity and composition laws are obeyed by the definition of morphisms. In fact our category
+consists of only one object. With this we have our monoid category which is simply the category with one object and appropriately behaved morphisms.</p>
+
+<h1 id="kleisli-and-the-writer-category">Kleisli and the Writer Category</h1>
+<p>Pure functions in functional programming are functions which have no side effects, this means that they don’t modify or access some global state and they return the same output for every input. We may wish to allow for side-effects when we code to allow for operations that rely on them e.g. I/O operations.
+We can model side effects using category theory.
+Programmers who may have experience with FP languages such as Haskell will be familiar with monads which are used to model stateful computations.
+Monads are a type of category, but I won’t discuss those here just yet. Instead I will start with a discussion of how would we model a function that logs and traces it’s execution.
+The key issue with this problem is as we perform functions, we want to add some extra functionality ontop by embellishing the return types of these functions. In our example, we would want to produce some type of log of information derived
+from the return type of a function. We define a <code class="language-plaintext highlighter-rouge">Writer</code> category through Haskel.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">type</span> <span class="kt">Writer</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="kt">String</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>our morphisms are functions of type <code class="language-plaintext highlighter-rouge">:: a -&gt; Writer a</code>. We’ll define composition as <code class="language-plaintext highlighter-rouge">&gt;=&gt;</code></p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="o">&gt;=&gt;</span><span class="p">)</span> <span class="o">::</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Writer</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">b</span> <span class="o">-&gt;</span> <span class="kt">Writer</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Writer</span> <span class="n">c</span><span class="p">)</span>
+<span class="n">m1</span> <span class="o">&gt;=&gt;</span> <span class="n">m2</span> <span class="o">=</span> <span class="nf">\</span><span class="n">x</span> <span class="o">-&gt;</span>
+    <span class="kr">let</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span> <span class="o">=</span> <span class="n">m1</span> <span class="n">x</span>
+        <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span> <span class="o">=</span> <span class="n">m2</span> <span class="n">y</span>
+    <span class="kr">in</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">s1</span> <span class="o">++</span> <span class="n">s2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We’ll define an identity morphism, called <code class="language-plaintext highlighter-rouge">return</code></p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">return</span> <span class="o">::</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Writer</span> <span class="n">a</span>
+<span class="n">return</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>An example of how we could use this category for logging function calls.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">upCase</span> <span class="o">::</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Writer</span> <span class="kt">String</span>
+<span class="n">upCase</span> <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">map</span> <span class="n">toupper</span> <span class="n">s</span><span class="p">,</span> <span class="s">"upCase "</span><span class="p">)</span>
+
+<span class="n">toWords</span> <span class="o">::</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Writer</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span>
+<span class="n">toWords</span> <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">words</span> <span class="n">s</span><span class="p">,</span> <span class="s">"toWords "</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Notice that the two functions modify their inputs differently, but still return a <code class="language-plaintext highlighter-rouge">Writer</code> category. This means that
+despite the difference, we can still compose them. This acts as a fitting abstraction, as we can have even more complex functions
+but still concatenate and log as long as we return a <code class="language-plaintext highlighter-rouge">Writer</code> type.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">process</span> <span class="o">::</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Writer</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span>
+<span class="n">process</span> <span class="n">s</span> <span class="o">=</span> <span class="n">upCase</span> <span class="o">&gt;=&gt;</span> <span class="n">toWords</span>
+</code></pre></div></div>
+
+<p>So what we’ve done is not only allowed for composition, but added extra embellishments to our types thereby extending
+functionality. This type of category is known as a Kleisli category. In our context, our objects are types for the our programming
+language. Morphisms are functions that a map a type $A$ to an embellished type $B$.</p>
+:ET
